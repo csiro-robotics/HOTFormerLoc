@@ -1,0 +1,77 @@
+.container {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+}
+
+.header {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #003366;
+}
+
+.main {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Section Styles */
+.section {
+  margin-bottom: 30px;
+}
+
+/* Heading Styles */
+.sectionHeading {
+  font-size: 1.5rem;
+  color: #003366;
+  border-bottom: 2px solid #003366;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.subHeading {
+  font-size: 1.2rem;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+/* Paragraph Styles */
+.paragraph {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* Responsive Image Grid */
+.imageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Responsive Text Grid */
+.textGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Figure Styles */
+.figure {
+  text-align: center;
+  max-width: 100%;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -3,9 +3,9 @@ import Slideshow from "../../components/Slideshow/Slideshow";
 import styles from "./Paper.module.css";
 
 const images = [
-  "/hotformerloc/assets/karawatha_image_1.png",
-  "/hotformerloc/assets/karawatha_image_2.png",
-  "/hotformerloc/assets/karawatha_image_3.png",
+  "/hotformerloc/assets/slides/karawatha_image_1.png",
+  "/hotformerloc/assets/slides/karawatha_image_2.png",
+  "/hotformerloc/assets/slides/karawatha_image_3.png",
 ];
 
 const Paper: React.FC = () => {
@@ -56,7 +56,7 @@ const Paper: React.FC = () => {
             </h3>
             <figure className={styles.figure}>
               <img
-                src="/hotformerloc/assets/architecture_hotformerloc.png"
+                src="/hotformerloc/assets/architecture/architecture_hotformerloc.png"
                 alt="HOTFormerLoc Architecture Diagram"
                 className={styles.image}
               />
@@ -75,7 +75,7 @@ const Paper: React.FC = () => {
             <div className={styles.imageGrid}>
               <figure className={styles.figure}>
                 <img
-                  src="/hotformerloc/assets/architecture_rtsa.png"
+                  src="/hotformerloc/assets/architecture/architecture_rtsa.png"
                   alt="RTSA Block Architecture Diagram"
                   className={styles.image}
                 />
@@ -83,7 +83,7 @@ const Paper: React.FC = () => {
               </figure>
               <figure className={styles.figure}>
                 <img
-                  src="/hotformerloc/assets/architecture_rtsa_2.png"
+                  src="/hotformerloc/assets/architecture/architecture_rtsa_2.png"
                   alt="RTSA Attention Visualization"
                   className={styles.image}
                 />
@@ -107,7 +107,7 @@ const Paper: React.FC = () => {
             <div className={styles.imageGrid}>
               <figure className={styles.figure}>
                 <img
-                  src="/hotformerloc/assets/architecture_hosa.png"
+                  src="/hotformerloc/assets/architecture/architecture_hosa.png"
                   alt="HOSA Block Architecture Diagram"
                   className={styles.image}
                 />
@@ -131,7 +131,7 @@ const Paper: React.FC = () => {
           <div className={styles.imageGrid}>
             <figure>
               <img
-                src="/hotformerloc/assets/architecture_coa_2.png"
+                src="/hotformerloc/assets/architecture/architecture_coa_2.png"
                 alt="Cylindrical Octree Attention Architecture Diagram"
                 className={styles.image}
               />

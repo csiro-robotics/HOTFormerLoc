@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+}
+
+.appBar {
+  background-color: white !important;
+  box-shadow: none;
+}
+
+.siteName {
+  flex-grow: 1;
+  font-weight: bold;
+  color: green;
+}
+
+.drawer {
+  width: 250px;
+  background-color: #f4f5f7;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.drawerTitle {
+  padding: 16px;
+  font-weight: bold;
+  color: green;
+}
+
+.listItemButton {
+  transition: background-color 0.3s ease;
+}
+
+.listItemButton:hover {
+  background-color: rgba(0, 123, 255, 0.15);
+}
+
+.activeListItem {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.activeText {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.inactiveText {
+  font-size: 0.95rem;
+  color: #333;
+}

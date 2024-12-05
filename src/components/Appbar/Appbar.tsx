@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import styles from "./Appbar.module.css"; // Import module.css
 
 const navigationItems = [
   {
@@ -128,23 +129,17 @@ const Appbar = ({ siteName }: { siteName: string }) => {
                 handleNavigation(item.path);
               }
             }}
-            sx={{
-              pl: depth * 2 + 1,
-              backgroundColor: openItems.has(item.label)
-                ? "rgba(0, 123, 255, 0.1)"
-                : "transparent",
-              "&:hover": {
-                backgroundColor: "rgba(0, 123, 255, 0.15)",
-              },
-              transition: "background-color 0.3s ease",
-            }}
+            className={`${styles.listItemButton} ${
+              openItems.has(item.label) ? styles.activeListItem : ""
+            }`}
+            style={{ paddingLeft: `${depth * 16 + 8}px` }}
           >
             <ListItemText
               primary={item.label}
               primaryTypographyProps={{
-                fontWeight: openItems.has(item.label) ? "bold" : "normal",
-                fontSize: "0.95rem",
-                color: "#333",
+                className: openItems.has(item.label)
+                  ? styles.activeText
+                  : styles.inactiveText,
               }}
             />
             {item.children &&
@@ -162,15 +157,10 @@ const Appbar = ({ siteName }: { siteName: string }) => {
     ));
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box className={styles.container}>
       {isSmallScreen ? (
         <>
-          {
-            {
-              /* Responsiveness for Smaller Devices or screens*/
-            }
-          }
-          <AppBar position="fixed" sx={{ backgroundColor: "white" }}>
+          <AppBar position="fixed" color="transparent" className={styles.appBar}>
             <Toolbar>
               <IconButton
                 edge="start"
@@ -179,10 +169,7 @@ const Appbar = ({ siteName }: { siteName: string }) => {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography
-                variant="h6"
-                sx={{ flexGrow: 1, fontWeight: "bold", color: "green" }}
-              >
+              <Typography variant="h6" className={styles.siteName}>
                 {siteName}
               </Typography>
             </Toolbar>
@@ -193,18 +180,8 @@ const Appbar = ({ siteName }: { siteName: string }) => {
             onClose={() => toggleDrawer(false)}
             onOpen={() => toggleDrawer(true)}
           >
-            <Box
-              sx={{
-                width: 250,
-                backgroundColor: "#f4f5f7",
-                height: "100%",
-                boxSizing: "border-box",
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ px: 2, py: 2, fontWeight: "bold", color: "green" }}
-              >
+            <Box className={styles.drawer}>
+              <Typography variant="h6" className={styles.drawerTitle}>
                 {siteName}
               </Typography>
               <List>{renderMenu(navigationItems)}</List>
@@ -212,40 +189,17 @@ const Appbar = ({ siteName }: { siteName: string }) => {
           </SwipeableDrawer>
         </>
       ) : (
-        // Sidebar for larger screens
         <Drawer
           variant="permanent"
           anchor="left"
-          sx={{
-            "& .MuiDrawer-paper": {
-              width: 280,
-              boxSizing: "border-box",
-              backgroundColor: "#f4f5f7",
-              borderRight: "1px solid #ddd",
-            },
-          }}
+          className={styles.drawer}
         >
-          <Typography
-            variant="h6"
-            sx={{
-              px: 2,
-              py: 2,
-              fontWeight: "bold",
-              color: "green",
-            }}
-          >
+          <Typography variant="h6" className={styles.drawerTitle}>
             {siteName}
           </Typography>
           <List>{renderMenu(navigationItems)}</List>
         </Drawer>
       )}
-      <Box
-        sx={{
-          flexGrow: 1,
-          ml: isSmallScreen ? 0 : 280,
-          mt: isSmallScreen ? 8 : 0,
-        }}
-      ></Box>
     </Box>
   );
 };

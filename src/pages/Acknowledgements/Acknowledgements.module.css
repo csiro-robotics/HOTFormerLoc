@@ -48,7 +48,7 @@
   color: #333;
   margin-bottom: 15px;
   text-align: justify;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .imageGrid {
@@ -102,15 +102,26 @@ button:hover {
   background-color: #003d14;
 }
 
-.coaDiagram {
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .warning {
   color: #cc3300;
   font-size: 1.2rem;
   text-align: center;
   margin-top: 2rem;
+}
+
+.list {
+  list-style-type: disc;
+  margin: 15px 0 30px;
+  padding-left: 20px;
+  color: #333;
+}
+
+.list li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.list li::marker {
+  color: #004d1a;
 }

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import styles from "./DatasetVisualisation.module.css";
 
 type ForestName = "Karawatha" | "QCAT" | "Samford" | "Venman";
 
@@ -11,6 +12,7 @@ const DatasetVisualisation = () => {
 
   const [aerialFile, setAerialFile] = useState<string>("karawatha_submap_aerial_1.pcd");
   const [groundFile, setGroundFile] = useState<string>("karawatha_submap_gnd_1.pcd");
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(window.innerWidth < 768);
 
   const forestFiles: Record<ForestName, { aerial: string; ground: string }> = {
     Karawatha: { aerial: "karawatha_submap_aerial_2.pcd", ground: "karawatha_submap_gnd_2.pcd" },
@@ -28,16 +30,18 @@ const DatasetVisualisation = () => {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     const controls = new OrbitControls(camera, renderer.domElement);
 
     renderer.setSize(container.offsetWidth, container.offsetHeight);
     container.appendChild(renderer.domElement);
 
     controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+    controls.dampingFactor = 0.1;
     controls.minDistance = 10;
     controls.maxDistance = 500;
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.minPolarAngle = 0;
 
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(10, 10, 10).normalize();
@@ -63,16 +67,24 @@ const DatasetVisualisation = () => {
     };
     animate();
 
-    window.addEventListener("resize", () => {
+    const resetCamera = () => {
+      adjustToBoundingBox(scene, camera, controls);
+    };
+
+    const handleResize = () => {
       camera.aspect = container.offsetWidth / container.offsetHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(container.offsetWidth, container.offsetHeight);
-    });
+    };
+    window.addEventListener("resize", handleResize);
 
-    return () => {
-      container.removeChild(renderer.domElement);
-      renderer.dispose();
-      window.removeEventListener("resize", () => {});
+    return {
+      cleanup: () => {
+        container.removeChild(renderer.domElement);
+        renderer.dispose();
+        window.removeEventListener("resize", handleResize);
+      },
+      resetCamera,
     };
   };
 
@@ -93,12 +105,18 @@ const DatasetVisualisation = () => {
   };
 
   useEffect(() => {
-    const cleanupAerial = setupScene(aerialRef.current, aerialFile, adjustToBoundingBox);
-    const cleanupGround = setupScene(groundRef.current, groundFile, adjustToBoundingBox);
+    const aerialScene = setupScene(aerialRef.current, aerialFile, adjustToBoundingBox);
+    const groundScene = setupScene(groundRef.current, groundFile, adjustToBoundingBox);
+
+    const handleWindowResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      if (cleanupAerial) cleanupAerial();
-      if (cleanupGround) cleanupGround();
+      if (aerialScene) aerialScene.cleanup();
+      if (groundScene) groundScene.cleanup();
+      window.removeEventListener("resize", handleWindowResize);
     };
   }, [aerialFile, groundFile]);
 
@@ -107,19 +125,32 @@ const DatasetVisualisation = () => {
     setGroundFile(forestFiles[forestName].ground);
   };
 
-  return (
-    <div>
-      <div id="overview">
-        <h3>
-          Overview
-        </h3>
-        <p>Some text about model visualisation</p>
+  if (isSmallScreen) {
+    return (
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1>Dataset Visualisation</h1>
+          <p>Explore aerial and ground point cloud datasets for different forests.</p>
+        </header>
+        <p className={styles.warning}>
+          Please use a larger device or increase your window size for the best experience.
+        </p>
       </div>
-      <div>
-        <label htmlFor="forestSelector">Choose Forest: </label>
+    );
+  }
+
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1>Dataset Visualisation</h1>
+        <p>Explore aerial and ground point cloud datasets for different forests.</p>
+      </header>
+      <div className={styles.selector}>
+        <label htmlFor="forestSelector">Choose Forest:</label>
         <select
-          id="dataset-visualisation"
+          id="forestSelector"
           onChange={(e) => handleForestChange(e.target.value as ForestName)}
+          className={styles.select}
         >
           {Object.keys(forestFiles).map((forest) => (
             <option key={forest} value={forest}>
@@ -128,9 +159,13 @@ const DatasetVisualisation = () => {
           ))}
         </select>
       </div>
-      <div style={{ display: "flex", gap: "1rem" }}>
-        <div ref={aerialRef} style={{ width: "50%", height: "80vh", border: "1px solid black" }}></div>
-        <div ref={groundRef} style={{ width: "50%", height: "80vh", border: "1px solid black" }}></div>
+      <div className={styles.modelViewers}>
+        <div className={styles.viewerContainer}>
+          <div ref={aerialRef} className={styles.modelViewer}></div>
+        </div>
+        <div className={styles.viewerContainer}>
+          <div ref={groundRef} className={styles.modelViewer}></div>
+        </div>
       </div>
     </div>
   );

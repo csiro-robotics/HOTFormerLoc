@@ -18,6 +18,10 @@ const Paper: React.FC = () => {
         </h1>
       </header>
       <main className={styles.main}>
+        <div className={styles.section}>
+          <a>Download the full paper here!</a>
+        </div>
+
         <section className={styles.section}>
           <Slideshow images={images} />
         </section>
@@ -160,7 +164,104 @@ const Paper: React.FC = () => {
               Datasets and Evaluation Criteria
             </h3>
             <p className={styles.paragraph}>
-              Some text about Dataset Evaluation Criteria!
+              To demonstrate our method's versatility, we conduct experiments on
+              Oxford RobotCar, CS-Campus3D, and Wild-Places, using the
+              established training and testing splits for each,
+            </p>
+
+            <div className={styles.imageGrid}>
+              <figure className={styles.figure}>
+                <img
+                  src="/hotformerloc/assets/dataset/experiments_benchmarking.png"
+                  alt="Benchmarking Results"
+                  className={styles.image}
+                />
+                <figcaption>
+                  Recall@N curves of four SOTA LPR methods on CS-Wild-Places
+                  Baseline and Unseen splits
+                </figcaption>
+              </figure>
+            </div>
+            <div className={styles.section}>
+              <p className={styles.paragraph}>
+                As per the figure above, we demonstrate the performance of the
+                proposed HOTFormerLoc on our In-house dataset, trained for 100
+                epochs with a LR of 8e^-4, reduced by a factor of 10 after 50
+                epochs. On the baseline and unseen evaluation sets, HOTFormerLoc
+                achieves an improvement in AR@1 of 5.5% - 11.5%, and an
+                improvement in AR@1% of 3.6% - 4.5%, respectively.
+              </p>
+            </div>
+          </div>
+          <div className={styles.imageGrid}>
+            <figure className={styles.figure}>
+              <img
+                src="/hotformerloc/assets/dataset/dataset_sota_comparison_1.png"
+                alt="SOTA on CS-Campus3D Comparison"
+                className={styles.image}
+              />
+              <figcaption>
+                Comparison of SOTA on CS-Campus3D with groundonly queries, and
+                ground + aerial database.
+              </figcaption>
+            </figure>
+          </div>
+          <div className={styles.section}>
+            <p className={styles.paragraph}>
+              As per the figure above, we present the evaluation results 535 on
+              CS-Campus3D, training our method for 300 epochs with a LR of
+              5e^-4, reduced by a factor of 10 after 250 epochs. Our approach
+              shows an improvement of 6.8% and 5.7% in AR@1 and AR@1%,
+              respectively.
+            </p>
+          </div>
+          <div className={styles.imageGrid}>
+            <figure className={styles.figure}>
+              <img
+                src="/hotformerloc/assets/dataset/dataset_wildplaces_comparison_1.png"
+                alt="Comparison on Wild-Places"
+                className={styles.image}
+              />
+              <figcaption>
+                Comparison on Wild-Places. HOTFormerLoc† denotes cylindrical
+                octree windows. LoGG3D-Net1 indicates training the network using
+                a 256-dimensional global descriptor, as opposed to the
+                1024-dimensional descriptor reported in Wild-Places
+              </figcaption>
+            </figure>
+            <p className={styles.paragraph}>
+              In the figure above, we report evaluation results on Wild-Places
+              under the inter-sequence evaluation setting, training our method
+              for 100 epochs with a LR of 3e^-3, reduced by a factor of 10 after
+              30 epochs. LoGG3D-Net remains the highest performing method by a
+              margin of 2.5% and 1.8% in AR@1 and MRR, respectively, but we
+              achieve a gain of 5.5% and 3.5% in AR@1 and MRR over MinkLoc3Dv2.
+              However, we note that LoGG3D-Net is trained on Wild-Places with a
+              global descriptor size of 1024, compared to our compact descriptor
+              of size 256.
+            </p>
+          </div>
+
+          <div className={styles.imageGrid}>
+            <figure className={styles.figure}>
+              <img
+                src="/hotformerloc/assets/dataset/dataset_sota_comparison_2.png"
+                alt="Comparison of SOTA on Oxford RobotCar"
+                className={styles.image}
+              />
+              <figcaption>
+                Comparison of SOTA on Oxford RobotCar using the baseline
+                evaluation setting and dataset
+              </figcaption>
+            </figure>
+            <p className={styles.paragraph}>
+              The table above reports evaluation results on Oxford Robot Car
+              using the baseline evaluation setting and dataset intro duced by ,
+              training our method for 150 epochs with a LR of 5e^-4, reduced by
+              a factor of 10 after 100 epochs. We outperform previous SOTA
+              methods, showing improved generalisation on the unseen R.A. and
+              B.D. environments with an increase of 2.7% and 4.1% in AR@1,
+              respectively.
             </p>
           </div>
 
@@ -168,14 +269,45 @@ const Paper: React.FC = () => {
             <h3 id="ablation-study" className={styles.subHeading}>
               Ablation Study
             </h3>
-            <p className={styles.paragraph}>Some text about Ablation Study</p>
+            <div className={styles.imageGrid}>
+              <figure className={styles.figure}>
+                <img
+                  src="/hotformerloc/assets/dataset/dataset_ablation_study_1.png"
+                  alt="Ablation Study"
+                  className={styles.image}
+                />
+                <figcaption>
+                  Ablation study on the effectiveness of HOTFormer- Loc
+                  components on Oxford, CS-Campus3D and In-house.
+                </figcaption>
+              </figure>
+              <p className={styles.paragraph}>
+                We provide ablations to verify the effectiveness of various
+                HOTFormer- Loc components on Oxford, CS-Campus3D, and In-house.
+                Disabling relay tokens results in a 2.5%-4.7% drop in
+                performance across all datasets, highlighting the importance of
+                global feature interactions within HOTFormerLoc.
+              </p>
+            </div>
           </div>
-
           <section className={styles.futureWork}>
             <h3 id="future-work" className={styles.sectionHeading}>
               Future Work
             </h3>
-            <p className={styles.paragraph}>Some text about Future Work</p>
+            <p className={styles.paragraph}>
+              We propose HOTFormerLoc, a novel 3D place recognition method that
+              leverages octree-based transformers to capture multi-granular
+              features through both local and global in teractions. We introduce
+              and discuss a new cross-source LPR benchmark, In-house, designed
+              to advance research on re-localisation in challenging settings.
+              Our method demonstrates superior performance on our In-house
+              dataset and outperforms existing SOTA on LPR benchmarks for both
+              ground and aerial views. Despite these advancements, cross-source
+              LPR remains a promising area for further im provement on our
+              In-house dataset. There remain avenues to improve HOTFormerLoc,
+              such as token pruning to reduce redundant computations and
+              enhancing feature learning with image data.
+            </p>
           </section>
         </section>
       </main>

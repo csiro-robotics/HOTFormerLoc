@@ -82,7 +82,7 @@ const navigationItems = [
 
 const Appbar = ({ siteName }: { siteName: string }) => {
   const navigate = useNavigate();
-  const isSmallScreen = useMediaQuery("(max-width:1400px)");
+  const isSmallScreen = useMediaQuery("(max-width:1650px)");
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [openItems, setOpenItems] = React.useState<Set<string>>(new Set());
 

@@ -1,0 +1,41 @@
+.videoPlayerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.videoWrapper {
+  width: 48%;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.videoTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+  .videoWrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .videoWrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .videoWrapper {
+    width: 100%;
+  }
+}

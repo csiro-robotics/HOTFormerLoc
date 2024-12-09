@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, IconButton } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { useSwipeable } from "react-swipeable";
 
-interface SlideshowProps {
-  images: string[];
-}
-
 const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [currentIndex])
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>

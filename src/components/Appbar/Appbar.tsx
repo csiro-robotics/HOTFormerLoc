@@ -54,25 +54,15 @@ const navigationItems = [
       { label: "Overview", path: "/dataset#overview" },
       { label: "Data Collection Methodology", path: "/dataset#methodology" },
       { label: "Benchmarking", path: "/dataset#benchmarking" },
-      { label: "Model Images", path: "/dataset#model-images" },
-    ],
-  },
-  {
-    label: "Dataset Visualisation",
-    path: "/dataset-visualisation",
-    children: [
-      { label: "Overview", path: "/dataset-visualisation#overview" },
-      {
-        label: "Compare Visualisations of Forests",
-        path: "/dataset-visualisation#compare",
-      },
+      { label: "Visualisation", path: "/dataset#visualisation" },
     ],
   },
   {
     label: "Download",
     path: "/download",
     children: [
-      { label: "Download Link", path: "/download#download-link" },
+      { label: "Checkpoint", path: "/download#checkpoint" },
+      { label: "Dataset", path: "/download#dataset" },
       { label: "Usage Examples", path: "/download#usage-examples" },
     ],
   },
@@ -160,7 +150,10 @@ const Appbar = ({ siteName }: { siteName: string }) => {
     <Box className={styles.container}>
       {isSmallScreen ? (
         <>
-          <AppBar position="fixed" color="transparent" className={styles.appBar}>
+          <AppBar
+            position="fixed"
+            className={styles.appBar}
+          >
             <Toolbar>
               <IconButton
                 edge="start"
@@ -189,11 +182,7 @@ const Appbar = ({ siteName }: { siteName: string }) => {
           </SwipeableDrawer>
         </>
       ) : (
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          className={styles.drawer}
-        >
+        <Drawer variant="permanent" anchor="left" className={styles.drawer}>
           <Typography variant="h6" className={styles.drawerTitle}>
             {siteName}
           </Typography>

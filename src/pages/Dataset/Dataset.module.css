@@ -1,3 +1,11 @@
+/* Global Reset for Consistency */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Container Styles */
 .container {
   padding: 1rem;
   font-family: Arial, sans-serif;
@@ -21,7 +29,7 @@
   max-width: 800px;
   margin: 0 auto;
   background-color: #ffffff;
-  box-shadow: 3px 3px 3px 3px rgba(0.1, 0.1, 0.1, 0.1);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
   border-radius: 6px;
 }
 
@@ -48,7 +56,7 @@
   color: #333;
   margin-bottom: 15px;
   text-align: justify;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 .imageGrid {
@@ -70,10 +78,10 @@
 }
 
 .image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Kept original */
   border: 2px solid #b3e6c1;
 }
 
@@ -124,4 +132,71 @@ button:hover {
 
 .list li::marker {
   color: #004d1a;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    max-width: 90%;
+    padding: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.4rem;
+  }
+
+  .subHeading {
+    font-size: 1.2rem;
+  }
+
+  .paragraph {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .header {
+    margin-bottom: 1rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.4rem;
+  }
+
+  .subHeading {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    max-width: 100%;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.2rem;
+  }
+
+  .paragraph {
+    font-size: 0.9rem;
+  }
+
+  .image {
+    width: 100%;
+  }
 }

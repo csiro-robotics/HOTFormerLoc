@@ -1,5 +1,4 @@
 import Paper from "./Paper"
-
 const DefaultPage = () => {
   return (
     <Paper/>

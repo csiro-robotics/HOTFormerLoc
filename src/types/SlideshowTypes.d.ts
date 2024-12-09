@@ -1,0 +1,3 @@
+interface SlideshowProps {
+    images: string[];
+  }

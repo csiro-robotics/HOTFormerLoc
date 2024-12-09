@@ -1,15 +1,13 @@
-/* Appbar.module.css */
-
-/* Container Layout */
 .container {
   display: flex;
   box-sizing: border-box;
 }
 
 .appBar {
-  z-index: 1200; /* Ensure AppBar appears above other elements */
-  height: 64px; /* Standard AppBar height */
+  z-index: 1200;
+  height: 64px;
   box-shadow: none;
+  background-color: white !important;
 }
 
 .siteName {

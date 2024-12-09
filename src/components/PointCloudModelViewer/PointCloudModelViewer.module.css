@@ -1,0 +1,21 @@
+/* PointCloudModelViewer.module.css */
+.modelViewer {
+  width: 100%;
+  height: 100%;
+  background: #000; /* Black background for visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingIndicator {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.errorIndicator {
+  color: red;
+  font-size: 1.2rem;
+  text-align: center;
+}

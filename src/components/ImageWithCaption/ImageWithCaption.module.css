@@ -1,0 +1,12 @@
+.image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #b3e6c1;
+  }
+
+  .figure {
+    text-align: center;
+    max-width: 100%;
+  }

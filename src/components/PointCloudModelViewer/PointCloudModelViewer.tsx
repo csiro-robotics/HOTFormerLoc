@@ -14,11 +14,14 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
   const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
 
+  // Define scene at the component level
+  const scene = useRef<THREE.Scene | null>(null);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const scene = new THREE.Scene();
+    scene.current = new THREE.Scene();
 
     // Camera setup
     const aspect = container.offsetWidth / container.offsetHeight;
@@ -52,11 +55,11 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
 
     // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
+    scene.current.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(10, 10, 10).normalize();
-    scene.add(directionalLight);
+    scene.current.add(directionalLight);
 
     // Load Point Cloud
     const loader = new PCDLoader();
@@ -66,8 +69,8 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
       filePath,
       (points) => {
         points.material.size = pointSize;
-        scene.add(points);
-        adjustToBoundingBox(scene, camera, controls);
+        scene.current?.add(points);
+        handleResetCamera(); // Reset camera after loading
       },
       undefined,
       (error) => {
@@ -75,32 +78,10 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
       }
     );
 
-    // Adjust camera to bounding box
-    const adjustToBoundingBox = (
-      scene: THREE.Scene,
-      camera: THREE.OrthographicCamera,
-      controls: OrbitControls
-    ) => {
-      const boundingBox = new THREE.Box3().setFromObject(scene);
-      const center = new THREE.Vector3();
-      boundingBox.getCenter(center);
-
-      const size = new THREE.Vector3();
-      boundingBox.getSize(size);
-
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const distance = maxDim * 1.5;
-
-      camera.position.set(center.x, center.y, center.z + distance);
-      camera.lookAt(center);
-      controls.target.copy(center);
-      controls.update();
-    };
-
     const animate = () => {
       requestAnimationFrame(animate);
       controls.update();
-      renderer.render(scene, camera);
+      renderer.render(scene.current!, camera);
     };
     animate();
 
@@ -122,15 +103,36 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
     };
   }, [file, pointSize]);
 
-  // Handlers
+  // Reset Camera Function
   const handleResetCamera = () => {
-    if (cameraRef.current && controlsRef.current) {
+    if (
+      cameraRef.current &&
+      controlsRef.current &&
+      containerRef.current &&
+      scene.current
+    ) {
       const camera = cameraRef.current;
       const controls = controlsRef.current;
-      camera.position.set(0, 0, 200);
-      camera.zoom = 1;
+
+      // Recalculate Bounding Box
+      const boundingBox = new THREE.Box3().setFromObject(scene.current);
+      const center = new THREE.Vector3();
+      boundingBox.getCenter(center);
+
+      const size = new THREE.Vector3();
+      boundingBox.getSize(size);
+
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const distance = maxDim * 1.5;
+
+      // Reset Camera Position Based on Model Size
+      camera.position.set(center.x, center.y, center.z + distance);
+      camera.lookAt(center);
+      camera.zoom = 1; // Reset Zoom
       camera.updateProjectionMatrix();
-      controls.target.set(0, 0, 0);
+
+      // Reset Controls
+      controls.target.copy(center);
       controls.update();
     }
   };

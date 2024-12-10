@@ -6,12 +6,19 @@ import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption
 import PCMVContainer from "../../components/PCMVContainer/PCMVContainer";
 
 const images = [
-  "/hotformerloc/assets/slides/karawatha_image_1.png",
-  "/hotformerloc/assets/slides/karawatha_image_2.png",
-  "/hotformerloc/assets/slides/karawatha_image_3.png",
-  "/hotformerloc/assets/slides/venman_image_1.png",
-  "/hotformerloc/assets/slides/venman_image_2.png",
-  "/hotformerloc/assets/slides/venman_image_3.png",
+  "/hotformerloc/assets/slides/karawatha_aerial_1.png",
+  "/hotformerloc/assets/slides/karawatha_ground_1.png",
+  "/hotformerloc/assets/slides/karawatha_aerial_2.png",
+  "/hotformerloc/assets/slides/karawatha_ground_2.png",
+  "/hotformerloc/assets/slides/karawatha_aerial_3.png",
+  "/hotformerloc/assets/slides/karawatha_ground_3.png",
+
+  "/hotformerloc/assets/slides/venman_aerial_1.png",
+  "/hotformerloc/assets/slides/venman_ground_1.png",
+  "/hotformerloc/assets/slides/venman_aerial_2.png",
+  "/hotformerloc/assets/slides/venman_ground_2.png",
+  "/hotformerloc/assets/slides/venman_aerial_3.png",
+  "/hotformerloc/assets/slides/venman_ground_3.png",
 ];
 
 const Dataset: React.FC = () => {
@@ -65,6 +72,11 @@ const OverviewSection: React.FC = () => (
         into Baseline and Unseen sets to test downstream generalisation.
       </li>
     </ul>
+    <ImageWithCaption
+      src="/hotformerloc/assets/dataset/dataset_ground_aerial.png"
+      alt="Ground and Aerial"
+      caption="Visualisation of the aerial global map of all four forests in CS-Wild-Places, with ground trajectories overlayed."
+    />
   </section>
 );
 

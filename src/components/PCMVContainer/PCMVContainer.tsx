@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PointCloudModelViewer from "../PointCloudModelViewer/PointCloudModelViewer";
 import styles from "./PCMVContainer.module.css";
-import { PCMVContainerProps } from "../../types/PointCloudTypes";
 
 type ForestName = "Karawatha" | "QCAT" | "Samford" | "Venman";
 

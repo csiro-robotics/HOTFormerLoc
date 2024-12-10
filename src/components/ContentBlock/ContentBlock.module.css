@@ -1,0 +1,14 @@
+.paragraph {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.imageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}

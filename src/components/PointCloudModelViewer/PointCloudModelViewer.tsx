@@ -2,14 +2,18 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { PointCloudModelViewerProps } from "../../types/PointCloudTypes";
+import { FaSyncAlt, FaExpand } from "react-icons/fa";
+
 import styles from "./PointCloudModelViewer.module.css";
 
-interface PointCloudModelViewerProps {
-  file: string;
-}
-
-const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({ file }) => {
+const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
+  file,
+  pointSize = 0.1,
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -17,42 +21,49 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({ file }) =
     const container = containerRef.current;
     const scene = new THREE.Scene();
 
+    // Camera
     const camera = new THREE.PerspectiveCamera(
       75,
       container.offsetWidth / container.offsetHeight,
-      0.01,  // Adjust near clipping plane
-      10000  // Adjust far clipping plane
+      0.01,
+      10000
     );
-    camera.position.set(0, 0, 100);  // Initial camera position
+    camera.position.set(0, 0, 200); // Start farther back for easier navigation
+    cameraRef.current = camera;
 
+    // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.offsetWidth, container.offsetHeight);
     renderer.setClearColor(0x000000, 1); // Black background
     container.appendChild(renderer.domElement);
 
+    // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.1;
-    controls.minDistance = 10;
-    controls.maxDistance = 500;
-    controls.maxPolarAngle = Math.PI / 2;
-    controls.minPolarAngle = 0;
+    controls.dampingFactor = 0.2;      // Smoother damping
+    controls.rotateSpeed = 0.5;        // Slow down rotation speed
+    controls.zoomSpeed = 1.2;          // Improve zooming ease
+    controls.minDistance = 0.5;        // Allow very close zoom
+    controls.maxDistance = 1000;       // Allow far zoom out
+    controls.maxPolarAngle = Math.PI;  // Allow full vertical rotation
+    controlsRef.current = controls;
 
-    // Add Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(10, 10, 10).normalize();
     scene.add(directionalLight);
 
+    // Load Point Cloud
     const loader = new PCDLoader();
     const filePath = `assets/pcd/${file}`;
 
     loader.load(
       filePath,
       (points) => {
-        console.log("Loaded points:", points);
+        points.material.size = pointSize;
         scene.add(points);
         adjustToBoundingBox(scene, camera, controls);
       },
@@ -62,6 +73,7 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({ file }) =
       }
     );
 
+    // Adjust to Bounding Box
     const adjustToBoundingBox = (
       scene: THREE.Scene,
       camera: THREE.PerspectiveCamera,
@@ -75,7 +87,7 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({ file }) =
       boundingBox.getSize(size);
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const distance = maxDim * 2;
+      const distance = maxDim * 3;
 
       camera.position.set(center.x, center.y, center.z + distance);
       camera.lookAt(center);
@@ -102,9 +114,48 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({ file }) =
       renderer.dispose();
       window.removeEventListener("resize", handleResize);
     };
-  }, [file]);
+  }, [file, pointSize]);
 
-  return <div ref={containerRef} className={styles.modelViewer}></div>;
+  // Handlers
+  const handleResetCamera = () => {
+    if (cameraRef.current && controlsRef.current) {
+      cameraRef.current.position.set(0, 0, 200); // Reset farther back
+      cameraRef.current.lookAt(0, 0, 0);
+      controlsRef.current.target.set(0, 0, 0);
+      controlsRef.current.update();
+    }
+  };
+
+  const handleToggleFullscreen = () => {
+    if (containerRef.current) {
+      if (!document.fullscreenElement) {
+        containerRef.current.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  };
+
+  return (
+    <div ref={containerRef} className={styles.modelViewer}>
+      <div className={styles.iconContainer}>
+        <button
+          onClick={handleResetCamera}
+          className={styles.iconButton}
+          title="Reset Camera"
+        >
+          <FaSyncAlt />
+        </button>
+        <button
+          onClick={handleToggleFullscreen}
+          className={styles.iconButton}
+          title="Toggle Fullscreen"
+        >
+          <FaExpand />
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default PointCloudModelViewer;

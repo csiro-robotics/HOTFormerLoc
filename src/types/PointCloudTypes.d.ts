@@ -1,6 +1,6 @@
 export interface PointCloudModelViewerProps {
     file: string;
-    pointSize: number;
+    pointSize?: number;
   }
 
   interface PCMVContainerProps {

@@ -1,14 +1,6 @@
 import React from "react";
 import styles from "./VideoPlayer.module.css";
 
-interface VideoPlayerProps {
-  src: string;
-  autoPlay?: boolean;
-  controls?: boolean;
-  loop?: boolean;
-  muted?: boolean;
-}
-
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   src,
   autoPlay = true,

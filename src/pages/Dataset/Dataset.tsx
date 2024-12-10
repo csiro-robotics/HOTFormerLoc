@@ -79,7 +79,7 @@ const MethodologySection: React.FC = () => (
 
 const BenchmarkingSection: React.FC = () => (
   <section className={styles.section}>
-    <h2 id="benchmark" className={styles.sectionHeading}>
+    <h2 id="benchmarking" className={styles.sectionHeading}>
       Benchmarking
     </h2>
     <p className={styles.paragraph}>

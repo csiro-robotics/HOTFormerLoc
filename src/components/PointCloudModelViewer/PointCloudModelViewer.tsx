@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { PointCloudModelViewerProps } from "../../types/PointCloudTypes";
 import { FaSyncAlt, FaExpand } from "react-icons/fa";
 
 import styles from "./PointCloudModelViewer.module.css";
@@ -12,7 +11,7 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
   pointSize = 0.1,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
 
   useEffect(() => {
@@ -21,31 +20,34 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
     const container = containerRef.current;
     const scene = new THREE.Scene();
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      container.offsetWidth / container.offsetHeight,
-      0.01,
+    // Camera setup
+    const aspect = container.offsetWidth / container.offsetHeight;
+    const frustumSize = 100;
+    const camera = new THREE.OrthographicCamera(
+      (-frustumSize * aspect) / 2,
+      (frustumSize * aspect) / 2,
+      frustumSize / 2,
+      -frustumSize / 2,
+      -10000,
       10000
     );
-    camera.position.set(0, 0, 200); // Start farther back for easier navigation
+    camera.position.set(0, 0, 200);
     cameraRef.current = camera;
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.offsetWidth, container.offsetHeight);
-    renderer.setClearColor(0x000000, 1); // Black background
+    renderer.setClearColor(0x000000, 1);
     container.appendChild(renderer.domElement);
 
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.2;      // Smoother damping
-    controls.rotateSpeed = 0.5;        // Slow down rotation speed
-    controls.zoomSpeed = 1.2;          // Improve zooming ease
-    controls.minDistance = 0.5;        // Allow very close zoom
-    controls.maxDistance = 1000;       // Allow far zoom out
-    controls.maxPolarAngle = Math.PI;  // Allow full vertical rotation
+    controls.dampingFactor = 0.2;
+    controls.rotateSpeed = 0.5;
+    controls.zoomSpeed = 1.2;
+    controls.minDistance = 0.5;
+    controls.maxDistance = 2000;
+    controls.maxPolarAngle = Math.PI;
     controlsRef.current = controls;
 
     // Lights
@@ -73,10 +75,10 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
       }
     );
 
-    // Adjust to Bounding Box
+    // Adjust camera to bounding box
     const adjustToBoundingBox = (
       scene: THREE.Scene,
-      camera: THREE.PerspectiveCamera,
+      camera: THREE.OrthographicCamera,
       controls: OrbitControls
     ) => {
       const boundingBox = new THREE.Box3().setFromObject(scene);
@@ -87,7 +89,7 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
       boundingBox.getSize(size);
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const distance = maxDim * 3;
+      const distance = maxDim * 1.5;
 
       camera.position.set(center.x, center.y, center.z + distance);
       camera.lookAt(center);
@@ -103,7 +105,11 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
     animate();
 
     const handleResize = () => {
-      camera.aspect = container.offsetWidth / container.offsetHeight;
+      const aspect = container.offsetWidth / container.offsetHeight;
+      camera.left = (-frustumSize * aspect) / 2;
+      camera.right = (frustumSize * aspect) / 2;
+      camera.top = frustumSize / 2;
+      camera.bottom = -frustumSize / 2;
       camera.updateProjectionMatrix();
       renderer.setSize(container.offsetWidth, container.offsetHeight);
     };
@@ -119,10 +125,13 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
   // Handlers
   const handleResetCamera = () => {
     if (cameraRef.current && controlsRef.current) {
-      cameraRef.current.position.set(0, 0, 200); // Reset farther back
-      cameraRef.current.lookAt(0, 0, 0);
-      controlsRef.current.target.set(0, 0, 0);
-      controlsRef.current.update();
+      const camera = cameraRef.current;
+      const controls = controlsRef.current;
+      camera.position.set(0, 0, 200);
+      camera.zoom = 1;
+      camera.updateProjectionMatrix();
+      controls.target.set(0, 0, 0);
+      controls.update();
     }
   };
 

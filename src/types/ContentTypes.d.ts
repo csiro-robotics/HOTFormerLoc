@@ -4,3 +4,8 @@ interface ContentBlockProps {
     caption: string;
     description: string;
   }
+
+  interface CheckpointRowProps {
+    name: string;
+    link: string;
+  }

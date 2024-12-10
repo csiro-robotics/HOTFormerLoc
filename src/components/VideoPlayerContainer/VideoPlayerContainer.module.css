@@ -1,11 +1,12 @@
 .videoPlayerContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
   padding: 20px;
   background-color: white;
   border-radius: 8px;
+  flex-wrap: wrap;
 }
 
 .videoWrapper {
@@ -22,20 +23,19 @@
   margin-bottom: 10px;
 }
 
-@media (max-width: 1024px) {
-  .videoWrapper {
-    width: 100%;
-  }
-}
-
 @media (max-width: 768px) {
+  .videoPlayerContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
   .videoWrapper {
     width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .videoWrapper {
-    width: 100%;
+  .videoTitle {
+    font-size: 16px;
   }
 }

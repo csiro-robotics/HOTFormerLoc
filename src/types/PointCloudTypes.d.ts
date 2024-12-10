@@ -1,4 +1,4 @@
-export interface PointCloudModelViewerProps {
+interface PointCloudModelViewerProps {
     file: string;
     pointSize?: number;
   }

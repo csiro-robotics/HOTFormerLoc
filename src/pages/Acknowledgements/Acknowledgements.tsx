@@ -1,4 +1,4 @@
-import styles from "./Acknowledgements.module.css";
+import styles from "../../Common.module.css";
 
 const Acknowledgements = () => {
   return (

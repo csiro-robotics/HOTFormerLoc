@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./Dataset.module.css";
 import Slideshow from "../../components/Slideshow/Slideshow";
 import VideoPlayerContainer from "../../components/VideoPlayerContainer/VideoPlayerContainer";
 import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
 import PCMVContainer from "../../components/PCMVContainer/PCMVContainer";
+import styles from "../../Common.module.css";
 
 const images = [
   "/hotformerloc/assets/slides/karawatha_aerial_1.png",

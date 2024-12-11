@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Paper.module.css";
 import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
 import ContentBlock from "../../components/ContentBlock/ContentBlock";
+import styles from "../../Common.module.css";
 
 const Header: React.FC = () => {
   return (
@@ -106,7 +106,7 @@ const NetworkArchitecture: React.FC = () => {
         />
       </div>
 
-      <div className={styles.coaDiagram}>
+      <div>
         <h3 id="coa" className={styles.subHeading}>
           Cylindrical Octree Attention (COA)
         </h3>

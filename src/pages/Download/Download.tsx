@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "./Download.module.css";
+import downloadStyles from "./Download.module.css";
+import styles from "../../Common.module.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -15,7 +16,7 @@ const CheckpointRow: React.FC<CheckpointRowProps> = ({ name, link }) => (
     <td>
       <a
         href={link}
-        className={styles.downloadLink}
+        className={downloadStyles.downloadLink}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -45,7 +46,7 @@ const Checkpoint: React.FC = () => {
         this dataset release.
       </p>
 
-      <table className={styles.downloadTable}>
+      <table className={downloadStyles.downloadTable}>
         <thead>
           <tr>
             <th>Name</th>
@@ -67,7 +68,7 @@ const Dataset: React.FC = () => (
     <h2 id="dataset" className={styles.sectionHeading}>
       Dataset
     </h2>
-    <p className={styles.datasetDescription}>
+    <p className={downloadStyles.datasetDescription}>
       Our dataset can be downloaded through the{" "}
       <a
         href="https://data.csiro.au/"
@@ -109,8 +110,8 @@ plt.show()
 
 const Download: React.FC = () => (
   <div className={styles.container}>
+    <Header />
     <main className={styles.main}>
-      <Header />
       <Checkpoint />
       <Dataset />
       <UsageExamples />

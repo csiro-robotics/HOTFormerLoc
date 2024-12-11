@@ -1,4 +1,4 @@
-import styles from "./Citation.module.css";
+import styles from "../../Common.module.css"
 
 const Citation = () => {
   return (

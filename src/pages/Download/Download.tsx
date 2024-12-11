@@ -34,7 +34,7 @@ const Checkpoint: React.FC = () => {
   ];
 
   return (
-    <section>
+    <section className={styles.section}>
       <h2 id="checkpoint" className={styles.sectionHeading}>
         Checkpoint
       </h2>
@@ -63,7 +63,7 @@ const Checkpoint: React.FC = () => {
 };
 
 const Dataset: React.FC = () => (
-  <section>
+  <section className={styles.section}>
     <h2 id="dataset" className={styles.sectionHeading}>
       Dataset
     </h2>
@@ -96,7 +96,7 @@ plt.show()
 `;
 
   return (
-    <section>
+    <section className={styles.section}>
       <h2 id="usage-examples" className={styles.sectionHeading}>
         Usage Examples
       </h2>
@@ -108,12 +108,14 @@ plt.show()
 };
 
 const Download: React.FC = () => (
-  <main className={styles.section}>
-    <Header />
-    <Checkpoint />
-    <Dataset />
-    <UsageExamples />
-  </main>
+  <div className={styles.container}>
+    <main className={styles.main}>
+      <Header />
+      <Checkpoint />
+      <Dataset />
+      <UsageExamples />
+    </main>
+  </div>
 );
 
 export default Download;

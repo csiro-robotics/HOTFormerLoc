@@ -1,0 +1,31 @@
+[DEFAULT]
+# Update with absolute path to data
+dataset_folder = ../data/benchmark_datasets
+
+[TRAIN]
+num_workers = 1
+batch_size = 2048
+batch_split_size = 128
+val_batch_size = 256
+save_freq = 10
+eval_freq = 5
+wandb = True
+
+lr = 5e-4
+epochs = 150
+scheduler_milestones = 100
+warmup_epochs = 5
+aug_mode = 1
+set_aug_mode = 1
+normalize_points = False
+octree_depth = 9
+weight_decay = 1e-4
+loss = TruncatedSmoothAP
+tau1 = 0.01
+positives_per_query = 4
+
+dataset_name = Oxford
+skip_same_run = True
+train_file = training_queries_baseline2.pickle
+val_file = test_queries_baseline2.pickle
+validation=True

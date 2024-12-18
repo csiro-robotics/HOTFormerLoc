@@ -1,0 +1,34 @@
+[DEFAULT]
+# Update with absolute path to data
+dataset_folder = ../data/CS-Wild-Places/postproc_voxel_0.80m_rmground_normalised/
+
+[TRAIN]
+num_workers = 1
+batch_size = 2048
+batch_split_size = 128
+val_batch_size = 128
+save_freq = 10
+eval_freq = 5
+wandb = True
+
+lr = 8e-4
+epochs = 100
+scheduler_milestones = 50
+warmup_epochs = 5
+aug_mode = 2
+set_aug_mode = 2
+random_rot_theta = 180
+normalize_points = True
+octree_depth = 7
+weight_decay = 1e-4
+loss = TruncatedSmoothAP
+tau1 = 0.01
+positives_per_query = 4
+mesa = 1.0
+mesa_start_ratio = 0.15
+
+dataset_name = CSWildPlaces_thresh30m_rmground
+skip_same_run = True
+train_file = training_queries_CSWildPlaces_baseline_v2.pickle
+val_file = test_queries_CSWildPlaces_v2.pickle
+validation = True

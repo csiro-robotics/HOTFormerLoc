@@ -1,0 +1,31 @@
+[DEFAULT]
+# Update with absolute path to data
+dataset_folder = ../data/wild_places
+
+[TRAIN]
+num_workers = 2
+batch_size = 2048
+batch_split_size = 96
+val_batch_size = 128
+save_freq = 10
+eval_freq = 5
+wandb = True
+
+lr = 3e-3
+epochs = 80
+scheduler_milestones = 30
+warmup_epochs = 5
+aug_mode = 2
+set_aug_mode = 2
+random_rot_theta = 180
+normalize_points = True
+octree_depth = 7
+weight_decay = 1e-4
+loss = TruncatedSmoothAP
+tau1 = 0.01
+positives_per_query = 4
+
+dataset_name = WildPlaces
+skip_same_run = True
+train_file = training_wild-places.pickle
+validation = False

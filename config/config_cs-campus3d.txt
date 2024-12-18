@@ -1,0 +1,31 @@
+[DEFAULT]
+# Update with absolute path to data
+dataset_folder = ../data/benchmark_datasets_cs_campus3d/benchmark_datasets
+
+[TRAIN]
+num_workers = 3
+batch_size = 2048
+batch_split_size = 128
+val_batch_size = 256
+save_freq = 10
+eval_freq = 5
+wandb = True
+
+lr = 5e-4
+epochs = 300
+scheduler_milestones = 250
+warmup_epochs = 5
+aug_mode = 2
+set_aug_mode = 2
+random_rot_theta = 180
+normalize_points = False
+octree_depth = 7
+weight_decay = 1e-4
+loss = TruncatedSmoothAP
+tau1 = 0.01
+positives_per_query = 4
+
+dataset_name = Campus3D
+skip_same_run = False
+train_file = training_queries_umd_4096_v2.pickle
+validation = False

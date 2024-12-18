@@ -5,5 +5,7 @@ interface PointCloudModelViewerProps {
 
   interface PCMVContainerProps {
     title1: string;
-    title2: string;
+    title2?: string;
+    isSingleViewer: boolean;
+    file?: string;
   }

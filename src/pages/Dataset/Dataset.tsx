@@ -28,9 +28,10 @@ const Dataset: React.FC = () => {
       <main className={styles.main}>
         <SlideshowSection />
         <OverviewSection />
+        <VisualisationSection />
         <MethodologySection />
         <BenchmarkingSection />
-        <VisualisationSection />
+        <Acknowledgements />
       </main>
     </div>
   );
@@ -119,38 +120,64 @@ const VisualisationSection: React.FC = () => (
     <h2 id="visualisation" className={styles.sectionHeading}>
       Visualisation
     </h2>
-    <h3 id="ground-aerial" className={styles.subHeading}>
-      Ground and Aerial Visualisation
-    </h3>
-
-    <div className={styles.imageGrid}>
-      <figure>
-        <VideoPlayerContainer
-          src_1_title="Karawatha"
-          src_1_path="/hotformerloc/assets/visualisation/karawatha_aerial_vid.mp4"
-          src_2_title="Venman"
-          src_2_path="/hotformerloc/assets/visualisation/venman_aerial_vid.mp4"
-        />
-        <figcaption>Aerial Lidar Visualisation</figcaption>
-      </figure>
-    </div>
-
-    <div className={styles.imageGrid}>
-      <ImageWithCaption
-        src="/hotformerloc/assets/visualisation/ground_aerial_1.png"
-        alt="Ground Vs Aerial Lidar Visualisation"
-        caption="Ground Vs Aerial Lidar"
-      />
-    </div>
 
     <div>
       <h3 id="submap" className={styles.subHeading}>
         Submap Visualisation
       </h3>
       <div>
-        <PCMVContainer title1="Aerial View" title2="Ground View" />
+        <PCMVContainer
+          title1="Aerial View"
+          title2="Ground View"
+          isSingleViewer={false}
+        />
       </div>
     </div>
+
+    <div>
+      <h3 id="ground-aerial" className={styles.subHeading}>
+        Ground and Aerial Visualisation
+      </h3>
+
+      <div className={styles.imageGrid}>
+        <figure>
+          <VideoPlayerContainer
+            src_1_title="Karawatha"
+            src_1_path="/hotformerloc/assets/visualisation/karawatha_aerial_vid.mp4"
+            src_2_title="Venman"
+            src_2_path="/hotformerloc/assets/visualisation/venman_aerial_vid.mp4"
+          />
+          <figcaption>Aerial Lidar Visualisation</figcaption>
+        </figure>
+      </div>
+
+      <div className={styles.imageGrid}>
+        <ImageWithCaption
+          src="/hotformerloc/assets/visualisation/ground_aerial_1.png"
+          alt="Ground Vs Aerial Lidar Visualisation"
+          caption="Ground Vs Aerial Lidar"
+        />
+      </div>
+    </div>
+  </section>
+);
+
+const Acknowledgements: React.FC = () => (
+  <section className={styles.section}>
+    <h2 id="acknowledgements" className={styles.sectionHeading}>
+      Acknowledgements
+    </h2>
+    <p className={styles.paragraph}>
+      We wish to acknowledge the support of the Research Engineering Facility
+      (REF) team at QUT for the provision of expertise and research
+      infrastructure in enablement of this project. We thank Hexagon for
+      providing access to SmartNet RTK corrections service to support precise
+      survey of GCPs. We further acknowledge the support of the Terrestrial
+      Ecosystem Research Network (TERN), supported by the National Collaborative
+      Infrastructure Strategy (NCRIS). (Researcher initials MR, PM, SL, SJ etc)
+      received funding through the CSIRO's Digital Water and Landscapes
+      initiative (3D-AGB project).
+    </p>
   </section>
 );
 

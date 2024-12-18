@@ -105,6 +105,39 @@ button:hover {
   background-color: #003d14;
 }
 
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem; /* Space between buttons */
+  margin: 2rem 0; /* Top & bottom margins */
+}
+
+.navButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: #004d1a;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.navButton:hover {
+  background: #006622; /* Darker green */
+  transform: scale(1.05); /* Slight grow on hover */
+}
+
+.navButton:active {
+  transform: scale(0.95); /* Slight shrink on click */
+}
+
+.navButton:focus {
+  outline: 2px solid #00b377;
+}
+
 /* Media Queries */
 @media (max-width: 1024px) {
   .main {

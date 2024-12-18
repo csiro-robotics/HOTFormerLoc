@@ -16,35 +16,44 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import styles from "./Appbar.module.css"; // Import module.css
+import styles from "./Appbar.module.css";
 
-const navigationItems = [
+const navigationItems: NavigationItem[] = [
+  {
+    label: "Home",
+    path: "/",
+    children: [
+      { label: "Overview", path: "/#overview" },
+      { label: "Visualise Submap", path: "/#visualise-submap" },
+      { label: "Citation", path: "/#citation" },
+    ],
+  },
   {
     label: "Paper",
-    path: "/hotformerloc/",
+    path: "/paper",
     children: [
-      { label: "Abstract", path: "/#abstract" },
+      { label: "Abstract", path: "/paper#abstract" },
       {
         label: "Network Architecture",
-        path: "/#network-architecture",
+        path: "/paper#network-architecture",
         children: [
-          { label: "HOTFormerLoc", path: "/#hotformerloc" },
-          { label: "Cyndrical Octree Attention", path: "/#coa" },
-          { label: "Pyramid Attention Pooling", path: "/#pap" },
+          { label: "HOTFormerLoc", path: "/paper#hotformerloc" },
+          { label: "Cyndrical Octree Attention", path: "/paper#coa" },
+          { label: "Pyramid Attention Pooling", path: "/paper#pap" },
         ],
       },
       {
         label: "Experiments",
-        path: "/#experiments",
+        path: "/paper#experiments",
         children: [
           {
             label: "Datasets and Evaluation Criteria",
-            path: "/#evaluation-criteria",
+            path: "/paper#evaluation-criteria",
           },
-          { label: "Ablation Study", path: "/#ablation-study" },
+          { label: "Ablation Study", path: "/paper#ablation-study" },
         ],
       },
-      { label: "Future Work", path: "/#future-work" },
+      { label: "Future Work", path: "/paper#future-work" },
     ],
   },
   {
@@ -52,9 +61,10 @@ const navigationItems = [
     path: "/dataset",
     children: [
       { label: "Overview", path: "/dataset#overview" },
+      { label: "Visualisation", path: "/dataset#visualisation" },
       { label: "Data Collection Methodology", path: "/dataset#methodology" },
       { label: "Benchmarking", path: "/dataset#benchmarking" },
-      { label: "Visualisation", path: "/dataset#visualisation" },
+      { label: "Acknowledgements", path: "/dataset#acknowledgements" },
     ],
   },
   {
@@ -66,8 +76,6 @@ const navigationItems = [
       { label: "Usage Examples", path: "/download#usage-examples" },
     ],
   },
-  { label: "Acknowledgements", path: "/acknowledgements" },
-  { label: "Citation", path: "/citation" },
 ];
 
 const Appbar = ({ siteName }: { siteName: string }) => {
@@ -107,7 +115,7 @@ const Appbar = ({ siteName }: { siteName: string }) => {
     setOpenItems(newOpenItems);
   };
 
-  const renderMenu = (items: typeof navigationItems, depth = 0) =>
+  const renderMenu = (items: NavigationItem[], depth = 0) =>
     items.map((item) => (
       <div key={item.label}>
         <ListItem disablePadding>
@@ -150,10 +158,7 @@ const Appbar = ({ siteName }: { siteName: string }) => {
     <Box className={styles.container}>
       {isSmallScreen ? (
         <>
-          <AppBar
-            position="fixed"
-            className={styles.appBar}
-          >
+          <AppBar position="fixed" className={styles.appBar}>
             <Toolbar>
               <IconButton
                 edge="start"

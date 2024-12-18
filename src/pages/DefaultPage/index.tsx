@@ -1,7 +1,7 @@
-import Paper from "./Paper"
+import HomePage from "../Home"
 const DefaultPage = () => {
   return (
-    <Paper/>
+    <HomePage/>
   )
 }
 

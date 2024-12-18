@@ -1,0 +1,114 @@
+.modelViewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.container {
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.iconContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+  z-index: 100;
+}
+
+.iconButton {
+  background: rgba(50, 50, 50, 0.8);
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.iconButton:hover {
+  background: rgba(100, 100, 100, 0.8);
+}
+
+/* Section Styling */
+.section {
+  width: 100%;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sectionHeading {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #004d1a;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Content Container */
+.contentContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Text Container with Dot Points */
+.textContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.dotPoints {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.dotPoints li {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Video Container */
+.videoContainer {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .contentContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .textContainer,
+  .videoContainer {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .dotPoints {
+    padding-left: 1rem;
+  }
+}

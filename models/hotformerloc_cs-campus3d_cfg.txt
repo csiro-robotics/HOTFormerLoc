@@ -1,5 +1,5 @@
 [MODEL]
-model=HOTFormerLoc-CS-Campus3D
+model=HOTFormerLoc-CSCampus3D
 channels=128,256
 num_blocks=4,10
 num_heads=8,16

@@ -25,7 +25,7 @@ loss = TruncatedSmoothAP
 tau1 = 0.01
 positives_per_query = 4
 
-dataset_name = Campus3D
+dataset_name = CSCampus3D
 skip_same_run = False
 train_file = training_queries_umd_4096_v2.pickle
 validation = False

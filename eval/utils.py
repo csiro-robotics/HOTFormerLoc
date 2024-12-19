@@ -29,7 +29,7 @@ def get_query_database_splits(params):
             'Karawatha_evaluation_query.pickle',
             'Venman_evaluation_query.pickle',            
         ]
-    elif params.dataset_name == 'Campus3D':
+    elif params.dataset_name == 'CSCampus3D':
         eval_database_files = ['umd_evaluation_database.pickle']
         eval_query_files = ['umd_evaluation_query_v2.pickle']
     else:

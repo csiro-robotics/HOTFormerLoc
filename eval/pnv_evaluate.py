@@ -122,7 +122,7 @@ def get_latent_vectors(model, data_set, device, params: TrainingParams):
         embeddings = np.random.rand(len(data_set), params.model_params.output_dim)
         return embeddings
 
-    if params.dataset_name in ['Oxford','Campus3D']:
+    if params.dataset_name in ['Oxford','CSCampus3D']:
         pc_loader = PNVPointCloudLoader()
     elif 'CSWildPlaces' in params.dataset_name or 'WildPlaces' in params.dataset_name:
         pc_loader = CSWildPlacesPointCloudLoader()

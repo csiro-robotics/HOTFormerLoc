@@ -1,5 +1,5 @@
 [MODEL]
-model=HOTFormerLoc-CS-Wild-Places
+model=HOTFormerLoc-CSWildPlaces
 channels=128,256
 num_blocks=4,10
 num_heads=8,16

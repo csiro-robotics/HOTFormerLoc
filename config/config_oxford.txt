@@ -3,7 +3,7 @@
 dataset_folder = ../data/benchmark_datasets
 
 [TRAIN]
-num_workers = 1
+num_workers = 2
 batch_size = 2048
 batch_split_size = 128
 val_batch_size = 256

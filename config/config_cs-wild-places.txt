@@ -3,7 +3,7 @@
 dataset_folder = ../data/CS-Wild-Places/postproc_voxel_0.80m_rmground_normalised/
 
 [TRAIN]
-num_workers = 1
+num_workers = 2
 batch_size = 2048
 batch_split_size = 128
 val_batch_size = 128
@@ -27,7 +27,7 @@ positives_per_query = 4
 mesa = 1.0
 mesa_start_ratio = 0.15
 
-dataset_name = CSWildPlaces_thresh30m_rmground
+dataset_name = CSWildPlaces
 skip_same_run = True
 train_file = training_queries_CSWildPlaces_baseline_v2.pickle
 val_file = test_queries_CSWildPlaces_v2.pickle

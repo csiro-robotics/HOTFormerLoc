@@ -8,7 +8,7 @@ import torch
 import tqdm
 import pathlib
 import wandb
-from timm.utils import ModelEmaV3
+from timm.utils.model_ema import ModelEmaV3
 from timm.optim.lamb import Lamb
 
 from misc.utils import TrainingParams, get_datetime, set_seed, update_params_from_dict

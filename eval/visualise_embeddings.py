@@ -143,7 +143,7 @@ def collate_batch(data, device, params: TrainingParams):
     return batch
 
 def get_latent_vectors(model, data_list: list[str], device, params: TrainingParams) -> np.ndarray:
-    if params.dataset_name in ['Oxford','Campus3D']:
+    if params.dataset_name in ['Oxford','CSCampus3D']:
         pc_loader = PNVPointCloudLoader()
     elif 'CSWildPlaces' in params.dataset_name or 'WildPlaces' in params.dataset_name:
         pc_loader = CSWildPlacesPointCloudLoader()

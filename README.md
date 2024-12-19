@@ -18,8 +18,8 @@ We present **HOTFormerLoc**, a novel and versatile **H**ierarchical **O**ctree-b
 In addition, we introduce our novel dataset: **CS-Wild-Places**, a 3D cross-source dataset featuring point cloud data from aerial and ground lidar scans captured in four dense forests. Point clouds in CS-Wild-Places contain representational gaps and distinctive attributes such as varying point densities and noise patterns, making it a challenging benchmark for cross-view localisation in the wild.
 
 ![CS-Wild-Places](media/CSWildPlaces_overview.png)
-CS-Wild-Places dataset. (Top row) birds eye view of aerial global maps from all four forests. 
-(Bottom row) sample ground and aerial submap from each forest.
+*CS-Wild-Places dataset. (Top row) birds eye view of aerial global maps from all four forests. 
+(Bottom row) sample ground and aerial submap from each forest.*
 
 Our results demonstrate that HOTFormerLoc achieves a top-1 average recall improvement of 5.5% – 11.5% on the CS-Wild-Places benchmark. Furthermore, it consistently outperforms SOTA 3D place recognition methods, with an average performance gain of 5.8% on well established urban and forest datasets. 
 

@@ -32,7 +32,7 @@ const navigationItems: NavigationItem[] = [
     label: "Paper",
     path: "/paper",
     children: [
-      { label: "Abstract", path: "/paper#abstract" },
+      { label: "Summary", path: "/paper#summary" },
       {
         label: "Network Architecture",
         path: "/paper#network-architecture",
@@ -47,8 +47,8 @@ const navigationItems: NavigationItem[] = [
         path: "/paper#experiments",
         children: [
           {
-            label: "Datasets and Evaluation Criteria",
-            path: "/paper#evaluation-criteria",
+            label: "Comparison to SOTA",
+            path: "/paper#sota-comparison",
           },
           { label: "Ablation Study", path: "/paper#ablation-study" },
         ],
@@ -62,7 +62,7 @@ const navigationItems: NavigationItem[] = [
     children: [
       { label: "Overview", path: "/dataset#overview" },
       { label: "Visualisation", path: "/dataset#visualisation" },
-      { label: "Data Collection Methodology", path: "/dataset#methodology" },
+      { label: "Methodology", path: "/dataset#methodology" },
       { label: "Benchmarking", path: "/dataset#benchmarking" },
       { label: "Acknowledgements", path: "/dataset#acknowledgements" },
     ],

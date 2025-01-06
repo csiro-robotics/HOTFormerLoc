@@ -90,9 +90,9 @@ import matplotlib.pyplot as plt
 # Load dataset
 data = np.load("sample_data.npy")
 
-# Visualize
+# Visualise
 plt.imshow(data, cmap="viridis")
-plt.title("Sample Dataset Visualization")
+plt.title("Sample Dataset Visualisation")
 plt.show()
 `;
 

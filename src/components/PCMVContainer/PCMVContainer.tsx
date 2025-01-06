@@ -59,7 +59,7 @@ const PCMVContainer: React.FC<PCMVContainerProps> = ({
     >
       {!isSingleViewer && (
         <div className={styles.selector}>
-          <label htmlFor="forestSelector">Choose Model:</label>
+          <label htmlFor="forestSelector">Choose Environment:</label>
           <select
             id="forestSelector"
             onChange={(e) => handleForestChange(e.target.value as ForestName)}

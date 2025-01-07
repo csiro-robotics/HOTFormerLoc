@@ -192,13 +192,18 @@ python train.py --config ../config/config_cs-campus3d.txt --model_config ../mode
 python train.py --config ../config/config_oxford.txt --model_config ../models/hotformerloc_oxford_cfg.txt
 ```
 
-### Pre-trained Models
+### Pre-trained Weights
 
-Pretrained models can be downloaded and placed in the `weights` directory (**TODO** Add link to download these)
-- `hotformerloc_cs-wild-places.pth` trained on the CS-Wild-Places Dataset 
-- `hotformerloc_wild-places.pth` trained on the Wild-Places Dataset 
-- `hotformerloc_cs-campus3d.pth` trained on the CS-Campus3D Dataset 
-- `hotformerloc_oxford.pth` trained on the Oxford RobotCar Dataset 
+Pre-trained weights for HOTFormerLoc and other experiments can be downloaded and placed in the `weights` directory. You can download them individually below, or download and extract all from [this link](https://www.dropbox.com/scl/fi/qjyh966styqlye38a4c37/pretrained_weights.tar.gz?rlkey=qkuhupf3og7mfkfid8dts7xej&st=wx8q2v68&dl=0).
+| Model        | Dataset                    | Weights Download                                                                                                                                                         |
+|--------------|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HOTFormerLoc | CS-Wild-Places             | [hotformerloc_cs-wild-places.pth](https://www.dropbox.com/scl/fi/bcgcmbyic591f3bviib64/hotformerloc_cs-wild-places.pth?rlkey=vrw0seq6nfbsihijbhqatll2u&st=d7enawjw&dl=0) |
+| HOTFormerLoc | CS-Campus3D                | [hotformerloc_cs-campus3D.pth](https://www.dropbox.com/scl/fi/l9jyn5310gjf80zw35v7z/hotformerloc_cs-campus3d.pth?rlkey=s0bpcysyc1xt2357shhclpnlw&st=zhh679b9&dl=0)       |
+| HOTFormerLoc | Wild-Places                | [hotformerloc_wild-places.pth](https://www.dropbox.com/scl/fi/yd94iy9dq6k1m312ifnyx/hotformerloc_wild-places.pth?rlkey=5ndv0p48c7hyjvah90eab1l1e&st=zl1716hh&dl=0)       |
+| HOTFormerLoc | Oxford RobotCar + In-House | [hotformerloc_oxford.pth](https://www.dropbox.com/scl/fi/4r3470zo9zomkyjys5nrm/hotformerloc_oxford.pth?rlkey=eocfo3yvmhuqqgsmjtypgf78s&st=ybhzcj6y&dl=0)                 |
+| MinkLoc3Dv2  | CS-Wild-Places             | [minkloc3dv2_cs-wild-places.pth](https://www.dropbox.com/scl/fi/2w4l8gv7qbmp0lh4eztsf/minkloc3dv2_cs-wild-places.pth?rlkey=udxvtkr6yfgdnyizra4gmw0qa&st=p0evrh61&dl=0)   |
+| CrossLoc3D   | CS-Wild-Places             | [crossloc3d_cs-wild-places.pth](https://www.dropbox.com/scl/fi/5ikt1jvr2fabiaw8mhqbb/crossloc3d_cs-wild-places.pth?rlkey=lb4gp2n814im3twy4zy5d67bd&st=znup5ewi&dl=0)     |
+| LoGG3D-Net   | CS-Wild-Places             | [logg3dnet_cs-wild-places.pth](https://www.dropbox.com/scl/fi/51se5akdyg35xy2dsrosj/logg3dnet_cs-wild-places.pth?rlkey=4nvvp8gw656wdbj3081jzcn0i&st=n5ytpnzc&dl=0)       |
 
 ## Evaluation
 

@@ -5,12 +5,13 @@ import DefaultPage from "./pages/DefaultPage";
 import PaperPage from "./pages/Paper";
 import DatasetPage from "./pages/Dataset";
 import DownloadPage from "./pages/Download";
-
+import NavigationBar from "./components/NavigationBar/NavigationBar";
 
 function App() {
   return (
     <Router basename="/hotformerloc">
-      <Appbar siteName="HOTFormerLoc" />
+      {/* <Appbar siteName="HOTFormerLoc" /> */}
+      <NavigationBar/>
       <main className="main-content">
         <Routes>
           <Route path="/" element={<DefaultPage/>} />

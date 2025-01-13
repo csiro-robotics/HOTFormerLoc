@@ -24,8 +24,11 @@ const navigationItems: NavigationItem[] = [
     path: "/",
     children: [
       { label: "Overview", path: "/#overview" },
-      { label: "Visualise Submap", path: "/#visualise-submap" },
+      { label: "Interactive Submap Visualisation", path: "/#visualise-submap" },
       { label: "Citation", path: "/#citation" },
+      { label: "Contact Us", path: "/#contact" },
+      { label: "Updates", path: "/#updates" },
+      { label: "Acknowledgements", path: "/#acknowledgements" },
     ],
   },
   {
@@ -46,10 +49,7 @@ const navigationItems: NavigationItem[] = [
         label: "Experiments",
         path: "/paper#experiments",
         children: [
-          {
-            label: "Comparison to SOTA",
-            path: "/paper#sota-comparison",
-          },
+          { label: "Comparison to SOTA", path: "/paper#sota-comparison" },
           { label: "Ablation Study", path: "/paper#ablation-study" },
         ],
       },
@@ -57,21 +57,20 @@ const navigationItems: NavigationItem[] = [
     ],
   },
   {
-    label: "Dataset",
+    label: "CS-Wild-Places",
     path: "/dataset",
     children: [
       { label: "Overview", path: "/dataset#overview" },
       { label: "Visualisation", path: "/dataset#visualisation" },
       { label: "Methodology", path: "/dataset#methodology" },
       { label: "Benchmarking", path: "/dataset#benchmarking" },
-      { label: "Acknowledgements", path: "/dataset#acknowledgements" },
     ],
   },
   {
-    label: "Download",
+    label: "Downloads",
     path: "/download",
     children: [
-      { label: "Checkpoint", path: "/download#checkpoint" },
+      { label: "Checkpoints", path: "/download#checkpoint" },
       { label: "Dataset", path: "/download#dataset" },
       { label: "Usage Examples", path: "/download#usage-examples" },
     ],

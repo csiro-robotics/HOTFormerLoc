@@ -90,11 +90,10 @@ const NetworkArchitecture: React.FC = () => {
         <h3 id="hotformerloc" className={styles.subHeading}>
           HOTFormerLoc
         </h3>
-        <ContentBlock
-          imageSrc="/hotformerloc/assets/architecture/architecture_hotformerloc.png"
-          altText="HOTFormerLoc Architecture"
-          caption="HOTFormerLoc Architecture."
-          description=""
+        <ImageWithCaption
+          src="/hotformerloc/assets/architecture/architecture_hotformerloc.png"
+          alt="HOTFormerLoc Architecture"
+          caption="HOTFormerLoc Architecture"
         />
       </div>
 
@@ -108,11 +107,12 @@ const NetworkArchitecture: React.FC = () => {
           self-attention (H-OSA) to refine local features and propagate global
           contextual cues learned by the relay tokens.
         </p>
-        <ContentBlock
-          imageSrc="/hotformerloc/assets/architecture/architecture_rtsa_hosa.png"
-          altText="HOTFormer Block Components"
-          caption="HOTFormer Block Components."
-          description=""
+        <ImageWithCaption
+          src="/hotformerloc/assets/architecture/architecture_rtsa_hosa.png"
+          alt="HOTFormer Block Components"
+          caption="HOTFormer Block Components"
+          width="60%"
+          // description=""
         />
         <p className={styles.paragraph}>
           We compare the attention patterns of a query token (red) from the
@@ -123,11 +123,11 @@ const NetworkArchitecture: React.FC = () => {
           early layers, and progressively widening and coarsening receptive
           field in later layers.
         </p>
-        <ContentBlock
-          imageSrc="/hotformerloc/assets/architecture/architecture_rtsa_2.png"
-          altText="RTSA Attention Visualisation"
-          caption="Relay token multi-scale attention visualised on the octree feature pyramid."
-          description=""
+        <ImageWithCaption
+          src="/hotformerloc/assets/architecture/architecture_rtsa_2.png"
+          alt="RTSA Attention Visualisation"
+          caption="Relay token multi-scale attention visualised on the octree feature pyramid"
+          width="80%"
         />
       </div>
 
@@ -157,11 +157,11 @@ const NetworkArchitecture: React.FC = () => {
           windows respect the point distribution, with fine-grained windows near
           the sensor, and sparser windows at lower-density regions further away.
         </p>
-        <ContentBlock
-          imageSrc="/hotformerloc/assets/architecture/architecture_coa_2.png"
-          altText="Cylindrical Octree Attention Architecture Diagram"
-          caption="Cylindrical Octree Attention Comparison."
-          description=""
+        <ImageWithCaption
+          src="/hotformerloc/assets/architecture/architecture_coa_2.png"
+          alt="Cylindrical Octree Attention Architecture Diagram"
+          caption="Cylindrical Octree Attention Comparison"
+          width="75%"
         />
       </div>
 
@@ -192,8 +192,8 @@ const Experiments: React.FC = () => {
       <p className={styles.paragraph}>
         We conduct experiments on a suite of LPR benchmarks, to demonstrate the
         versatility of HOTFormerLoc to different environments and scenarios. We
-        also provide ablation studies that verify the effectiveness of our
-        proposed method.
+        also provide ablation studies that verify the effectiveness of
+        HOTFormerLoc, which can be found in the main paper.
       </p>
 
       <div>
@@ -212,19 +212,21 @@ const Experiments: React.FC = () => {
           altText="Benchmarking Results"
           caption="Recall@N curves of four SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits"
           description="We demonstrate the performance of the proposed HOTFormerLoc on our CS-Wild-Places dataset. On the baseline and unseen evaluation sets, HOTFormerLoc achieves an improvement in AR@1 of 5.5% and 11.5%, and an improvement in AR@1% of 3.6% and 4.5%, respectively."
+          width="90%"
         />
 
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/dataset_sota_comparison_1.png"
           altText="SOTA on CS-Campus3D Comparison"
-          caption="Comparison of SOTA on CS-Campus3D with ground-only queries, and ground + aerial database."
+          caption="Comparison of SOTA on CS-Campus3D with ground-only queries, and ground + aerial database"
           description="We present the evaluation results on CS-Campus3D. Our approach shows an improvement of 6.8% and 5.7% in AR@1 and AR@1%, respectively, outperforming CrossLoc3D which is specifically designed for the ground-aerial LPR problem."
+          width="70%"
         />
 
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/dataset_wildplaces_comparison_1.png"
           altText="Comparison on Wild-Places"
-          caption="Comparison on Wild-Places. HOTFormerLoc† denotes cylindrical octree windows. LoGG3D-Net1 indicates training the network using a 256-dimensional global descriptor for fair comparison, as opposed to the 1024-dimensional descriptor reported in Wild-Places."
+          caption="Comparison on Wild-Places, where LoGG3D-Net^1 is trained using a 256-dimensional global descriptor for fair comparison, as opposed to the 1024-dimensional descriptor reported in Wild-Places"
           description="We report evaluation results on Wild-Places under the inter-sequence evaluation setting.
             LoGG3D-Net remains the highest performing method by a margin of 2.5% and 1.8% in AR@1 and MRR, respectively,
             but we achieve a gain of 5.5% and 3.5% in AR@1 and MRR over MinkLoc3Dv2. We note that LoGG3D-Net is
@@ -234,12 +236,12 @@ const Experiments: React.FC = () => {
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/dataset_sota_comparison_2.png"
           altText="Comparison of SOTA on Oxford RobotCar"
-          caption="Comparison of SOTA on Oxford RobotCar using the baseline evaluation setting and dataset."
+          caption="Comparison of SOTA on Oxford RobotCar using the baseline evaluation setting and dataset"
           description="We report evaluation results on Oxford RobotCar under the baseline evaluation setting. We outperform previous SOTA methods, showing improved generalisation on the unseen R.A. and B.D. environments with an increase of 2.7% and 4.1% in AR@1, respectively."
         />
       </div>
 
-      <div>
+      {/* <div>
         <h3 id="ablation-study" className={styles.subHeading}>
           Ablation Study
         </h3>
@@ -262,7 +264,7 @@ const Experiments: React.FC = () => {
             Karawatha, and 13.8% and 9.4% on Venman, compared to Cartesian
             octree attention windows. "
         />
-      </div>
+      </div> */}
     </section>
   );
 };
@@ -314,17 +316,16 @@ const Paper: React.FC = () => {
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
+        <Links />
+        <Summary />
         <ImageWithCaption
           src="/hotformerloc/assets/dataset/dataset_model_comparison.svg"
           alt="HOTFormerLoc performance comparison"
           caption="    HOTFormerLoc achieves SOTA performance across a suite of LPR
           benchmarks with diverse environments, varying viewpoints, and
-          different point cloud densities."
-          height="50%"
-          width="50%"
+          different point cloud densities"
+          width="70%"
         />
-        <Links />
-        <Summary />
         <NetworkArchitecture />
         <Experiments />
         <FutureWork />

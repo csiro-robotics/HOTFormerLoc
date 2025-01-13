@@ -31,7 +31,6 @@ const Dataset: React.FC = () => {
         <VisualisationSection />
         <MethodologySection />
         <BenchmarkingSection />
-        <Acknowledgements />
       </main>
     </div>
   );
@@ -39,7 +38,7 @@ const Dataset: React.FC = () => {
 
 const Header: React.FC = () => (
   <header className={styles.header}>
-    <h1 className={styles.title}>Dataset</h1>
+    <h1 className={styles.title}>CS-Wild-Places: A Novel Benchmark for Cross-Source Lidar Place Recognition in Forest Environments</h1>
   </header>
 );
 
@@ -55,7 +54,7 @@ const OverviewSection: React.FC = () => (
       Overview
     </h2>
     <p className={styles.paragraph}>
-      We present the first benchmark for ground-to-aerial lidar place
+      We present <b>CS-Wild-Places</b>, the first benchmark for <b>cross-source</b> ground-to-aerial lidar place
       recognition in forest environments. We build upon the ground lidar scans provided
       in the <a href="https://csiro-robotics.github.io/Wild-Places/">Wild-Places</a> dataset
       by introducing lidar scans captured from an aerial viewpoint, as 
@@ -158,7 +157,7 @@ const MethodologySection: React.FC = () => (
       <ImageWithCaption
         src="/hotformerloc/assets/dataset/dataset_comparison.png"
         alt="Comparing Datasets"
-        caption="Comparison of CS-Wild-Places with popular LPR benchmarks."
+        caption="Comparison of CS-Wild-Places with popular LPR benchmarks"
       />
     </div>
   </section>
@@ -177,7 +176,7 @@ const BenchmarkingSection: React.FC = () => (
       <ImageWithCaption
         src="/hotformerloc/assets/dataset/experiments_benchmarking.png"
         alt="Benchmarking Results"
-        caption="Recall@N curves of four SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits."
+        caption="Recall@N curves of four SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits"
       />
     </div>
   </section>
@@ -214,7 +213,7 @@ const VisualisationSection: React.FC = () => (
             src_2_title="Venman"
             src_2_path="/hotformerloc/assets/visualisation/venman_aerial_vid.mp4"
           />
-          <figcaption>Aerial global lidar maps from Karawatha and Venman.</figcaption>
+          <figcaption>Global maps produced with aerial lidar scans from Karawatha and Venman.</figcaption>
         </figure>
       </div>
 
@@ -225,30 +224,10 @@ const VisualisationSection: React.FC = () => (
         <ImageWithCaption
           src="/hotformerloc/assets/visualisation/ground_aerial_1.png"
           alt="Ground Vs Aerial Lidar Visualisation"
-          caption="Ground (top) vs Aerial (bottom) lidar scans for a section of Karawatha. Note that a vertical offset is added manually for visualisation purposes."
+          caption="Ground (top) vs Aerial (bottom) lidar scans for a section of Karawatha (note that a vertical offset is added manually for visualisation purposes)"
         />
       </div>
     </div>
-  </section>
-);
-
-const Acknowledgements: React.FC = () => (
-  <section className={styles.section}>
-    <h2 id="acknowledgements" className={styles.sectionHeading}>
-      Acknowledgements
-    </h2>
-    <p className={styles.paragraph}>
-      We would like to acknowledge the authors of the Wild-Places dataset for
-      their work, which serves as the foundation for CS-Wild-Places.
-      We wish to acknowledge the support of the Research Engineering Facility
-      (REF) team at QUT for the provision of expertise and research
-      infrastructure in enablement of this project. We thank Hexagon for
-      providing access to SmartNet RTK corrections service to support precise
-      survey of GCPs. We further acknowledge the support of the Terrestrial
-      Ecosystem Research Network (TERN), supported by the National Collaborative
-      Infrastructure Strategy (NCRIS). Additional funding was provided
-      through the CSIRO's Digital Water and Landscapes initiative (3D-AGB project).
-    </p>
   </section>
 );
 

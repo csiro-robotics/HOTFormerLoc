@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../Common.module.css";
 import homeStyles from "./Home.module.css";
 import PCMVContainer from "../../components/PCMVContainer/PCMVContainer";
+import ContentBlock from "../../components/ContentBlock/ContentBlock";
 import { useNavigate } from "react-router-dom";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -26,8 +27,27 @@ const Overview: React.FC = () => {
       <p className={styles.paragraph}>
         We present <b>HOTFormerLoc</b>, a novel and versatile <b>H</b>ierarchical <b>O</b>ctree-based <b>T</b>rans<b>former</b> for
         large-scale lidar place recognition in both ground-to-ground and
-        ground-to-aerial scenarios across urban and forest environments.
+        ground-to-aerial scenarios across urban and forest environments. We propose:
       </p>
+      <div className={homeStyles.textContainer}>
+        <ul className={homeStyles.dotPoints}>
+          <li>
+            A novel octree-based <b>hierarchical attention</b> that efficiently relays long-range contextual information across multiple scales
+          </li>
+          <li>
+            <b>Cylindrical Octree Attention</b> to better represent the variable density of spinning lidar point clouds
+          </li>
+          <li>
+            <b>Pyramid Attention Pooling</b> to adaptively select and aggregate multi-scale local descriptors into a global descriptor for end-to-end LPR
+          </li>
+        </ul>
+      </div>
+      <ContentBlock
+        imageSrc="/hotformerloc/assets/architecture/architecture_hotformerloc.png"
+        altText="HOTFormerLoc Architecture"
+        caption="HOTFormerLoc Architecture"
+        description=""
+      />
       <p className={styles.paragraph}>
         We also propose <b>CS-Wild-Places</b>, a novel dataset for ground-to-aerial
         lidar place recognition featuring point cloud data from ground and aerial
@@ -37,7 +57,7 @@ const Overview: React.FC = () => {
         <div className={homeStyles.textContainer}>
           <ul className={homeStyles.dotPoints}>
             <li>
-              ~100K high resolution lidar submaps captured in 4 unique forests over
+              ~<b>100K</b> high resolution lidar submaps captured in <b>4 unique forests</b> over
               3 years
             </li>
             <li>
@@ -45,12 +65,12 @@ const Overview: React.FC = () => {
               and significant occlusions between viewpoints
             </li>
             <li>
-              Accurate 6-DoF ground truth for all sequences
+              Accurate <b>6-DoF</b> ground truth for all sequences
             </li>
           </ul>
         </div>
         <div className={homeStyles.videoContainer}>
-          <VideoPlayer src="/hotformerloc/assets/visualisation/karawatha_aerial_vid.mp4" />
+          <VideoPlayer src="/hotformerloc/assets/visualisation/karawatha_submaps_matched_labelled.mp4" />
         </div>
       </div>
     </section>
@@ -99,7 +119,7 @@ const Links: React.FC = () => {
       </button>
 
       <button className={styles.navButton} onClick={() => navigate("/dataset")}>
-        View the Dataset!
+        Use CS-Wild-Places!
       </button>
     </div>
   );
@@ -117,13 +137,61 @@ const Citation: React.FC = () => {
 }`;
   return (
     <section className={styles.futureWork}>
-      <h3 id="citation" className={styles.sectionHeading}>
+      <h2 id="citation" className={styles.sectionHeading}>
         Citation
-      </h3>
+      </h2>
       <p className={styles.paragraph}>If you find this work useful, consider citing our paper!</p>
       <SyntaxHighlighter language="LaTeX" style={materialDark}>
         {citationBibtex}
       </SyntaxHighlighter>
+    </section>
+  );
+};
+
+const Contact: React.FC = () => {
+  return (
+    <section className={styles.section}>
+      <h2 id="contact" className={styles.sectionHeading}>
+        Contact Us
+      </h2>
+      <p className={styles.paragraph}>
+        If you have any feedback about the paper or dataset please contact <a href="ethan.griffiths@data61.csiro.au">ethan.griffiths@data61.csiro.au</a>.
+      </p>
+    </section>
+  );
+};
+
+const Updates: React.FC = () => {
+  return (
+    <section className={styles.section}>
+      <h2 id="updates" className={styles.sectionHeading}>
+        Updates
+      </h2>
+      <p className={styles.paragraph}>
+        <b>2025 Feb:</b> CS-Wild-Places dataset released.
+      </p>
+    </section>
+  );
+};
+
+const Acknowledgements: React.FC = () => {
+  return (
+    <section className={styles.section}>
+      <h2 id="acknowledgements" className={styles.sectionHeading}>
+        Acknowledgements
+      </h2>
+      <p className={styles.paragraph}>
+        We would like to acknowledge the authors of the Wild-Places dataset for
+        their work, which serves as the foundation for CS-Wild-Places.
+        We wish to acknowledge the support of the Research Engineering Facility
+        (REF) team at QUT for the provision of expertise and research
+        infrastructure in enablement of this project. We thank Hexagon for
+        providing access to SmartNet RTK corrections service to support precise
+        survey of GCPs. We further acknowledge the support of the Terrestrial
+        Ecosystem Research Network (TERN), supported by the National Collaborative
+        Infrastructure Strategy (NCRIS). Additional funding was provided
+        through the CSIRO's Digital Water and Landscapes initiative (3D-AGB project).
+      </p>
     </section>
   );
 };
@@ -133,11 +201,14 @@ const Home = () => {
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
-        <Overview />
         <Links />
         <GithubLink />
+        <Overview />
         <Visualise />
-        <Citation/>
+        <Citation />
+        <Contact />
+        <Updates />
+        <Acknowledgements />
       </main>
     </div>
   );

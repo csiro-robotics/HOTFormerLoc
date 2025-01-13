@@ -110,7 +110,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 1.5rem; /* Space between buttons */
-  margin: 2rem 0; /* Top & bottom margins */
+  margin: 1rem 0; /* Top & bottom margins */
 }
 
 .navButton {

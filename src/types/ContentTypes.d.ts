@@ -8,6 +8,8 @@ interface ContentBlockProps {
   }
 
   interface CheckpointRowProps {
-    name: string;
+    model_name: string;
+    dataset: string;
+    weights_name: string;
     link: string;
   }

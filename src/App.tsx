@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Appbar from "./components/Appbar/Appbar";
+// import Appbar from "./components/Appbar/Appbar";
 import DefaultPage from "./pages/DefaultPage";
 import PaperPage from "./pages/Paper";
 import DatasetPage from "./pages/Dataset";
@@ -10,7 +10,6 @@ import NavigationBar from "./components/NavigationBar/NavigationBar";
 function App() {
   return (
     <Router basename="/hotformerloc">
-      {/* <Appbar siteName="HOTFormerLoc" /> */}
       <NavigationBar/>
       <main className="main-content">
         <Routes>

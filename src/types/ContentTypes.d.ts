@@ -3,6 +3,8 @@ interface ContentBlockProps {
     altText: string;
     caption: string;
     description: string;
+    height?: string;
+    width?: string;
   }
 
   interface CheckpointRowProps {

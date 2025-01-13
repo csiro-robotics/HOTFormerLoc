@@ -1,13 +1,14 @@
 import React from "react";
 import ContentBlock from "../../components/ContentBlock/ContentBlock";
 import styles from "../../Common.module.css";
+import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
 
 const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>
-      HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place
-      Recognition Across Ground and Aerial Views
+        HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place
+        Recognition Across Ground and Aerial Views
       </h1>
     </header>
   );
@@ -69,16 +70,20 @@ const NetworkArchitecture: React.FC = () => {
       </h2>
       <p className={styles.paragraph}>
         We use an octree structure to represent point cloud submaps, which
-        provides an inherent spatial hierarchy. We use this structure to generate
-        a hierarchical feature pyramid, which is tokenised and partitioned into
-        local attention windows of size k (k = 3 in this example) inspired by the octree-based
-        attention introduced in <a href="https://dl.acm.org/doi/abs/10.1145/3592131">OctFormer (Wang, 2023)</a>.
-        To efficiently capture long range interactions that are missed by window attention,
-        we introduce a set of <b>relay tokens</b> which summarise local regions
-        at multiple scales. Both local and relay tokens are processed in a
-        series of HOTFormer blocks, iteratively refining features in a global-to-local
-        fashion. A pyramid attention pooling layer then aggregates the multi-scale
-        features into a single global descriptor.
+        provides an inherent spatial hierarchy. We use this structure to
+        generate a hierarchical feature pyramid, which is tokenised and
+        partitioned into local attention windows of size k (k = 3 in this
+        example) inspired by the octree-based attention introduced in{" "}
+        <a href="https://dl.acm.org/doi/abs/10.1145/3592131">
+          OctFormer (Wang, 2023)
+        </a>
+        . To efficiently capture long range interactions that are missed by
+        window attention, we introduce a set of <b>relay tokens</b> which
+        summarise local regions at multiple scales. Both local and relay tokens
+        are processed in a series of HOTFormer blocks, iteratively refining
+        features in a global-to-local fashion. A pyramid attention pooling layer
+        then aggregates the multi-scale features into a single global
+        descriptor.
       </p>
 
       <div className={styles.imageGrid}>
@@ -110,13 +115,13 @@ const NetworkArchitecture: React.FC = () => {
           description=""
         />
         <p className={styles.paragraph}>
-        We compare the attention patterns of a query token (red) from the first,
-        middle, and last RTSA layer in the network (yellow indicates high attention,
-        purple indicates weak attention).
-        We see that RTSA learns a local-to-global attention pattern as it
-        progresses through the network, focusing on fine-grained neighbouring relay
-        tokens in early layers, and progressively widening and coarsening receptive
-        field in later layers.
+          We compare the attention patterns of a query token (red) from the
+          first, middle, and last RTSA layer in the network (yellow indicates
+          high attention, purple indicates weak attention). We see that RTSA
+          learns a local-to-global attention pattern as it progresses through
+          the network, focusing on fine-grained neighbouring relay tokens in
+          early layers, and progressively widening and coarsening receptive
+          field in later layers.
         </p>
         <ContentBlock
           imageSrc="/hotformerloc/assets/architecture/architecture_rtsa_2.png"
@@ -136,24 +141,21 @@ const NetworkArchitecture: React.FC = () => {
           depth d = 3 and window size k = 7. Cylindrical octree attention
           windows better represent the distribution of spinning lidar point
           clouds. */}
-          Given that raw lidar scans
-          suffer from increased sparsity with distance from the sensor,
-          we propose a simple yet effective modification to the octree
-          structure, particularly suited to the circular pattern of spinning
-          lidar. Typically, octrees are constructed in Cartesian
-          coordinates, where the (x, y, z) dimensions are subdivided
-          to form octants. Instead, we construct octrees in cylindrical
-          coordinates, i.e. (&rho;, &theta;, z), to better reflect the distribution
-          of lidar point clouds captured from the ground.
+          Given that raw lidar scans suffer from increased sparsity with
+          distance from the sensor, we propose a simple yet effective
+          modification to the octree structure, particularly suited to the
+          circular pattern of spinning lidar. Typically, octrees are constructed
+          in Cartesian coordinates, where the (x, y, z) dimensions are
+          subdivided to form octants. Instead, we construct octrees in
+          cylindrical coordinates, i.e. (&rho;, &theta;, z), to better reflect
+          the distribution of lidar point clouds captured from the ground.
         </p>
         <p className={styles.paragraph}>
-        The effect of this on the 2D-equivalent of an octree is
-        seen below.
-        Cartesian octree attention windows cover a uniform area
-        and ignore the underlying point density, whereas the cylindrical
-        octree attention windows respect the point distribution, with
-        fine-grained windows near the sensor, and sparser
-        windows at lower-density regions further away.
+          The effect of this on the 2D-equivalent of an octree is seen below.
+          Cartesian octree attention windows cover a uniform area and ignore the
+          underlying point density, whereas the cylindrical octree attention
+          windows respect the point distribution, with fine-grained windows near
+          the sensor, and sparser windows at lower-density regions further away.
         </p>
         <ContentBlock
           imageSrc="/hotformerloc/assets/architecture/architecture_coa_2.png"
@@ -168,15 +170,15 @@ const NetworkArchitecture: React.FC = () => {
           Pyramid Attention Pooling
         </h3>
         <p className={styles.paragraph}>
-          To best utilise the set of hierarchical octree features, we
-          propose a novel pyramid attentional pooling mechanism to
-          aggregate multi-resolution tokens into a distinctive global
-          descriptor whilst adaptively filtering out irrelevant tokens.
-          We introduce a set of learnable query tokens at each resolution
-          to provide flexibility for the network to identify distinctive clusters
-          of tokens that best represent the environment. Importantly, this
-          approach can handle the variable number of local tokens from each
-          level whilst retaining linear computational complexity.
+          To best utilise the set of hierarchical octree features, we propose a
+          novel pyramid attentional pooling mechanism to aggregate
+          multi-resolution tokens into a distinctive global descriptor whilst
+          adaptively filtering out irrelevant tokens. We introduce a set of
+          learnable query tokens at each resolution to provide flexibility for
+          the network to identify distinctive clusters of tokens that best
+          represent the environment. Importantly, this approach can handle the
+          variable number of local tokens from each level whilst retaining
+          linear computational complexity.
         </p>
       </div>
     </section>
@@ -199,10 +201,10 @@ const Experiments: React.FC = () => {
           Comparison to SOTA
         </h3>
         <p className={styles.paragraph}>
-          To demonstrate our method's versatility, we conduct experiments on
-          our novel CS-Wild-Places dataset, as well as CS-Campus3D, Wild-Places,
-          and Oxford RobotCar, using the established training and testing splits
-          for each.
+          To demonstrate our method's versatility, we conduct experiments on our
+          novel CS-Wild-Places dataset, as well as CS-Campus3D, Wild-Places, and
+          Oxford RobotCar, using the established training and testing splits for
+          each.
         </p>
 
         <ContentBlock
@@ -273,11 +275,11 @@ const FutureWork: React.FC = () => {
       </h3>
       <p className={styles.paragraph}>
         While our method demonstrates superior performance on our CS-Wild-Places
-        dataset and outperforms existing SOTA on LPR benchmarks for both
-        ground and aerial views, cross-source LPR remains a promising area for further improvement.
-        There remain avenues to improve HOTFormerLoc, such as token pruning to
-        reduce redundant computations and enhancing feature learning by 
-        introducing multi-modality through image data.
+        dataset and outperforms existing SOTA on LPR benchmarks for both ground
+        and aerial views, cross-source LPR remains a promising area for further
+        improvement. There remain avenues to improve HOTFormerLoc, such as token
+        pruning to reduce redundant computations and enhancing feature learning
+        by introducing multi-modality through image data.
       </p>
     </section>
   );
@@ -294,7 +296,7 @@ const Links: React.FC = () => {
       >
         Checkout the Full Paper!
       </a>
-      
+
       <a
         href="https://github.com/csiro-robotics/HOTFormerLoc"
         target="_blank"
@@ -307,25 +309,20 @@ const Links: React.FC = () => {
   );
 };
 
-
 const Paper: React.FC = () => {
   return (
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
-        <figure className={styles.figure}>
-          <img
-            src="/hotformerloc/assets/dataset/dataset_model_comparison.svg"
-            height="70%"
-            width="70%"
-            alt="HOTFormerLoc performance comparison"
-          />
-          <figcaption>
-          HOTFormerLoc achieves SOTA performance across a suite of LPR
+        <ImageWithCaption
+          src="/hotformerloc/assets/dataset/dataset_model_comparison.svg"
+          alt="HOTFormerLoc performance comparison"
+          caption="    HOTFormerLoc achieves SOTA performance across a suite of LPR
           benchmarks with diverse environments, varying viewpoints, and
-          different point cloud densities.
-          </figcaption>
-        </figure>
+          different point cloud densities."
+          height="50%"
+          width="50%"
+        />
         <Links />
         <Summary />
         <NetworkArchitecture />

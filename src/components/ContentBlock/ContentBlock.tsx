@@ -8,9 +8,11 @@ const ContentBlock: React.FC<ContentBlockProps> = ({
     altText,
     caption,
     description,
+    height, 
+    width
   }) => (
     <div className={styles.imageGrid}>
-      <ImageWithCaption src={imageSrc} alt={altText} caption={caption} />
+      <ImageWithCaption src={imageSrc} alt={altText} caption={caption} height={height} width={width} />
       <p className={styles.paragraph}>{description}</p>
     </div>
   );

@@ -1,4 +1,4 @@
-import { FC, useState, MouseEvent } from "react";
+import { FC, useState, MouseEvent, memo, useCallback } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
@@ -8,8 +8,8 @@ const HoverNavDropdown: FC<{ item: NavigationItem }> = ({ item }) => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const handleMouseEnter = () => setShow(true);
-  const handleMouseLeave = () => setShow(false);
+  const handleMouseEnter = useCallback(() => setShow(true), []);
+  const handleMouseLeave = useCallback(() => setShow(false), []);
 
   const handleParentClick = (event: MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
@@ -43,7 +43,7 @@ const HoverNavDropdown: FC<{ item: NavigationItem }> = ({ item }) => {
   );
 };
 
-const NavigationBar: FC<NavigationBarProps> = ({ navigationItems }) => {
+const NavigationBar: FC<NavigationBarProps> = memo(({ navigationItems }) => {
   return (
     <Navbar
       style={{
@@ -59,7 +59,7 @@ const NavigationBar: FC<NavigationBarProps> = ({ navigationItems }) => {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbar-nav" />
-        <Navbar.Collapse id="navbar-nav" >
+        <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
             {navigationItems.map((item) =>
               item.children && item.children.length > 0 ? (
@@ -75,6 +75,6 @@ const NavigationBar: FC<NavigationBarProps> = ({ navigationItems }) => {
       </Container>
     </Navbar>
   );
-};
+}, (prevProps, nextProps) => prevProps.navigationItems === nextProps.navigationItems);
 
 export default NavigationBar;

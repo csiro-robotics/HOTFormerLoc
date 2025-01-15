@@ -3,6 +3,7 @@ import ContentBlock from "../../components/ContentBlock/ContentBlock";
 import styles from "../../Common.module.css";
 import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
 import Header from "../../components/Header/Header";
+import { useNavigate } from "react-router-dom";
 
 const Summary: React.FC = () => {
   return (
@@ -248,25 +249,38 @@ const FutureWork: React.FC = () => {
 };
 
 const Links: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.buttonContainer}>
       <a
-        href="https://www.google.com"
+        href="https://www.arxiv.org"
         target="_blank"
         rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
         className={styles.navButton}
       >
-        Checkout the Full Paper!
+        arXiv
       </a>
 
       <a
         href="https://github.com/csiro-robotics/HOTFormerLoc"
         target="_blank"
         rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
         className={styles.navButton}
       >
-        Visit our GitHub Repo!
+        GitHub
       </a>
+      <button className={styles.navButton} onClick={() => navigate("/download")}>
+        Checkpoint Download
+      </button>
     </div>
   );
 };

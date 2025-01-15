@@ -19,17 +19,19 @@
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 2.8rem;
   padding-bottom: 2rem;
+  max-width: 1300px;
   color: #004d1a;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .subtitle {
   font-size: 1.5rem;
   color: #004d1a;
+  max-width: 800px;
   padding-bottom: 2rem;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .main {
@@ -47,7 +49,7 @@
 }
 
 .sectionHeading {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #004d1a;
   border-bottom: 2px solid #004d1a;
   padding-bottom: 5px;
@@ -55,7 +57,7 @@
 }
 
 .subHeading {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #006622;
   margin-bottom: 10px;
 }
@@ -118,7 +120,8 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 1.5rem; /* Space between buttons */
-  margin: 1rem 0; /* Top & bottom margins */
+  padding: 0px 0px 10px 0px /* Bottom margins */
+  /* margin: 1rem 0; /* Top & bottom margins */
 }
 
 .navButton {

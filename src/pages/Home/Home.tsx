@@ -92,20 +92,20 @@ const Visualise: React.FC = () => {
   );
 };
 
-const GithubLink: React.FC = () => {
-  return (
-    <div className={styles.buttonContainer}>
-      <a
-        href="https://github.com/csiro-robotics/HOTFormerLoc"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.navButton}
-      >
-        Visit our GitHub Repo!
-      </a>
-    </div>
-  );
-};
+// const GithubLink: React.FC = () => {
+//   return (
+//     <div className={styles.buttonContainer}>
+//       <a
+//         href="https://github.com/csiro-robotics/HOTFormerLoc"
+//         target="_blank"
+//         rel="noopener noreferrer"
+//         className={styles.navButton}
+//       >
+//         Visit our GitHub Repo!
+//       </a>
+//     </div>
+//   );
+// };
 
 const Links: React.FC = () => {
   const navigate = useNavigate();
@@ -113,11 +113,34 @@ const Links: React.FC = () => {
   return (
     <div className={styles.buttonContainer}>
       <button className={styles.navButton} onClick={() => navigate("/paper")}>
-        Checkout the Paper!
+        Paper
       </button>
-
+      <a
+        href="https://www.arxiv.org"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
+        className={styles.navButton}
+      >
+        arXiv
+      </a>
+      <a
+        href="https://github.com/csiro-robotics/HOTFormerLoc"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
+        className={styles.navButton}
+      >
+        GitHub
+      </a>
       <button className={styles.navButton} onClick={() => navigate("/dataset")}>
-        Use CS-Wild-Places!
+        CS-Wild-Places Dataset
       </button>
     </div>
   );
@@ -205,7 +228,6 @@ const Home = () => {
       <Header />
       <main className={styles.main}>
         <Links />
-        <GithubLink />
         <Overview />
         <Visualise />
         <Citation />

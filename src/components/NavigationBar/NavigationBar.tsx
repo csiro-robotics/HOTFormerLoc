@@ -1,135 +1,71 @@
-import React from "react";
+import { FC, useState, MouseEvent } from "react";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "./NavBar.module.css";
+import { HashLink } from "react-router-hash-link";
+import "./NavigationBar.css"
 
-const navigationItems: NavigationItem[] = [
-  {
-    label: "Home",
-    path: "/",
-    children: [
-      { label: "Overview", path: "/#overview" },
-      { label: "Interactive Submap Visualisation", path: "/#visualise-submap" },
-      { label: "Citation", path: "/#citation" },
-      { label: "Contact Us", path: "/#contact" },
-      { label: "Updates", path: "/#updates" },
-      { label: "Acknowledgements", path: "/#acknowledgements" },
-    ],
-  },
-  {
-    label: "Paper",
-    path: "/paper",
-    children: [
-      { label: "Summary", path: "/paper#summary" },
-      {
-        label: "Network Architecture",
-        path: "/paper#network-architecture",
-        children: [
-          { label: "HOTFormerLoc", path: "/paper#hotformerloc" },
-          { label: "Cyndrical Octree Attention", path: "/paper#coa" },
-          { label: "Pyramid Attention Pooling", path: "/paper#pap" },
-        ],
-      },
-      {
-        label: "Experiments",
-        path: "/paper#experiments",
-        children: [
-          { label: "Comparison to SOTA", path: "/paper#sota-comparison" },
-          { label: "Ablation Study", path: "/paper#ablation-study" },
-        ],
-      },
-      { label: "Future Work", path: "/paper#future-work" },
-    ],
-  },
-  {
-    label: "CS-Wild-Places",
-    path: "/dataset",
-    children: [
-      { label: "Overview", path: "/dataset#overview" },
-      { label: "Visualisation", path: "/dataset#visualisation" },
-      { label: "Methodology", path: "/dataset#methodology" },
-      { label: "Benchmarking", path: "/dataset#benchmarking" },
-    ],
-  },
-  {
-    label: "Downloads",
-    path: "/download",
-    children: [
-      { label: "Checkpoints", path: "/download#checkpoint" },
-      { label: "Dataset", path: "/download#dataset" },
-      { label: "Usage Examples", path: "/download#usage-examples" },
-    ],
-  },
-];
-
-const NavBar: React.FC = () => {
+const HoverNavDropdown: FC<{ item: NavigationItem }> = ({ item }) => {
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const handleNavigation = (fullPath: string) => {
-    navigate(fullPath);
-    const hashIndex = fullPath.indexOf("#");
-    if (hashIndex !== -1) {
-      const id = fullPath.slice(hashIndex + 1);
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 100);
-    }
+  const handleMouseEnter = () => setShow(true);
+  const handleMouseLeave = () => setShow(false);
+
+  const handleParentClick = (event: MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    navigate(item.path);
   };
 
   return (
+    <NavDropdown
+      title={
+        <span onClick={handleParentClick} style={{ cursor: "pointer" }}>
+          {item.label}
+        </span>
+      }
+      id={`${item.label}-dropdown`}
+      show={show}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {item.children?.map((child) => (
+        <NavDropdown.Item
+          as={HashLink}
+          smooth
+          to={child.path}
+          key={child.label}
+        >
+          {child.label}
+        </NavDropdown.Item>
+      ))}
+    </NavDropdown>
+  );
+};
+
+const NavigationBar: FC<NavigationBarProps> = ({ navigationItems }) => {
+  return (
     <Navbar
-      style={{ backgroundColor: "#004d1a" }}
+      style={{
+        backgroundColor: "#004d1a"
+      }}
       variant="dark"
       expand="lg"
       sticky="top"
     >
       <Container>
-        <Navbar.Brand
-          style={{ cursor: "pointer" }}
-          onClick={() => handleNavigation("/")}
-        >
+        <Navbar.Brand as={HashLink} to="/" smooth>
           HOTFormerLoc
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav" >
           <Nav className="ms-auto">
             {navigationItems.map((item) =>
-              item.children ? (
-                <NavDropdown
-                  key={item.label}
-                  title={
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavigation(item.path);
-                      }}
-                    >
-                      {item.label}
-                    </span>
-                  }
-                  id={`nav-dropdown-${item.label}`}
-                >
-                  {item.children.map((child) => (
-                    <NavDropdown.Item
-                      key={child.label}
-                      onClick={() => handleNavigation(child.path)}
-                      style={{ color: "#004d1a" }}
-                    >
-                      {child.label}
-                    </NavDropdown.Item>
-                  ))}
-                </NavDropdown>
+              item.children && item.children.length > 0 ? (
+                <HoverNavDropdown item={item} key={item.label} />
               ) : (
-                <Nav.Link
-                  key={item.label}
-                  onClick={() => handleNavigation(item.path)}
-                >
+                <Nav.Link as={HashLink} smooth to={item.path} key={item.label}>
                   {item.label}
                 </Nav.Link>
               )
@@ -141,4 +77,4 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+export default NavigationBar;

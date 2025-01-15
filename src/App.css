@@ -5,3 +5,7 @@
   min-width: 100%;
   margin: 0 auto;
 }
+
+html {
+  scroll-behavior: smooth;
+}

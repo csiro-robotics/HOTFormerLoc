@@ -20,7 +20,15 @@
 
 .title {
   font-size: 2rem;
+  padding-bottom: 2rem;
   color: #004d1a;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #004d1a;
+  padding-bottom: 2rem;
   margin: 0;
 }
 

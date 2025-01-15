@@ -2,47 +2,7 @@ import React from "react";
 import ContentBlock from "../../components/ContentBlock/ContentBlock";
 import styles from "../../Common.module.css";
 import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
-
-const Header: React.FC = () => {
-  return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>
-        HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place
-        Recognition Across Ground and Aerial Views
-      </h1>
-    </header>
-  );
-};
-
-// const DownloadLink: React.FC = () => {
-//   return (
-//     <div className={styles.buttonContainer}>
-//       <a
-//         href="https://www.google.com"
-//         target="_blank"
-//         rel="noopener noreferrer"
-//         className={styles.navButton}
-//       >
-//         Checkout the Full Paper!
-//       </a>
-//     </div>
-//   );
-// };
-
-// const GithubLink: React.FC = () => {
-//   return (
-//     <div className={styles.buttonContainer}>
-//       <a
-//         href="https://github.com/csiro-robotics/HOTFormerLoc"
-//         target="_blank"
-//         rel="noopener noreferrer"
-//         className={styles.navButton}
-//       >
-//         Visit the HOTFormerLoc Repo!
-//       </a>
-//     </div>
-//   );
-// };
+import Header from "../../components/Header/Header";
 
 const Summary: React.FC = () => {
   return (

@@ -3,3 +3,6 @@ interface NavigationItem {
   path: string;
   children?: NavigationItem[];
 }
+interface NavigationBarProps {
+  navigationItems: NavigationItem[];
+}

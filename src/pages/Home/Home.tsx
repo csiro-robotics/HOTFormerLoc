@@ -7,16 +7,7 @@ import { useNavigate } from "react-router-dom";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-const Header: React.FC = () => {
-  return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>
-        HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place
-        Recognition Across Ground and Aerial Views
-      </h1>
-    </header>
-  );
-};
+import Header from "../../components/Header/Header";
 
 const Overview: React.FC = () => {
   return (
@@ -25,20 +16,26 @@ const Overview: React.FC = () => {
         Overview
       </h2>
       <p className={styles.paragraph}>
-        We present <b>HOTFormerLoc</b>, a novel and versatile <b>H</b>ierarchical <b>O</b>ctree-based <b>T</b>rans<b>former</b> for
+        We present <b>HOTFormerLoc</b>, a novel and versatile <b>H</b>
+        ierarchical <b>O</b>ctree-based <b>T</b>rans<b>former</b> for
         large-scale lidar place recognition in both ground-to-ground and
-        ground-to-aerial scenarios across urban and forest environments. We propose:
+        ground-to-aerial scenarios across urban and forest environments. We
+        propose:
       </p>
       <div className={homeStyles.textContainer}>
         <ul className={homeStyles.dotPoints}>
           <li>
-            A novel octree-based <b>hierarchical attention</b> that efficiently relays long-range contextual information across multiple scales
+            A novel octree-based <b>hierarchical attention</b> that efficiently
+            relays long-range contextual information across multiple scales
           </li>
           <li>
-            <b>Cylindrical Octree Attention</b> to better represent the variable density of spinning lidar point clouds
+            <b>Cylindrical Octree Attention</b> to better represent the variable
+            density of spinning lidar point clouds
           </li>
           <li>
-            <b>Pyramid Attention Pooling</b> to adaptively select and aggregate multi-scale local descriptors into a global descriptor for end-to-end LPR
+            <b>Pyramid Attention Pooling</b> to adaptively select and aggregate
+            multi-scale local descriptors into a global descriptor for
+            end-to-end LPR
           </li>
         </ul>
       </div>
@@ -49,16 +46,17 @@ const Overview: React.FC = () => {
         description=""
       />
       <p className={styles.paragraph}>
-        We also propose <b>CS-Wild-Places</b>, a novel dataset for ground-to-aerial
-        lidar place recognition featuring point cloud data from ground and aerial
-        lidar scans captured in dense forests. Our dataset features:
+        We also propose <b>CS-Wild-Places</b>, a novel dataset for
+        ground-to-aerial lidar place recognition featuring point cloud data from
+        ground and aerial lidar scans captured in dense forests. Our dataset
+        features:
       </p>
       <div className={homeStyles.contentContainer}>
         <div className={homeStyles.textContainer}>
           <ul className={homeStyles.dotPoints}>
             <li>
-              ~<b>100K</b> high resolution lidar submaps captured in <b>4 unique forests</b> over
-              3 years
+              ~<b>100K</b> high resolution lidar submaps captured in{" "}
+              <b>4 unique forests</b> over 3 years
             </li>
             <li>
               Challenging representational gaps such as variable point density
@@ -82,7 +80,7 @@ const Visualise: React.FC = () => {
     <div>
       <section className={styles.section}>
         <h2 id="visualise-submap" className={styles.sectionHeading}>
-        Interactive Submap Visualisation
+          Interactive Submap Visualisation
         </h2>
         <PCMVContainer
           title1="Aerial View"
@@ -125,7 +123,6 @@ const Links: React.FC = () => {
   );
 };
 
-
 const Citation: React.FC = () => {
   const citationBibtex = `@InProceedings{HOTFormerLoc,
 	author    = {Griffiths, Ethan and Haghighat, Maryam and Denman, Simon and Fookes, Clinton and Ramezani, Milad},
@@ -140,7 +137,9 @@ const Citation: React.FC = () => {
       <h2 id="citation" className={styles.sectionHeading}>
         Citation
       </h2>
-      <p className={styles.paragraph}>If you find this work useful, consider citing our paper!</p>
+      <p className={styles.paragraph}>
+        If you find this work useful, consider citing our paper!
+      </p>
       <SyntaxHighlighter language="LaTeX" style={materialDark}>
         {citationBibtex}
       </SyntaxHighlighter>
@@ -155,7 +154,11 @@ const Contact: React.FC = () => {
         Contact Us
       </h2>
       <p className={styles.paragraph}>
-        If you have any feedback about the paper or dataset please contact <a href="ethan.griffiths@data61.csiro.au">ethan.griffiths@data61.csiro.au</a>.
+        If you have any feedback about the paper or dataset please contact{" "}
+        <a href="ethan.griffiths@data61.csiro.au">
+          ethan.griffiths@data61.csiro.au
+        </a>
+        .
       </p>
     </section>
   );
@@ -182,15 +185,15 @@ const Acknowledgements: React.FC = () => {
       </h2>
       <p className={styles.paragraph}>
         We would like to acknowledge the authors of the Wild-Places dataset for
-        their work, which serves as the foundation for CS-Wild-Places.
-        We wish to acknowledge the support of the Research Engineering Facility
-        (REF) team at QUT for the provision of expertise and research
-        infrastructure in enablement of this project. We thank Hexagon for
-        providing access to SmartNet RTK corrections service to support precise
-        survey of GCPs. We further acknowledge the support of the Terrestrial
-        Ecosystem Research Network (TERN), supported by the National Collaborative
-        Infrastructure Strategy (NCRIS). Additional funding was provided
-        through the CSIRO's Digital Water and Landscapes initiative (3D-AGB project).
+        their work, which serves as the foundation for CS-Wild-Places. We wish
+        to acknowledge the support of the Research Engineering Facility (REF)
+        team at QUT for the provision of expertise and research infrastructure
+        in enablement of this project. We thank Hexagon for providing access to
+        SmartNet RTK corrections service to support precise survey of GCPs. We
+        further acknowledge the support of the Terrestrial Ecosystem Research
+        Network (TERN), supported by the National Collaborative Infrastructure
+        Strategy (NCRIS). Additional funding was provided through the CSIRO's
+        Digital Water and Landscapes initiative (3D-AGB project).
       </p>
     </section>
   );

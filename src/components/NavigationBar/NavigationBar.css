@@ -1,0 +1,10 @@
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+}
+
+.dropdown-item:focus,
+.dropdown-item:active,
+.dropdown-item.show {
+  background-color: green !important;
+  color: #fff !important;
+}

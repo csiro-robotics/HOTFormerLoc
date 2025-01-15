@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     {
       firstName: "Ethan",
       lastName: "Griffiths",
-      university: "QUT",
+      university: "QUT, CSIRO Data61",
       link: "https://scholar.google.com/citations?user=a6BiSqoAAAAJ&hl=en",
     },
     {
@@ -42,8 +42,7 @@ const Header: React.FC = () => {
         Recognition Across Ground and Aerial Views
       </h1>
       <h4 className={styles.subtitle}>
-        Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
-        Recognition (CVPR)
+      IEEE/CVF Conference on Computer Vision and Pattern Recognition 2025 (CVPR 2025)
       </h4>
       <AuthorsBar authors={authors} />
     </header>

@@ -22,12 +22,11 @@ const AuthorsBar: React.FC<AuthorsBarProps> = ({ authors }) => {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                textDecoration: 'none',
                 color: '#000',
                 fontWeight: 'bold',
               }}
             >
-              {author.lastName}, {author.firstName}
+              {author.firstName} {author.lastName}
             </a>
             <span style={{ fontSize: '0.9rem', marginTop: '0.25rem' }}>
               {author.university}

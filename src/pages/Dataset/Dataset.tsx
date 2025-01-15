@@ -4,6 +4,7 @@ import VideoPlayerContainer from "../../components/VideoPlayerContainer/VideoPla
 import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
 import PCMVContainer from "../../components/PCMVContainer/PCMVContainer";
 import styles from "../../Common.module.css";
+import { useNavigate } from "react-router-dom";
 
 const images = [
   "/hotformerloc/assets/slides/karawatha_aerial_1.png",
@@ -27,6 +28,7 @@ const Dataset: React.FC = () => {
       <Header />
       <main className={styles.main}>
         <SlideshowSection />
+        <Links />
         <OverviewSection />
         <VisualisationSection />
         <MethodologySection />
@@ -41,6 +43,30 @@ const Header: React.FC = () => (
     <h1 className={styles.title}>CS-Wild-Places: A Novel Benchmark for Cross-Source Lidar Place Recognition in Forest Environments</h1>
   </header>
 );
+
+const Links: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className={styles.buttonContainer}>
+      <a
+        href="https://github.com/csiro-robotics/HOTFormerLoc"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
+        className={styles.navButton}
+      >
+        GitHub
+      </a>
+      <button className={styles.navButton} onClick={() => navigate("/download")}>
+        Download
+      </button>
+    </div>
+  );
+};
 
 const SlideshowSection: React.FC = () => (
   <section className={styles.section}>

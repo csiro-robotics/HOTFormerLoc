@@ -146,7 +146,7 @@ const OverviewSection: React.FC = () => (
     <p className={styles.paragraph}>
       We release the data in two main configurations: raw (submaps randomly
       downsampled to 500k points max), and post-processed (submaps voxel-downsampled
-      with 0.8 m voxels, ground points removed, with and without normalisation).
+      with 0.8m voxels, ground points removed, with and without normalisation).
     </p>
   </section>
 );
@@ -182,10 +182,10 @@ const MethodologySection: React.FC = () => (
       Karawatha, Venman, and QCAT, we used a DJI M300 quadcopter with a VLP-32C
       lidar sensor. For Samford, we used an Acecore NOA hexacopter equipped
       with a RIEGL VUX-120 pushbroom lidar. Both drones flew in a lawnmower
-      pattern over forested areas at a consistent height of 50-100 m above the canopy.
+      pattern over forested areas at a consistent height of 50-100m above the canopy.
       GPS RTK is used for all aerial scans to ensure precise geo-registration in
       UTM coordinates. We align overlapping ground and aerial areas using
-      iterative closest point until the RMSE between correspondences is ≤ 0.5 m.
+      iterative closest point until the RMSE between correspondences is ≤ 0.5m.
     </p>
     <h3 id="submap-generation" className={styles.subHeading}>
       Submap Generation
@@ -212,19 +212,19 @@ const MethodologySection: React.FC = () => (
       We follow two protocols to generate lidar submaps suitable for LPR. Ground
       submaps are sampled at 0.5 Hz along each trajectory, aggregating all points
       captured within a two second sliding window of the corresponding timestamp,
-      within a 30 m horizontal radius. Points are stored in the submap's local
+      within a 30m horizontal radius. Points are stored in the submap's local
       coordinates, along with the 6-DoF pose in UTM coordinates.
 
-      Aerial submaps are uniformly sampled from a 10 m spaced grid spanning
+      Aerial submaps are uniformly sampled from a 10m spaced grid spanning
       the aerial map. To create a realistic scenario, grid borders are set to
       sample a much larger area than is covered by the ground traversals. For
-      consistency with ground submaps, we limit submaps to a 30 m horizontal
+      consistency with ground submaps, we limit submaps to a 30m horizontal
       radius. This produces a set of overlapping aerial patches that form a
       comprehensive database covering each forest. 
 
       We further post-process submaps, removing all points situated on the
       ground plane using a Cloth Simulation Filter (CSF). To save computation,
-      we voxel downsample submaps with voxel size of 0.8 m, generating submaps
+      we voxel downsample submaps with voxel size of 0.8m, generating submaps
       with an average of 28k points.
     </p>
     <h3 id="train-eval" className={styles.subHeading}>
@@ -250,12 +250,12 @@ const MethodologySection: React.FC = () => (
       Wild-Places. To prevent information leakage between training and evaluation,
       we exclude any submaps from training that overlap the evaluation queries.
       For optimising triplet-based losses, we construct training tuples with a
-      15 m positive threshold, and 60 m negative threshold.
+      15m positive threshold, and 60m negative threshold.
       During evaluation, we use the withheld Baseline ground submaps as queries,
       and all aerial submaps as a per-forest database.
       We test generalisation to new environments on our Unseen test set, using all
       submaps in the set to form the ground queries and per-forest aerial database.
-      We consider a true positive retrieval threshold of 30 m during evaluation.
+      We consider a true positive retrieval threshold of 30m during evaluation.
     </p>
   </section>
 );

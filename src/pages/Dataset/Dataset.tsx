@@ -1,33 +1,35 @@
 import React from "react";
-import Slideshow from "../../components/Slideshow/Slideshow";
+// import Slideshow from "../../components/Slideshow/Slideshow";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import VideoPlayerContainer from "../../components/VideoPlayerContainer/VideoPlayerContainer";
 import ImageWithCaption from "../../components/ImageWithCaption/ImageWithCaption";
 import PCMVContainer from "../../components/PCMVContainer/PCMVContainer";
 import styles from "../../Common.module.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-const images = [
-  "/hotformerloc/assets/slides/karawatha_aerial_1.png",
-  "/hotformerloc/assets/slides/karawatha_ground_1.png",
-  "/hotformerloc/assets/slides/karawatha_aerial_2.png",
-  "/hotformerloc/assets/slides/karawatha_ground_2.png",
-  "/hotformerloc/assets/slides/karawatha_aerial_3.png",
-  "/hotformerloc/assets/slides/karawatha_ground_3.png",
+// const images = [
+//   "/hotformerloc/assets/slides/karawatha_aerial_1.png",
+//   "/hotformerloc/assets/slides/karawatha_ground_1.png",
+//   "/hotformerloc/assets/slides/karawatha_aerial_2.png",
+//   "/hotformerloc/assets/slides/karawatha_ground_2.png",
+//   "/hotformerloc/assets/slides/karawatha_aerial_3.png",
+//   "/hotformerloc/assets/slides/karawatha_ground_3.png",
 
-  "/hotformerloc/assets/slides/venman_aerial_1.png",
-  "/hotformerloc/assets/slides/venman_ground_1.png",
-  "/hotformerloc/assets/slides/venman_aerial_2.png",
-  "/hotformerloc/assets/slides/venman_ground_2.png",
-  "/hotformerloc/assets/slides/venman_aerial_3.png",
-  "/hotformerloc/assets/slides/venman_ground_3.png",
-];
+//   "/hotformerloc/assets/slides/venman_aerial_1.png",
+//   "/hotformerloc/assets/slides/venman_ground_1.png",
+//   "/hotformerloc/assets/slides/venman_aerial_2.png",
+//   "/hotformerloc/assets/slides/venman_ground_2.png",
+//   "/hotformerloc/assets/slides/venman_aerial_3.png",
+//   "/hotformerloc/assets/slides/venman_ground_3.png",
+// ];
 
 const Dataset: React.FC = () => {
   return (
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
-        <SlideshowSection />
+        {/* <SlideshowSection /> */}
+        <VideoSection/>
         <Links />
         <OverviewSection />
         <VisualisationSection />
@@ -45,11 +47,11 @@ const Header: React.FC = () => (
 );
 
 const Links: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className={styles.buttonContainer}>
-      <a
+      {/* <a
         href="https://github.com/csiro-robotics/HOTFormerLoc"
         target="_blank"
         rel="noopener noreferrer"
@@ -60,17 +62,35 @@ const Links: React.FC = () => {
         className={styles.navButton}
       >
         GitHub
-      </a>
-      <button className={styles.navButton} onClick={() => navigate("/download")}>
+      </a> */}
+      <a
+        href="https://data.csiro.au/collection/csiro:64896"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
+        className={styles.navButton}
+      >
         Download
-      </button>
+      </a>
+      {/* <button className={styles.navButton} onClick={() => navigate("/download")}>
+        Download
+      </button> */}
     </div>
   );
 };
 
-const SlideshowSection: React.FC = () => (
+// const SlideshowSection: React.FC = () => (
+//   <section className={styles.section}>
+//     <Slideshow images={images} />
+//   </section>
+// );
+
+const VideoSection: React.FC = () => (
   <section className={styles.section}>
-    <Slideshow images={images} />
+    <VideoPlayer src={"/hotformerloc/assets/visualisation/HOTFormerLoc_website_submap_preview.mp4"} />
   </section>
 );
 
@@ -81,29 +101,35 @@ const OverviewSection: React.FC = () => (
     </h2>
     <p className={styles.paragraph}>
       We present <b>CS-Wild-Places</b>, the first benchmark for <b>cross-source</b> ground-to-aerial lidar place
-      recognition in forest environments. We build upon the ground lidar scans provided
+      recognition in forest environments. We build upon the 8 ground sequences introduced
       in the <a href="https://csiro-robotics.github.io/Wild-Places/">Wild-Places</a> dataset
-      by introducing lidar scans captured from an aerial viewpoint, as 
-      well as ground and aerial scans captured in two new forest environments.
+      by capturing aerial lidar scans of Karawatha and Venman forests, forming our "Baseline"
+      set. We further introduce ground and aerial lidar scans from two new forests: QCAT and
+      Samford Ecological Research Facility, forming our "Unseen" testing set. 
       Our dataset features:
     </p>
     <ul className={styles.list}>
       <li>
         High-resolution lidar scans captured from ground and aerial perspectives
-        over a three-year span in four unique forest environments in Brisbane,
-        Australia
+        over 10 months in four unique forest environments in Brisbane,
+        Australia.
+      </li>
+      <li>
+        370 hectares of aerial lidar coverage and 3.5 km of ground traversals, 
+        supplementing the 32.9 km of ground traversals in Wild-Places with up to
+        3 years between ground and aerial scans.
       </li>
       <li>
         Accurate 6-DoF ground truth pose generated by Wildcat SLAM,
-        geo-registered with RTK GNSS
+        geo-registered with RTK GNSS.
       </li>
       <li>
-        Over 72K submaps for training and over 18K submaps for evaluation, split
-        into Baseline and Unseen sets to test downstream generalisation
+        Over 72k submaps for training and over 18k submaps for evaluation, split
+        into Baseline and Unseen sets to test downstream generalisation.
       </li>
       <li>
         Challenging representational gaps such as variable point density and
-        significant occlusions between viewpoints
+        significant occlusions between viewpoints.
       </li>
     </ul>
     <ImageWithCaption
@@ -112,6 +138,16 @@ const OverviewSection: React.FC = () => (
       caption="(Top row) Visualisation of the aerial global map of all four forests in CS-Wild-Places, with corresponding ground trajectories overlayed.
         (Bottom row) Submaps representing a scene from the ground and aerial perspective in each forest. The dense forest canopy creates major occlusions between viewpoints."
     />
+    <ImageWithCaption
+      src="/hotformerloc/assets/dataset/dataset_comparison.png"
+      alt="Comparing Datasets"
+      caption="Comparison of CS-Wild-Places with popular LPR benchmarks"
+    />
+    <p className={styles.paragraph}>
+      We release the data in two main configurations: raw (submaps randomly
+      downsampled to 500k points max), and post-processed (submaps voxel-downsampled
+      with 0.8 m voxels, ground points removed, with and without normalisation).
+    </p>
   </section>
 );
 
@@ -124,7 +160,7 @@ const MethodologySection: React.FC = () => (
       Data Collection
     </h3>
     <p className={styles.paragraph}>
-      Ground data collection uses a handheld perception pack with a VLP-16 lidar sensor, collected on foot. 
+      {/* Ground data collection uses a handheld perception pack with a VLP-16 lidar sensor, collected on foot. 
       We employed a SLAM system integrating GPS, IMU, and lidar to generate globally consistent maps and 
       near-ground truth trajectories. To capture aerial maps with varying
       characteristics, we collected data in two settings. For the main dataset (“Baseline”),
@@ -135,13 +171,27 @@ const MethodologySection: React.FC = () => (
       RTK is used for all ground and aerial scans to ensure geo-registration in
       UTM coordinates. To refine alignment between overlapping ground and aerial
       areas, we apply iterative closest point (ICP) until the RMSE between
-      correspondences is ≤ 0.5m.
+      correspondences is ≤ 0.5m. */}
+      Ground data collection uses a handheld perception pack with spinning VLP-16
+      lidar sensor. We capture 2 sequences on foot in QCAT and Samford, 
+      supplementing the 8 Wild-Places sequences for a total of 36.4 km traversal
+      over 13.8 km of trails. To generate globally consistent maps and near-ground
+      truth trajectories, we use Wildcat SLAM, integrating GPS, IMU, and lidar.
+      
+      For aerial data collection, we deployed two drone configurations. For
+      Karawatha, Venman, and QCAT, we used a DJI M300 quadcopter with a VLP-32C
+      lidar sensor. For Samford, we used an Acecore NOA hexacopter equipped
+      with a RIEGL VUX-120 pushbroom lidar. Both drones flew in a lawnmower
+      pattern over forested areas at a consistent height of 50-100 m above the canopy.
+      GPS RTK is used for all aerial scans to ensure precise geo-registration in
+      UTM coordinates. We align overlapping ground and aerial areas using
+      iterative closest point until the RMSE between correspondences is ≤ 0.5 m.
     </p>
     <h3 id="submap-generation" className={styles.subHeading}>
       Submap Generation
     </h3>
     <p className={styles.paragraph}>
-      We follow two protocols to generate lidar submaps for training and testing.
+      {/* We follow two protocols to generate lidar submaps for training and testing.
       Ground submaps are sampled every two seconds along each trajectory,
       aggregating all points captured within one second of the corresponding
       timestamp, within a 30m horizontal radius. Points are stored in the local
@@ -158,13 +208,30 @@ const MethodologySection: React.FC = () => (
       situated on the ground plane using a Cloth Simulation Filter
       (CSF). For training LPR methods, we elect to voxel
       downsample submaps with voxel size 0.8m, generating
-      submaps with an average of 28K points.
+      submaps with an average of 28K points. */}
+      We follow two protocols to generate lidar submaps suitable for LPR. Ground
+      submaps are sampled at 0.5 Hz along each trajectory, aggregating all points
+      captured within a two second sliding window of the corresponding timestamp,
+      within a 30 m horizontal radius. Points are stored in the submap's local
+      coordinates, along with the 6-DoF pose in UTM coordinates.
+
+      Aerial submaps are uniformly sampled from a 10 m spaced grid spanning
+      the aerial map. To create a realistic scenario, grid borders are set to
+      sample a much larger area than is covered by the ground traversals. For
+      consistency with ground submaps, we limit submaps to a 30 m horizontal
+      radius. This produces a set of overlapping aerial patches that form a
+      comprehensive database covering each forest. 
+
+      We further post-process submaps, removing all points situated on the
+      ground plane using a Cloth Simulation Filter (CSF). To save computation,
+      we voxel downsample submaps with voxel size of 0.8 m, generating submaps
+      with an average of 28k points.
     </p>
     <h3 id="train-eval" className={styles.subHeading}>
       Training and Evaluation Splits
     </h3>
     <p className={styles.paragraph}>
-      We train LPR methods using submaps from Karawatha and Venman, and
+      {/* We train LPR methods using submaps from Karawatha and Venman, and
       following Wild-Places, we withhold a disjoint set of submaps to form the
       Baseline evaluation set. To prevent information leakage between the training
       and evaluation sets, we exclude any submaps from training
@@ -177,15 +244,19 @@ const MethodologySection: React.FC = () => (
       generalisation on unseen environments, using all submaps
       from QCAT and Samford forests to form the ground queries and a
       per-forest aerial database. We consider a true positive retrieval
-      threshold of 30m during evaluation.
+      threshold of 30m during evaluation. */}
+      We train LPR methods using submaps from the Baseline set, and withhold a
+      disjoint set of submaps for evaluation, following the test regions of
+      Wild-Places. To prevent information leakage between training and evaluation,
+      we exclude any submaps from training that overlap the evaluation queries.
+      For optimising triplet-based losses, we construct training tuples with a
+      15 m positive threshold, and 60 m negative threshold.
+      During evaluation, we use the withheld Baseline ground submaps as queries,
+      and all aerial submaps as a per-forest database.
+      We test generalisation to new environments on our Unseen test set, using all
+      submaps in the set to form the ground queries and per-forest aerial database.
+      We consider a true positive retrieval threshold of 30 m during evaluation.
     </p>
-    <div className={styles.imageGrid}>
-      <ImageWithCaption
-        src="/hotformerloc/assets/dataset/dataset_comparison.png"
-        alt="Comparing Datasets"
-        caption="Comparison of CS-Wild-Places with popular LPR benchmarks"
-      />
-    </div>
   </section>
 );
 
@@ -197,12 +268,28 @@ const BenchmarkingSection: React.FC = () => (
     <p>
       We benchmark several SOTA LPR methods on our dataset, including our novel HOTFormerLoc,
       to demonstrate the challenges of cross-source re-localisation within dense forests. 
+      We report Average Recall@N (AR@N), including variants such as AR@1 and AR@1%, where 1%
+      is 1% of the number of submaps in the database.
     </p>
     <div className={styles.imageGrid}>
       <ImageWithCaption
         src="/hotformerloc/assets/dataset/experiments_benchmarking.png"
-        alt="Benchmarking Results"
-        caption="Recall@N curves of four SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits"
+        alt="Recall@N curves on CS-Wild-Places."
+        caption="Recall@N curves of SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits."
+      />
+    </div>
+    <div className={styles.imageGrid}>
+      <ImageWithCaption
+        src="/hotformerloc/assets/dataset/dataset_cswp_baseline.png"
+        alt="SOTA results on CS-Wild-Places Baseline evaluation."
+        caption="Comparison of SOTA on CS-Wild-Places baseline evaluation set."
+      />
+    </div>
+    <div className={styles.imageGrid}>
+      <ImageWithCaption
+        src="/hotformerloc/assets/dataset/dataset_cswp_unseen.png"
+        alt="SOTA results on CS-Wild-Places Unseen evaluation."
+        caption="Comparison of SOTA on CS-Wild-Places Unseen evaluation set."
       />
     </div>
   </section>
@@ -239,7 +326,13 @@ const VisualisationSection: React.FC = () => (
             src_2_title="Venman"
             src_2_path="/hotformerloc/assets/visualisation/venman_aerial_vid.mp4"
           />
-          <figcaption>Global maps produced with aerial lidar scans from Karawatha and Venman.</figcaption>
+          <VideoPlayerContainer
+            src_1_title="QCAT"
+            src_1_path="/hotformerloc/assets/visualisation/qcat_aerial_overview_vid.mp4"
+            src_2_title="Samford"
+            src_2_path="/hotformerloc/assets/visualisation/samford_aerial_overview_vid.mp4"
+          />
+          <figcaption></figcaption>
         </figure>
       </div>
 
@@ -250,7 +343,7 @@ const VisualisationSection: React.FC = () => (
         <ImageWithCaption
           src="/hotformerloc/assets/visualisation/ground_aerial_1.png"
           alt="Ground Vs Aerial Lidar Visualisation"
-          caption="Ground (top) vs Aerial (bottom) lidar scans for a section of Karawatha (note that a vertical offset is added manually for visualisation purposes)"
+          caption="Ground (top) vs Aerial (bottom) lidar scans for a section of Karawatha (note that a vertical offset is added manually for visualisation purposes)."
         />
       </div>
     </div>

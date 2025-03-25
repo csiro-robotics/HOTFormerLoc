@@ -33,9 +33,13 @@ const NetworkArchitecture: React.FC = () => {
         We use an octree structure to represent point cloud submaps, which
         provides an inherent spatial hierarchy. We use this structure to
         generate a hierarchical feature pyramid, which is tokenised and
-        partitioned into local attention windows of size k (k = 3 in this
-        example) inspired by the octree-based attention introduced in{" "}
-        <a href="https://dl.acm.org/doi/abs/10.1145/3592131">
+        partitioned into local attention windows of size k inspired by the 
+        octree-based attention introduced in{" "}
+        <a
+          href="https://dl.acm.org/doi/abs/10.1145/3592131"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           OctFormer (Wang, 2023)
         </a>
         . To efficiently capture long range interactions that are missed by
@@ -73,7 +77,7 @@ const NetworkArchitecture: React.FC = () => {
           alt="HOTFormer Block Components"
           caption="HOTFormer Block Components"
           width="60%"
-          // description=""
+        // description=""
         />
         <p className={styles.paragraph}>
           We compare the attention patterns of a query token (red) from the
@@ -121,7 +125,7 @@ const NetworkArchitecture: React.FC = () => {
         <ImageWithCaption
           src="/hotformerloc/assets/architecture/architecture_coa_2.png"
           alt="Cylindrical Octree Attention Architecture Diagram"
-          caption="Cylindrical Octree Attention Comparison"
+          caption="Cylindrical Octree Attention Comparison."
           width="75%"
         />
       </div>
@@ -170,24 +174,30 @@ const Experiments: React.FC = () => {
 
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/experiments_benchmarking.png"
-          altText="Benchmarking Results"
-          caption="Recall@N curves of four SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits"
-          description="We demonstrate the performance of the proposed HOTFormerLoc on our CS-Wild-Places dataset. On the baseline and unseen evaluation sets, HOTFormerLoc achieves an improvement in AR@1 of 5.5% and 11.5%, and an improvement in AR@1% of 3.6% and 4.5%, respectively."
+          altText="CS-Wild-Places Benchmarking Results"
+          caption="Recall@N curves of SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits."
+          description="We demonstrate the performance of the proposed HOTFormerLoc on our CS-Wild-Places dataset.
+           On the baseline and unseen evaluation sets, HOTFormerLoc achieves an improvement in AR@1 of 5.5% and 11.5%,
+            and an improvement in AR@1% of 3.6% and 4.5%, respectively."
           width="90%"
         />
 
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/dataset_sota_comparison_1.png"
           altText="SOTA on CS-Campus3D Comparison"
-          caption="Comparison of SOTA on CS-Campus3D with ground-only queries, and ground + aerial database"
-          description="We present the evaluation results on CS-Campus3D. Our approach shows an improvement of 6.8% and 5.7% in AR@1 and AR@1%, respectively, outperforming CrossLoc3D which is specifically designed for the ground-aerial LPR problem."
+          caption="Comparison of SOTA on CS-Campus3D with ground-only queries and aerial-only database."
+          description="We present the evaluation results on CS-Campus3D. 
+           Our approach shows an improvement of 9.7% and 9.2% in AR@1 and AR@1%, 
+            respectively, outperforming CrossLoc3D which is specifically designed 
+             for the ground-aerial LPR problem."
           width="70%"
         />
 
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/dataset_wildplaces_comparison_1.png"
-          altText="Comparison on Wild-Places"
-          caption="Comparison on Wild-Places, where LoGG3D-Net^1 is trained using a 256-dimensional global descriptor for fair comparison, as opposed to the 1024-dimensional descriptor reported in Wild-Places"
+          altText="Comparison on Wild-Places."
+          caption="Comparison of SOTA on Wild-Places, where LoGG3D-Net^1 is trained using a 256-dimensional global descriptor for fair comparison,
+           as opposed to the 1024-dimensional descriptor reported in Wild-Places."
           description="We report evaluation results on Wild-Places under the inter-sequence evaluation setting.
             LoGG3D-Net remains the highest performing method by a margin of 2.5% and 1.8% in AR@1 and MRR, respectively,
             but we achieve a gain of 5.5% and 3.5% in AR@1 and MRR over MinkLoc3Dv2. We note that LoGG3D-Net is
@@ -197,7 +207,7 @@ const Experiments: React.FC = () => {
         <ContentBlock
           imageSrc="/hotformerloc/assets/dataset/dataset_sota_comparison_2.png"
           altText="Comparison of SOTA on Oxford RobotCar"
-          caption="Comparison of SOTA on Oxford RobotCar using the baseline evaluation setting and dataset"
+          caption="Comparison of SOTA on Oxford RobotCar using the baseline evaluation setting and dataset proposed in PointNetVLAD."
           description="We report evaluation results on Oxford RobotCar under the baseline evaluation setting. We outperform previous SOTA methods, showing improved generalisation on the unseen R.A. and B.D. environments with an increase of 2.7% and 4.1% in AR@1, respectively."
         />
       </div>
@@ -254,7 +264,7 @@ const Links: React.FC = () => {
   return (
     <div className={styles.buttonContainer}>
       <a
-        href="https://www.arxiv.org"
+        href="https://arxiv.org/abs/2503.08140"
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -293,7 +303,7 @@ const Paper: React.FC = () => {
         <Links />
         <Summary />
         <ImageWithCaption
-          src="/hotformerloc/assets/dataset/dataset_model_comparison.svg"
+          src="/hotformerloc/assets/dataset/dataset_model_comparison.png"
           alt="HOTFormerLoc performance comparison"
           caption="    HOTFormerLoc achieves SOTA performance across a suite of LPR
           benchmarks with diverse environments, varying viewpoints, and

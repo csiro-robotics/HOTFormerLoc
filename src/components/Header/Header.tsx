@@ -14,25 +14,25 @@ const Header: React.FC = () => {
       firstName: "Maryam",
       lastName: "Haghighat",
       university: "QUT",
-      link: "https://scholar.google.com/citations?user=oJDmGg4AAAAJ&hl=en",
+      link: "https://www.qut.edu.au/about/our-people/academic-profiles/maryam.haghighat",
     },
     {
       firstName: "Simon",
       lastName: "Denman",
       university: "QUT",
-      link: "https://scholar.google.com/citations?user=2bkcCykAAAAJ&hl=en",
+      link: "https://www.qut.edu.au/about/our-people/academic-profiles/s.denman",
     },
     {
       firstName: "Clinton",
       lastName: "Fookes",
       university: "QUT",
-      link: "https://scholar.google.com.au/citations?user=VpaJsNQAAAAJ&hl=en",
+      link: "https://www.qut.edu.au/about/our-people/academic-profiles/c.fookes",
     },
     {
       firstName: "Milad",
       lastName: "Ramezani",
       university: "CSIRO Data61",
-      link: "https://scholar.google.com/citations?user=fn-lMpMAAAAJ&hl=en",
+      link: "https://people.csiro.au/r/m/milad-ramezani",
     },
   ];
   return (

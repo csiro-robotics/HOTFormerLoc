@@ -26,16 +26,16 @@ const Overview: React.FC = () => {
         <ul className={homeStyles.dotPoints}>
           <li>
             A novel octree-based <b>hierarchical attention</b> that efficiently
-            relays long-range contextual information across multiple scales
+            relays long-range contextual information across multiple scales.
           </li>
           <li>
             <b>Cylindrical Octree Attention</b> to better represent the variable
-            density of spinning lidar point clouds
+            density of spinning lidar point clouds.
           </li>
           <li>
             <b>Pyramid Attention Pooling</b> to adaptively select and aggregate
             multi-scale local descriptors into a global descriptor for
-            end-to-end LPR
+            end-to-end LPR.
           </li>
         </ul>
       </div>
@@ -55,15 +55,19 @@ const Overview: React.FC = () => {
         <div className={homeStyles.textContainer}>
           <ul className={homeStyles.dotPoints}>
             <li>
-              ~<b>100K</b> high resolution lidar submaps captured in{" "}
-              <b>4 unique forests</b> over 3 years
+              ~<b>36k</b> high resolution lidar submaps captured from ground and
+              aerial viewpoints in{" "} <b>4 unique forests</b> over 10 months.
+            </li>
+            <li>
+              A total of <b>72k</b> submaps for training and <b>18k</b> submaps for evaluation
+              when used in conjunction with the Wild-Places dataset.
             </li>
             <li>
               Challenging representational gaps such as variable point density
-              and significant occlusions between viewpoints
+              and significant occlusions between viewpoints.
             </li>
             <li>
-              Accurate <b>6-DoF</b> ground truth for all sequences
+              Accurate <b>6-DoF</b> ground truth for all sequences.
             </li>
           </ul>
         </div>
@@ -116,7 +120,7 @@ const Links: React.FC = () => {
         Paper
       </button>
       <a
-        href="https://www.arxiv.org"
+        href="https://arxiv.org/abs/2503.08140"
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -151,9 +155,9 @@ const Citation: React.FC = () => {
 	author    = {Griffiths, Ethan and Haghighat, Maryam and Denman, Simon and Fookes, Clinton and Ramezani, Milad},
 	title     = {HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views},
 	booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-	month     = {todo},
+	month     = {tbd},
 	year      = {2025},
-	pages     = {todo}
+	pages     = {tbd}
 }`;
   return (
     <section className={styles.futureWork}>
@@ -208,15 +212,17 @@ const Acknowledgements: React.FC = () => {
       </h2>
       <p className={styles.paragraph}>
         We would like to acknowledge the authors of the Wild-Places dataset for
-        their work, which serves as the foundation for CS-Wild-Places. We wish
-        to acknowledge the support of the Research Engineering Facility (REF)
-        team at QUT for the provision of expertise and research infrastructure
-        in enablement of this project. We thank Hexagon for providing access to
-        SmartNet RTK corrections service to support precise survey of GCPs. We
-        further acknowledge the support of the Terrestrial Ecosystem Research
-        Network (TERN), supported by the National Collaborative Infrastructure
-        Strategy (NCRIS). Additional funding was provided through the CSIRO's
-        Digital Water and Landscapes initiative (3D-AGB project).
+        their work, which serves as the foundation for CS-Wild-Places.
+        We acknowledge support of the Terrestrial Ecosystem Research Network (TERN),
+        supported by the National Collaborative Infrastructure Strategy (NCRIS). 
+        This work was partially funded through the CSIRO's Digital Water and 
+        Landscapes initiative (3D-AGB project). We thank the Research
+        Engineering Facility (REF) team at QUT for their expertise and research
+        infrastructure support and Hexagon for providing SmartNet RTK
+        corrections for precise surveying. We thank CSIRO Robotics for their
+        ongoing support in both hardware and software.
+        E.G. gratefully acknowledges support from the Australian Government
+        Research Training Program and CSIRO ResearchPlus Scholarships.
       </p>
     </section>
   );

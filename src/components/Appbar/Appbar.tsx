@@ -32,7 +32,7 @@ const navigationItems: NavigationItem[] = [
     ],
   },
   {
-    label: "Paper",
+    label: "HOTFormerLoc",
     path: "/paper",
     children: [
       { label: "Summary", path: "/paper#summary" },

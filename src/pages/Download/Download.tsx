@@ -50,7 +50,14 @@ const Checkpoint: React.FC = () => {
         this dataset release. */}
         Pre-trained weights for HOTFormerLoc and other models reported in the paper
         can be downloaded from the links below. You can download them individually
-        below, or download and extract all from <a href="https://www.dropbox.com/scl/fi/qjyh966styqlye38a4c37/pretrained_weights.tar.gz?rlkey=qkuhupf3og7mfkfid8dts7xej&st=wx8q2v68&dl=0">this link</a>.
+        below, or download and extract all from {" "}
+        <a
+          href="https://www.dropbox.com/scl/fi/qjyh966styqlye38a4c37/pretrained_weights.tar.gz?rlkey=qkuhupf3og7mfkfid8dts7xej&st=wx8q2v68&dl=0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          this link 
+        </a>.
       </p>
 
       <table className={downloadStyles.downloadTable}>
@@ -79,30 +86,27 @@ const Dataset: React.FC = () => (
     <p className={downloadStyles.datasetDescription}>
       Our dataset can be downloaded through the{" "}
       <a
-        href="https://data.csiro.au/"
+        href="https://data.csiro.au/collection/csiro:64896"
         target="_blank"
         rel="noopener noreferrer"
       >
         CSIRO Data Access Portal
-      </a>
-      .
+      </a>.
     </p>
   </section>
 );
 
 const UsageExamples: React.FC = () => {
-  const sampleCode = `# Sample Python Code for Loading Data
-# TO-DO: ADD CODE HERE
+  const sampleCode = `# Sample Python Code for Loading Submaps
 import numpy as np
-import matplotlib.pyplot as plt
+import open3d as o3d
 
-# Load dataset
-data = np.load("sample_data.npy")
+# Load submap
+point_cloud = o3d.io.read_point_cloud(submap_path)
+pts = np.asarray(point_cloud.points)  # (N, 3)
 
-# Visualise
-plt.imshow(data, cmap="viridis")
-plt.title("Sample Dataset Visualisation")
-plt.show()
+# Visualise submap
+o3d.visualization.draw_geometries([point_cloud])
 `;
 
   return (

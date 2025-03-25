@@ -155,10 +155,10 @@ const Citation: React.FC = () => {
 	author    = {Griffiths, Ethan and Haghighat, Maryam and Denman, Simon and Fookes, Clinton and Ramezani, Milad},
 	title     = {HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views},
 	booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-	month     = {tbd},
 	year      = {2025},
-	pages     = {tbd}
-}`;
+  }`;
+	// month     = {tbd},
+  // pages     = {tbd}
   return (
     <section className={styles.futureWork}>
       <h2 id="citation" className={styles.sectionHeading}>
@@ -198,7 +198,7 @@ const Updates: React.FC = () => {
         Updates
       </h2>
       <p className={styles.paragraph}>
-        <b>2025 Feb:</b> CS-Wild-Places dataset released.
+        <b>2025 Mar:</b> CS-Wild-Places dataset released.
       </p>
     </section>
   );

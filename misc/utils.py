@@ -119,7 +119,8 @@ class TrainingParams:
     """
     Parameters for model training
     """
-    def __init__(self, params_path: str, model_params_path: str, debug: bool = False):
+    def __init__(self, params_path: str, model_params_path: str,
+                 debug: bool = False, verbose: bool = False):
         """
         Configuration files
         :param path: Training configuration file
@@ -131,6 +132,7 @@ class TrainingParams:
         self.params_path = params_path
         self.model_params_path = model_params_path
         self.debug = debug
+        self.verbose = verbose
 
         config = configparser.ConfigParser()
 

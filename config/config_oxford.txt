@@ -1,5 +1,5 @@
 [DEFAULT]
-# Update with absolute path to data
+# Follow README instructions to install dataset
 dataset_folder = ../data/benchmark_datasets
 
 [TRAIN]

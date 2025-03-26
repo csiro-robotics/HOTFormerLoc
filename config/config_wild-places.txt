@@ -1,6 +1,6 @@
 [DEFAULT]
-# Update with absolute path to data
-dataset_folder = ../data/wild_places
+# Follow README instructions to install dataset
+dataset_folder = ../data/wild_places/data
 
 [TRAIN]
 num_workers = 2

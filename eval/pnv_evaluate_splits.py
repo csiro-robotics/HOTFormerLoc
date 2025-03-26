@@ -3,6 +3,7 @@
 # Evaluation using PointNetVLAD evaluation protocol and test sets
 # Evaluation code adapted from PointNetVlad code: https://github.com/mikacuy/pointnetvlad
 # Adapted to process samples in batches by Ethan Griffiths (QUT & CSIRO Data61).
+# Also reports eval metrics per-split.
 
 from sklearn.neighbors import KDTree
 import numpy as np
@@ -28,7 +29,6 @@ def evaluate(model, device, params: TrainingParams, log: bool = False,
     eval_database_files, eval_query_files = get_query_database_splits(params)
 
     assert len(eval_database_files) == len(eval_query_files)
-
     stats = {}
     ave_recall = []
     ave_one_percent_recall = []
@@ -55,14 +55,19 @@ def evaluate(model, device, params: TrainingParams, log: bool = False,
         temp = evaluate_dataset(model, device, params, database_sets, query_sets,
                                 log=log, model_name=model_name, show_progress=show_progress)
         stats[location_name] = temp
-        ave_one_percent_recall.append(temp['ave_one_percent_recall'])
-        ave_recall.append(temp['ave_recall'])
-        ave_mrr.append(temp['ave_mrr'])
+        # 'average' key only exists when more than one split exists
+        if 'average' in temp:
+            ave_key = 'average'
+        else:
+            ave_key = next(iter(temp))
+        ave_one_percent_recall.append(temp[ave_key]['ave_one_percent_recall'])
+        ave_recall.append(temp[ave_key]['ave_recall'])
+        ave_mrr.append(temp[ave_key]['ave_mrr'])
         
     # Compute average stats
-    stats['average'] = {'ave_one_percent_recall': np.mean(ave_one_percent_recall),
-                        'ave_recall': np.mean(ave_recall, axis=0),
-                        'ave_mrr': np.mean(ave_mrr)}
+    stats['average'] = {'average': {'ave_one_percent_recall': np.mean(ave_one_percent_recall),
+                                    'ave_recall': np.mean(ave_recall, axis=0),
+                                    'ave_mrr': np.mean(ave_mrr)}}
     return stats
 
 
@@ -71,6 +76,7 @@ def evaluate_dataset(model, device, params: TrainingParams, database_sets, query
                      show_progress: bool = False):
     # Run evaluation on a single dataset
     recall = np.zeros(25)
+    stats = {}
     count = 0
     one_percent_recall = []
     mrr = []
@@ -94,6 +100,9 @@ def evaluate_dataset(model, device, params: TrainingParams, database_sets, query
                 # For CSCampus3D, we report on the aerial-only database, which is idx 1
                 if i != 1:
                     continue
+                split_name = os.path.split(os.path.split(database_sets[i][0]['query'])[0])[0] + f'_idx{i}'
+            else:
+                split_name = os.path.split(os.path.split(query_sets[j][0]['query'])[0])[0]
             pair_recall, pair_opr, pair_mrr = get_recall(i, j, database_embeddings,
                                                          query_embeddings, query_sets,
                                                          database_sets, log=log,
@@ -102,13 +111,18 @@ def evaluate_dataset(model, device, params: TrainingParams, database_sets, query
             count += 1
             one_percent_recall.append(pair_opr)
             mrr.append(pair_mrr)
-
-    ave_recall = recall / count
-    ave_one_percent_recall = np.mean(one_percent_recall)
-    ave_mrr = np.mean(mrr)
-    stats = {'ave_one_percent_recall': ave_one_percent_recall,
-             'ave_recall': ave_recall,
-             'ave_mrr': ave_mrr}
+            
+            # Report per-split metrics
+            stats[split_name] = {'ave_one_percent_recall': pair_opr,
+                                 'ave_recall': pair_recall,
+                                 'ave_mrr': pair_mrr}
+    if count > 1:
+        ave_recall = recall / count
+        ave_one_percent_recall = np.mean(one_percent_recall)
+        ave_mrr = np.mean(mrr)
+        stats['average'] = {'ave_one_percent_recall': ave_one_percent_recall,
+                            'ave_recall': ave_recall,
+                            'ave_mrr': ave_mrr}
     return stats
 
 
@@ -123,10 +137,13 @@ def get_latent_vectors(model, data_set, device, params: TrainingParams):
     # Adapted from original PointNetVLAD code
 
     if params.debug:
-        embeddings = np.random.rand(len(data_set), params.model_params.output_dim)
+        if len(data_set) == 0:
+            embeddings = None
+        else:
+            embeddings = np.random.rand(len(data_set), params.model_params.output_dim)
         return embeddings
 
-    if params.dataset_name in ['Oxford','CSCampus3D']:
+    if params.dataset_name in ['Oxford','CSCampus3D','CSCampus3D_aerial_only']:
         pc_loader = PNVPointCloudLoader()
     elif 'CSWildPlaces' in params.dataset_name or 'WildPlaces' in params.dataset_name:
         pc_loader = CSWildPlacesPointCloudLoader()
@@ -279,29 +296,35 @@ def get_recall(m, n, database_vectors, query_vectors, query_sets, database_sets,
 
 
 def print_eval_stats(stats):
+    # Altered to expect per-split stats
     for database_name in stats:
         print('Dataset: {}'.format(database_name))
-        t = 'Avg. top 1% recall: {:.2f}   Avg. MRR: {:.2f}   Avg. recall @N:'
-        print(t.format(stats[database_name]['ave_one_percent_recall'],
-                       stats[database_name]['ave_mrr']))
-        print(stats[database_name]['ave_recall'])
+        for split in stats[database_name]:
+            print('    Split: {}'.format(split))
+            t = '    Avg. top 1% recall: {:.2f}   Avg. MRR: {:.2f}   Avg. recall @N:'
+            print(t.format(stats[database_name][split]['ave_one_percent_recall'],
+                           stats[database_name][split]['ave_mrr']))
+            print('    ' + str(stats[database_name][split]['ave_recall']).replace('\n','\n    '))
 
 
 def pnv_write_eval_stats(file_name, prefix, stats):
     s = prefix
-    ave_1p_recall_l = []
-    ave_recall_l = []
+    # ave_1p_recall_l = []
+    # ave_recall_l = []
     # Print results on the final model
     with open(file_name, "a") as f:
         for ds in stats:
             s += f"\n[{ds}]\n"
-            ave_1p_recall = stats[ds]['ave_one_percent_recall']
-            ave_1p_recall_l.append(ave_1p_recall)
-            ave_recall = stats[ds]['ave_recall'][0]
-            ave_recall_l.append(ave_recall)
-            ave_mrr = stats[ds]['ave_mrr']
-            s += "AR@1%: {:0.2f}, AR@1: {:0.2f}, MRR: {:0.2f}, AR@N:\n".format(ave_1p_recall, ave_recall, ave_mrr)
-            s += str(stats[ds]['ave_recall'])
+            for split in stats[ds]:
+                s += f'    Split: [{split}]\n'
+                ave_1p_recall = stats[ds][split]['ave_one_percent_recall']
+                # ave_1p_recall_l.append(ave_1p_recall)
+                ave_recall = stats[ds][split]['ave_recall'][0]
+                # ave_recall_l.append(ave_recall)
+                ave_mrr = stats[ds][split]['ave_mrr']
+                s += '    AR@1%: {:0.2f}, AR@1: {:0.2f}, MRR: {:0.2f}, AR@N:\n'.format(ave_1p_recall, ave_recall, ave_mrr)
+                s += '    ' + str(stats[ds][split]['ave_recall']).replace('\n','\n    ')
+                s += '\n'
 
         # NOTE: below is redundant as average is now stored in stats dict
         # mean_1p_recall = np.mean(ave_1p_recall_l)
@@ -361,11 +384,11 @@ if __name__ == "__main__":
     # Save results to the text file
     model_params_name = os.path.split(params.model_params.model_params_path)[1]
     config_name = os.path.split(params.params_path)[1]
-    model_name = os.path.split(args.weights)[1]
+    model_name = os.path.splitext(os.path.split(args.weights)[1])[0]
     prefix = "Model Params: {}, Config: {}, Model: {}".format(model_params_name, config_name, model_name)
 
     stats = evaluate(model, device, params, args.log, model_name, show_progress=True)
     print_eval_stats(stats)
 
-    pnv_write_eval_stats(f"pnv_{params.dataset_name}_results.txt", prefix, stats)
+    pnv_write_eval_stats(f"pnv_{params.dataset_name}_split_results.txt", prefix, stats)
 

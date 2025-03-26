@@ -133,3 +133,16 @@ class BatchHardContrastiveLossWithMasks:
                  }
 
         return loss, stats
+
+
+def kdloss(y, teacher_scores):
+    """
+    Adapted from FasterViT repo:
+    https://github.com/NVlabs/FasterViT/blob/main/fastervit/train.py#L356
+    """
+    kl_loss = torch.nn.KLDivLoss(reduction='batchmean').cuda()
+    T = 3
+    p = torch.nn.functional.log_softmax(y/T, dim=1)
+    q = torch.nn.functional.softmax(teacher_scores/T, dim=1)
+    l_kl = 50.0*kl_loss(p, q)
+    return l_kl

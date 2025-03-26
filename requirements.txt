@@ -4,11 +4,8 @@ pytorch-metric-learning==1.1.2
 numpy
 pandas
 scipy
-tensorboard
-tensorboardX
 ocnn==2.2.2
 tqdm
-plyfile
 laspy[lazrs]
 scikit-learn
 scikit-image
@@ -16,9 +13,9 @@ wget
 timm
 pyyaml
 matplotlib
-thop
 wandb
 open3d
 shapely
 cloth-simulation-filter
 numba
+submitit

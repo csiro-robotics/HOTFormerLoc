@@ -231,7 +231,11 @@ if __name__ == "__main__":
     if args.weights is not None:
         assert os.path.exists(args.weights), 'Cannot open network weights: {}'.format(args.weights)
         print('Loading weights: {}'.format(args.weights))
-        model.load_state_dict(torch.load(args.weights, map_location=device))
+        if os.path.splitext(args.weights)[1] == '.ckpt':
+            state = torch.load(args.weights)
+            model.load_state_dict(state['model_state_dict'])
+        else:  # .pt or .pth
+            model.load_state_dict(torch.load(args.weights, map_location=device))
 
     model.to(device)
 

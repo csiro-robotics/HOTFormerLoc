@@ -1,12 +1,13 @@
 # HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views
 
 ### What's new ###
-* [2025-XX-XX] Training and evaluation code released. CS-Wild-Places dataset released.
+* [2025-03-26] Training and evaluation code released. CS-Wild-Places dataset released.
 
 ## Description
 This is the official repository for the paper:
 
-**HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views**, CVPR 2025 [[arXiv](https://csiro-robotics.github.io/HOTFormerLoc)] by *Ethan Griffiths, Maryam Haghighat, Simon Denman, Clinton Fookes, and Milad Ramezani*
+**HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views**, CVPR 2025 by *Ethan Griffiths, Maryam Haghighat, Simon Denman, Clinton Fookes, and Milad Ramezani*\
+[[**Website**](https://csiro-robotics.github.io/HOTFormerLoc)] <!-- [[**Paper**](https://cvpr.thecvf.com)] --> [[**arXiv**](https://arxiv.org/abs/2503.08140)] <!-- [[**Video**](https://youtube.com)] --> [[**CS-Wild-Places**](https://data.csiro.au/collection/csiro:64896)]
 
 ![Network Architecture](media/hotformerloc_architecture.png)
 *HOTFormerLoc Architecture*
@@ -15,13 +16,13 @@ We present **HOTFormerLoc**, a novel and versatile **H**ierarchical **O**ctree-b
 
 <!-- <img src="media/radar_plot.svg" alt="Hero Figure" width="50%" height="auto" style="float: right;"> -->
 
-In addition, we introduce our novel dataset: **CS-Wild-Places**, a 3D cross-source dataset featuring point cloud data from aerial and ground lidar scans captured in four dense forests. Point clouds in CS-Wild-Places contain representational gaps and distinctive attributes such as varying point densities and noise patterns, making it a challenging benchmark for cross-view localisation in the wild.
+In addition, we introduce our novel dataset: [**CS-Wild-Places**](https://data.csiro.au/collection/csiro:64896), a 3D cross-source dataset featuring point cloud data from aerial and ground lidar scans captured in four dense forests. Point clouds in CS-Wild-Places contain representational gaps and distinctive attributes such as varying point densities and noise patterns, making it a challenging benchmark for cross-view localisation in the wild.
 
 ![CS-Wild-Places](media/CSWildPlaces_overview.png)
 *CS-Wild-Places dataset. (Top row) birds eye view of aerial global maps from all four forests. 
 (Bottom row) sample ground and aerial submap from each forest.*
 
-Our results demonstrate that HOTFormerLoc achieves a top-1 average recall improvement of 5.5% – 11.5% on the CS-Wild-Places benchmark. Furthermore, it consistently outperforms SOTA 3D place recognition methods, with an average performance gain of 5.8% on well established urban and forest datasets. 
+Our results demonstrate that HOTFormerLoc achieves a top-1 average recall improvement of 5.5% – 11.5% on the CS-Wild-Places benchmark. Furthermore, it consistently outperforms SOTA 3D place recognition methods, with an average performance gain of 4.9% on well established urban and forest datasets. 
 
 <!-- ![Hero Figure](media/radar_plot.svg) -->
 <img src="media/radar_plot.svg" alt="Hero Figure" width="50%" height="auto" style="display: block; margin: auto;">
@@ -33,11 +34,11 @@ If you find this work useful, please consider citing:
 	author    = {Griffiths, Ethan and Haghighat, Maryam and Denman, Simon and Fookes, Clinton and Ramezani, Milad},
 	title     = {HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views},
 	booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-	month     = {todo},
 	year      = {2025},
-	pages     = {todo}
 }
 ```
+<!-- month     = {todo},
+pages     = {todo} -->
 
 ## Environment and Dependencies
 Code was tested using Python 3.11 with PyTorch 2.1.1 and CUDA 12.1 on a Linux system. We use conda to manage dependencies (although we recommend [mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html) for a much faster install).
@@ -92,11 +93,11 @@ python generate_test_sets.py \
 ```
 
 ### CS-Wild-Places
-We train on our novel CS-Wild-Places dataset, introduced in further detail in our [paper](https://csiro-robotics.github.io/HOTFormerLoc/). CS-Wild-Places is built upon the ground traversals introduced by Wild-Places, so it is required to download the Wild-Places dataset alongside our data.
+We train on our novel CS-Wild-Places dataset, introduced in further detail in our [paper](https://arxiv.org/abs/2503.08140). CS-Wild-Places is built upon the ground traversals introduced by Wild-Places, so it is required to download the Wild-Places dataset alongside our data.
 
-Download the dataset [here](https://csiro-robotics.github.io/HOTFormerLoc/), and place or symlink the data in `data/CS-Wild-Places`.
+Download the dataset from [CSIRO's data access portal](https://data.csiro.au/collection/csiro:64896), and place or symlink the data in `data/CS-Wild-Places`. Note that our experiments only require the post-processed submaps, so you can ignore the raw submaps if space is an issue.
 
-Assuming you have followed the above instructions to setup Wild-Places (generating train/test pickles is not required), you can use the below command to postprocess the Wild-Places ground submaps into the format required for CS-Wild-Places (set num_workers to a sensible number for your system). Note that this may take several hours depending on your CPU:
+Assuming you have followed the above instructions to setup Wild-Places (generating train/test pickles is not required), you can use the below command to post-process the Wild-Places ground submaps into the format required for CS-Wild-Places (set num_workers to a sensible number for your system). Note that this may take several hours depending on your CPU:
 ```
 cd datasets/CSWildPlaces
 python postprocess_wildplaces_ground.py \
@@ -124,7 +125,7 @@ python generate_train_test_tuples.py \
 	--buffer_thresh '30' \
 	--v2_only
 ```
-Note that training and evaluation pickles are saved to the directory specified in `--root`. 
+Note that training and evaluation pickles are saved to the directory specified in `--root` by default. 
 
 ### CS-Campus3D
 We train on the CS-Campus3D dataset introduced in *CrossLoc3D: Aerial-Ground Cross-Source 3D Place Recognition* ([link](https://arxiv.org/pdf/2303.17778)).
@@ -191,6 +192,8 @@ python train.py --config ../config/config_cs-campus3d.txt --model_config ../mode
 # To train HOTFormerLoc on Oxford RobotCar
 python train.py --config ../config/config_oxford.txt --model_config ../models/hotformerloc_oxford_cfg.txt
 ```
+
+If training on a SLURM cluster, we provide the `submitit_train_job_single_node.py` script to automate training job submission, with support for automatic checkpointing and resubmission on job timeout. Make sure to set job parameters appropriately for your cluster.
 
 ### Pre-trained Weights
 

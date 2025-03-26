@@ -63,7 +63,7 @@ const PointCloudModelViewer: React.FC<PointCloudModelViewerProps> = ({
 
     // Load Point Cloud
     const loader = new PCDLoader();
-    const filePath = `/hotformerloc/assets/pcd/${file}`;
+    const filePath = `/HOTFormerLoc/assets/pcd/${file}`;
     console.log(file)
 
     loader.load(

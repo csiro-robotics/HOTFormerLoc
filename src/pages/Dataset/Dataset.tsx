@@ -8,19 +8,19 @@ import styles from "../../Common.module.css";
 // import { useNavigate } from "react-router-dom";
 
 // const images = [
-//   "/hotformerloc/assets/slides/karawatha_aerial_1.png",
-//   "/hotformerloc/assets/slides/karawatha_ground_1.png",
-//   "/hotformerloc/assets/slides/karawatha_aerial_2.png",
-//   "/hotformerloc/assets/slides/karawatha_ground_2.png",
-//   "/hotformerloc/assets/slides/karawatha_aerial_3.png",
-//   "/hotformerloc/assets/slides/karawatha_ground_3.png",
+//   "/HOTFormerLoc/assets/slides/karawatha_aerial_1.png",
+//   "/HOTFormerLoc/assets/slides/karawatha_ground_1.png",
+//   "/HOTFormerLoc/assets/slides/karawatha_aerial_2.png",
+//   "/HOTFormerLoc/assets/slides/karawatha_ground_2.png",
+//   "/HOTFormerLoc/assets/slides/karawatha_aerial_3.png",
+//   "/HOTFormerLoc/assets/slides/karawatha_ground_3.png",
 
-//   "/hotformerloc/assets/slides/venman_aerial_1.png",
-//   "/hotformerloc/assets/slides/venman_ground_1.png",
-//   "/hotformerloc/assets/slides/venman_aerial_2.png",
-//   "/hotformerloc/assets/slides/venman_ground_2.png",
-//   "/hotformerloc/assets/slides/venman_aerial_3.png",
-//   "/hotformerloc/assets/slides/venman_ground_3.png",
+//   "/HOTFormerLoc/assets/slides/venman_aerial_1.png",
+//   "/HOTFormerLoc/assets/slides/venman_ground_1.png",
+//   "/HOTFormerLoc/assets/slides/venman_aerial_2.png",
+//   "/HOTFormerLoc/assets/slides/venman_ground_2.png",
+//   "/HOTFormerLoc/assets/slides/venman_aerial_3.png",
+//   "/HOTFormerLoc/assets/slides/venman_ground_3.png",
 // ];
 
 const Dataset: React.FC = () => {
@@ -90,7 +90,7 @@ const Links: React.FC = () => {
 
 const VideoSection: React.FC = () => (
   <section className={styles.section}>
-    <VideoPlayer src={"/hotformerloc/assets/visualisation/HOTFormerLoc_website_submap_preview.mp4"} />
+    <VideoPlayer src={"/HOTFormerLoc/assets/visualisation/HOTFormerLoc_website_submap_preview.mp4"} />
   </section>
 );
 
@@ -133,13 +133,13 @@ const OverviewSection: React.FC = () => (
       </li>
     </ul>
     <ImageWithCaption
-      src="/hotformerloc/assets/dataset/dataset_ground_aerial.png"
+      src="/HOTFormerLoc/assets/dataset/dataset_ground_aerial.png"
       alt="Ground and Aerial"
       caption="(Top row) Visualisation of the aerial global map of all four forests in CS-Wild-Places, with corresponding ground trajectories overlayed.
         (Bottom row) Submaps representing a scene from the ground and aerial perspective in each forest. The dense forest canopy creates major occlusions between viewpoints."
     />
     <ImageWithCaption
-      src="/hotformerloc/assets/dataset/dataset_comparison.png"
+      src="/HOTFormerLoc/assets/dataset/dataset_comparison.png"
       alt="Comparing Datasets"
       caption="Comparison of CS-Wild-Places with popular LPR benchmarks"
     />
@@ -273,21 +273,21 @@ const BenchmarkingSection: React.FC = () => (
     </p>
     <div className={styles.imageGrid}>
       <ImageWithCaption
-        src="/hotformerloc/assets/dataset/experiments_benchmarking.png"
+        src="/HOTFormerLoc/assets/dataset/experiments_benchmarking.png"
         alt="Recall@N curves on CS-Wild-Places."
         caption="Recall@N curves of SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits."
       />
     </div>
     <div className={styles.imageGrid}>
       <ImageWithCaption
-        src="/hotformerloc/assets/dataset/dataset_cswp_baseline.png"
+        src="/HOTFormerLoc/assets/dataset/dataset_cswp_baseline.png"
         alt="SOTA results on CS-Wild-Places Baseline evaluation."
         caption="Comparison of SOTA on CS-Wild-Places baseline evaluation set."
       />
     </div>
     <div className={styles.imageGrid}>
       <ImageWithCaption
-        src="/hotformerloc/assets/dataset/dataset_cswp_unseen.png"
+        src="/HOTFormerLoc/assets/dataset/dataset_cswp_unseen.png"
         alt="SOTA results on CS-Wild-Places Unseen evaluation."
         caption="Comparison of SOTA on CS-Wild-Places Unseen evaluation set."
       />
@@ -322,15 +322,15 @@ const VisualisationSection: React.FC = () => (
         <figure>
           <VideoPlayerContainer
             src_1_title="Karawatha"
-            src_1_path="/hotformerloc/assets/visualisation/karawatha_aerial_vid.mp4"
+            src_1_path="/HOTFormerLoc/assets/visualisation/karawatha_aerial_vid.mp4"
             src_2_title="Venman"
-            src_2_path="/hotformerloc/assets/visualisation/venman_aerial_vid.mp4"
+            src_2_path="/HOTFormerLoc/assets/visualisation/venman_aerial_vid.mp4"
           />
           <VideoPlayerContainer
             src_1_title="QCAT"
-            src_1_path="/hotformerloc/assets/visualisation/qcat_aerial_overview_vid.mp4"
+            src_1_path="/HOTFormerLoc/assets/visualisation/qcat_aerial_overview_vid.mp4"
             src_2_title="Samford"
-            src_2_path="/hotformerloc/assets/visualisation/samford_aerial_overview_vid.mp4"
+            src_2_path="/HOTFormerLoc/assets/visualisation/samford_aerial_overview_vid.mp4"
           />
           <figcaption></figcaption>
         </figure>
@@ -341,7 +341,7 @@ const VisualisationSection: React.FC = () => (
       </h3>
       <div className={styles.imageGrid}>
         <ImageWithCaption
-          src="/hotformerloc/assets/visualisation/ground_aerial_1.png"
+          src="/HOTFormerLoc/assets/visualisation/ground_aerial_1.png"
           alt="Ground Vs Aerial Lidar Visualisation"
           caption="Ground (top) vs Aerial (bottom) lidar scans for a section of Karawatha (note that a vertical offset is added manually for visualisation purposes)."
         />

@@ -40,7 +40,7 @@ const Overview: React.FC = () => {
         </ul>
       </div>
       <ContentBlock
-        imageSrc="/hotformerloc/assets/architecture/architecture_hotformerloc.png"
+        imageSrc="/HOTFormerLoc/assets/architecture/architecture_hotformerloc.png"
         altText="HOTFormerLoc Architecture"
         caption="HOTFormerLoc Architecture"
         description=""
@@ -72,7 +72,7 @@ const Overview: React.FC = () => {
           </ul>
         </div>
         <div className={homeStyles.videoContainer}>
-          <VideoPlayer src="/hotformerloc/assets/visualisation/karawatha_submaps_matched_labelled.mp4" />
+          <VideoPlayer src="/HOTFormerLoc/assets/visualisation/karawatha_submaps_matched_labelled.mp4" />
         </div>
       </div>
     </section>

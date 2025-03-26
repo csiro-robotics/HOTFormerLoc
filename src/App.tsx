@@ -60,7 +60,7 @@ const navigationItems: NavigationItem[] = [
 
 function App() {
   return (
-    <Router basename="/hotformerloc">
+    <Router basename="/HOTFormerLoc">
        <NavigationBar navigationItems={navigationItems} />
       <main className="main-content">
         <Routes>

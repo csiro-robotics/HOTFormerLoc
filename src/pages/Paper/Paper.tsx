@@ -56,7 +56,7 @@ const NetworkArchitecture: React.FC = () => {
           HOTFormerLoc
         </h3>
         <ImageWithCaption
-          src="/hotformerloc/assets/architecture/architecture_hotformerloc.png"
+          src="/HOTFormerLoc/assets/architecture/architecture_hotformerloc.png"
           alt="HOTFormerLoc Architecture"
           caption="HOTFormerLoc Architecture"
         />
@@ -73,7 +73,7 @@ const NetworkArchitecture: React.FC = () => {
           contextual cues learned by the relay tokens.
         </p>
         <ImageWithCaption
-          src="/hotformerloc/assets/architecture/architecture_rtsa_hosa.png"
+          src="/HOTFormerLoc/assets/architecture/architecture_rtsa_hosa.png"
           alt="HOTFormer Block Components"
           caption="HOTFormer Block Components"
           width="60%"
@@ -89,7 +89,7 @@ const NetworkArchitecture: React.FC = () => {
           field in later layers.
         </p>
         <ImageWithCaption
-          src="/hotformerloc/assets/architecture/architecture_rtsa_2.png"
+          src="/HOTFormerLoc/assets/architecture/architecture_rtsa_2.png"
           alt="RTSA Attention Visualisation"
           caption="Relay token multi-scale attention visualised on the octree feature pyramid"
           width="80%"
@@ -123,7 +123,7 @@ const NetworkArchitecture: React.FC = () => {
           the sensor, and sparser windows at lower-density regions further away.
         </p>
         <ImageWithCaption
-          src="/hotformerloc/assets/architecture/architecture_coa_2.png"
+          src="/HOTFormerLoc/assets/architecture/architecture_coa_2.png"
           alt="Cylindrical Octree Attention Architecture Diagram"
           caption="Cylindrical Octree Attention Comparison."
           width="75%"
@@ -173,7 +173,7 @@ const Experiments: React.FC = () => {
         </p>
 
         <ContentBlock
-          imageSrc="/hotformerloc/assets/dataset/experiments_benchmarking.png"
+          imageSrc="/HOTFormerLoc/assets/dataset/experiments_benchmarking.png"
           altText="CS-Wild-Places Benchmarking Results"
           caption="Recall@N curves of SOTA LPR methods on CS-Wild-Places Baseline and Unseen splits."
           description="We demonstrate the performance of the proposed HOTFormerLoc on our CS-Wild-Places dataset.
@@ -183,7 +183,7 @@ const Experiments: React.FC = () => {
         />
 
         <ContentBlock
-          imageSrc="/hotformerloc/assets/dataset/dataset_sota_comparison_1.png"
+          imageSrc="/HOTFormerLoc/assets/dataset/dataset_sota_comparison_1.png"
           altText="SOTA on CS-Campus3D Comparison"
           caption="Comparison of SOTA on CS-Campus3D with ground-only queries and aerial-only database."
           description="We present the evaluation results on CS-Campus3D. 
@@ -194,7 +194,7 @@ const Experiments: React.FC = () => {
         />
 
         <ContentBlock
-          imageSrc="/hotformerloc/assets/dataset/dataset_wildplaces_comparison_1.png"
+          imageSrc="/HOTFormerLoc/assets/dataset/dataset_wildplaces_comparison_1.png"
           altText="Comparison on Wild-Places."
           caption="Comparison of SOTA on Wild-Places, where LoGG3D-Net^1 is trained using a 256-dimensional global descriptor for fair comparison,
            as opposed to the 1024-dimensional descriptor reported in Wild-Places."
@@ -205,7 +205,7 @@ const Experiments: React.FC = () => {
         />
 
         <ContentBlock
-          imageSrc="/hotformerloc/assets/dataset/dataset_sota_comparison_2.png"
+          imageSrc="/HOTFormerLoc/assets/dataset/dataset_sota_comparison_2.png"
           altText="Comparison of SOTA on Oxford RobotCar"
           caption="Comparison of SOTA on Oxford RobotCar using the baseline evaluation setting and dataset proposed in PointNetVLAD."
           description="We report evaluation results on Oxford RobotCar under the baseline evaluation setting. We outperform previous SOTA methods, showing improved generalisation on the unseen R.A. and B.D. environments with an increase of 2.7% and 4.1% in AR@1, respectively."
@@ -217,7 +217,7 @@ const Experiments: React.FC = () => {
           Ablation Study
         </h3>
         <ContentBlock
-          imageSrc="/hotformerloc/assets/dataset/dataset_ablation_study_1.png"
+          imageSrc="/HOTFormerLoc/assets/dataset/dataset_ablation_study_1.png"
           altText="Ablation Study"
           caption="Ablation study on the effectiveness of HOTFormerLoc components on Oxford, CS-Campus3D, and CS-Wild-Places."
           description="We provide ablations to verify the effectiveness of various HOTFormerLoc components on Oxford, CS-Campus3D, and CS-Wild-Places.
@@ -226,7 +226,7 @@ const Experiments: React.FC = () => {
         />
 
         <ContentBlock
-          imageSrc="/hotformerloc/assets/dataset/dataset_ablation_study_cyl.png"
+          imageSrc="/HOTFormerLoc/assets/dataset/dataset_ablation_study_cyl.png"
           altText="Cylindrical Octree Ablation"
           caption="Ablation study considering cartesian vs cylindrical octree attention windows on Wild-Places."
           description="Cylindrical octree attention windows are essential for
@@ -303,7 +303,7 @@ const Paper: React.FC = () => {
         <Links />
         <Summary />
         <ImageWithCaption
-          src="/hotformerloc/assets/dataset/dataset_model_comparison.png"
+          src="/HOTFormerLoc/assets/dataset/dataset_model_comparison.png"
           alt="HOTFormerLoc performance comparison"
           caption="    HOTFormerLoc achieves SOTA performance across a suite of LPR
           benchmarks with diverse environments, varying viewpoints, and

@@ -25,5 +25,9 @@ npm -v # should print `10.9.0`
 `npm install`
 ## Running Locally
 `npm run dev`
-## Deploying to GitHub (may take a while)
-`npm run deploy`
+## Deployment 
+`npm run build`
+## Test deploy build
+`npm run preview`
+<!-- ## Deploying to GitHub (may take a while) # NOTE: OLD INSTRUCTIONS
+`npm run deploy` -->

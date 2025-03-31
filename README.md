@@ -228,6 +228,14 @@ python pnv_evaluate.py --config ../config/config_cs-campus3d.txt --model_config 
 python pnv_evaluate.py --config ../config/config_oxford.txt --model_config ../models/hotformerloc_oxford_cfg.txt --weights ../weights/hotformerloc_oxford.pth
 ```
 
+Below are the results for all evaluated models on CS-Wild-Places:
+
+![CS-Wild-Places_baseline](media/dataset_cswp_baseline.png)
+*Comparison of SOTA on CS-Wild-Places Baseline evaluation set.*
+
+![CS-Wild-Places_unseen](media/dataset_cswp_unseen.png)
+*Comparison of SOTA on CS-Wild-Places Unseen evaluation set.*
+
 See the paper for full results and comparison with SOTA on all datasets.
 
 ## Acknowledgements

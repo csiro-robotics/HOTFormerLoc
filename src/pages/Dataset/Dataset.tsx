@@ -143,6 +143,11 @@ const OverviewSection: React.FC = () => (
       alt="Comparing Datasets"
       caption="Comparison of CS-Wild-Places with popular LPR benchmarks"
     />
+    <ImageWithCaption
+      src="/HOTFormerLoc/assets/dataset/dataset_sequence_comparison.png"
+      alt="Comparing Sequences"
+      caption="Overview of CS-Wild-Places Sequences (see Wild-Places for information on their ground sequences)"
+    />
     <p className={styles.paragraph}>
       We release the data in two main configurations: raw (submaps randomly
       downsampled to 500k points max), and post-processed (submaps voxel-downsampled

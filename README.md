@@ -7,7 +7,7 @@
 This is the official repository for the paper:
 
 **HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views**, CVPR 2025 by *Ethan Griffiths, Maryam Haghighat, Simon Denman, Clinton Fookes, and Milad Ramezani*\
-[[**Website**](https://csiro-robotics.github.io/HOTFormerLoc)] <!-- [[**Paper**](https://cvpr.thecvf.com)] --> [[**arXiv**](https://arxiv.org/abs/2503.08140)] <!-- [[**Video**](https://youtube.com)] --> [[**CS-Wild-Places**](https://data.csiro.au/collection/csiro:64896)]
+[[**Website**](https://csiro-robotics.github.io/HOTFormerLoc)] <!-- [[**Paper**](https://cvpr.thecvf.com)] --> [[**arXiv**](https://arxiv.org/abs/2503.08140)] <!-- [[**Video**](https://youtube.com)] --> [[**CS-Wild-Places Dataset**](https://data.csiro.au/collection/csiro:64896)]
 
 ![Network Architecture](media/hotformerloc_architecture.png)
 *HOTFormerLoc Architecture*

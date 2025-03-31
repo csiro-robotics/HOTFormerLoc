@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://csiro-robotics.github.io/HOTFormerLoc/",
+  "homepage": "https://csiro-robotics.github.io/HOTFormerLoc",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

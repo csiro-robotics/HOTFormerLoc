@@ -93,11 +93,11 @@ python generate_test_sets.py \
 ```
 
 ### CS-Wild-Places
-We train on our novel CS-Wild-Places dataset, introduced in further detail in our [paper](https://arxiv.org/abs/2503.08140). CS-Wild-Places is built upon the ground traversals introduced by Wild-Places, so it is required to download the Wild-Places dataset alongside our data.
+We train on our novel CS-Wild-Places dataset, introduced in further detail in our [paper](https://arxiv.org/abs/2503.08140). CS-Wild-Places is built upon the ground traversals introduced by Wild-Places, so it is required to download the Wild-Places dataset alongside our data following the instructions in the above section (generating train/test pickles for Wild-Places is not required for CS-Wild-Places, so this step can be skipped). Note that the full Wild-Places dataset must be downloaded as our post-processing utilises the full resolution submaps.
 
-Download the dataset from [CSIRO's data access portal](https://data.csiro.au/collection/csiro:64896), and place or symlink the data in `data/CS-Wild-Places`. Note that our experiments only require the post-processed submaps, so you can ignore the raw submaps if space is an issue.
+Download our dataset from [CSIRO's data access portal](https://data.csiro.au/collection/csiro:64896), and place or symlink the data in `data/CS-Wild-Places`. Note that our experiments only require the post-processed submaps (folder `postproc_voxel_0.80m_rmground_normalised`), so you can ignore the raw submaps if space is an issue.
 
-Assuming you have followed the above instructions to setup Wild-Places (generating train/test pickles is not required), you can use the below command to post-process the Wild-Places ground submaps into the format required for CS-Wild-Places (set num_workers to a sensible number for your system). Note that this may take several hours depending on your CPU:
+Assuming you have followed the above instructions to setup Wild-Places, you can use the below command to post-process the Wild-Places ground submaps into the format required for CS-Wild-Places (set num_workers to a sensible number for your system). Note that this may take several hours depending on your CPU:
 ```
 cd datasets/CSWildPlaces
 python postprocess_wildplaces_ground.py \

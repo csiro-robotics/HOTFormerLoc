@@ -7,7 +7,7 @@
 This is the official repository for the paper:
 
 **HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views**, CVPR 2025 by *Ethan Griffiths, Maryam Haghighat, Simon Denman, Clinton Fookes, and Milad Ramezani*\
-[[**Website**](https://csiro-robotics.github.io/HOTFormerLoc)] <!-- [[**Paper**](https://cvpr.thecvf.com)] --> [[**arXiv**](https://arxiv.org/abs/2503.08140)] <!-- [[**Video**](https://youtube.com)] --> [[**CS-Wild-Places Dataset**](https://data.csiro.au/collection/csiro:64896)]
+[[**Website**](https://csiro-robotics.github.io/HOTFormerLoc)] <!-- [[**Paper**](https://cvpr.thecvf.com)] --> [[**arXiv**](https://arxiv.org/abs/2503.08140)] <!-- [[**Video**](https://youtube.com)] --> [[**CS-Wild-Places Dataset**](https://data.csiro.au/collection/csiro:64896)] [[**CS-Wild-Places README**](https://github.com/csiro-robotics/HOTFormerLoc/blob/main/media/CS_Wild_Places_README.pdf)]
 
 ![Network Architecture](media/hotformerloc_architecture.png)
 *HOTFormerLoc Architecture*
@@ -32,9 +32,10 @@ If you find this work useful, please consider citing:
 ```
 @InProceedings{HOTFormerLoc,
 	author    = {Griffiths, Ethan and Haghighat, Maryam and Denman, Simon and Fookes, Clinton and Ramezani, Milad},
-	title     = {HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views},
-	booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+	title     = {{HOTFormerLoc}: {Hierarchical Octree Transformer} for {Versatile Lidar Place Recognition Across Ground} and {Aerial Views}},
+	booktitle = {2025 {IEEE}/{CVF Conference} on {Computer Vision} and {Pattern Recognition} ({CVPR})},
 	year      = {2025},
+    month     = {June},
 }
 ```
 <!-- month     = {todo},
@@ -95,7 +96,7 @@ python generate_test_sets.py \
 ### CS-Wild-Places
 We train on our novel CS-Wild-Places dataset, introduced in further detail in our [paper](https://arxiv.org/abs/2503.08140). CS-Wild-Places is built upon the ground traversals introduced by Wild-Places, so it is required to download the Wild-Places dataset alongside our data following the instructions in the above section (generating train/test pickles for Wild-Places is not required for CS-Wild-Places, so this step can be skipped). Note that the full Wild-Places dataset must be downloaded as our post-processing utilises the full resolution submaps.
 
-Download our dataset from [CSIRO's data access portal](https://data.csiro.au/collection/csiro:64896), and place or symlink the data in `data/CS-Wild-Places`. Note that our experiments only require the post-processed submaps (folder `postproc_voxel_0.80m_rmground_normalised`), so you can ignore the raw submaps if space is an issue.
+Download our dataset from [CSIRO's data access portal](https://data.csiro.au/collection/csiro:64896), and place or symlink the data in `data/CS-Wild-Places`. Note that our experiments only require the post-processed submaps (folder `postproc_voxel_0.80m_rmground_normalised`), so you can ignore the raw submaps if space is an issue. Check the [README](./media/CS_Wild_Places_README.pdf) for further information and installation instructions for CS-Wild-Places.
 
 Assuming you have followed the above instructions to setup Wild-Places, you can use the below command to post-process the Wild-Places ground submaps into the format required for CS-Wild-Places (set num_workers to a sensible number for your system). Note that this may take several hours depending on your CPU:
 ```

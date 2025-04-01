@@ -1,6 +1,6 @@
 [DEFAULT]
 # Follow README instructions to install dataset
-dataset_folder = ../data/CS-Wild-Places/postproc_voxel_0.80m_rmground_normalised/
+dataset_folder = ../data/CS-Wild-Places/data/CS-Wild-Places/postproc_voxel_0.80m_rmground_normalised/
 
 [TRAIN]
 num_workers = 2

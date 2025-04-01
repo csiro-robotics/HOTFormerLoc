@@ -153,11 +153,11 @@ const Links: React.FC = () => {
 const Citation: React.FC = () => {
   const citationBibtex = `@InProceedings{HOTFormerLoc,
 	author    = {Griffiths, Ethan and Haghighat, Maryam and Denman, Simon and Fookes, Clinton and Ramezani, Milad},
-	title     = {HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views},
-	booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+	title     = {{HOTFormerLoc}: {Hierarchical Octree Transformer} for {Versatile Lidar Place Recognition Across Ground} and {Aerial Views}},
+	booktitle = {2025 {IEEE}/{CVF Conference} on {Computer Vision} and {Pattern Recognition} ({CVPR})},
 	year      = {2025},
-  }`;
-	// month     = {tbd},
+	month     = {June},
+}`;
   // pages     = {tbd}
   return (
     <section className={styles.futureWork}>

@@ -75,6 +75,18 @@ const Links: React.FC = () => {
       >
         Download
       </a>
+      <a
+        href="https://github.com/csiro-robotics/HOTFormerLoc/blob/main/media/CS_Wild_Places_README.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: 'none',
+          color: '#FFF',
+        }}
+        className={styles.navButton}
+      >
+        README
+      </a>
       {/* <button className={styles.navButton} onClick={() => navigate("/download")}>
         Download
       </button> */}
@@ -149,9 +161,12 @@ const OverviewSection: React.FC = () => (
       caption="Overview of CS-Wild-Places Sequences (see Wild-Places for information on their ground sequences)"
     />
     <p className={styles.paragraph}>
-      We release the data in two main configurations: raw (submaps randomly
+      We release the data in three main configurations: raw (submaps randomly
       downsampled to 500k points max), and post-processed (submaps voxel-downsampled
-      with 0.8m voxels, ground points removed, with and without normalisation).
+      with 0.8m voxels, ground points removed, with and without normalisation). 
+      See the <a href="https://github.com/csiro-robotics/HOTFormerLoc/blob/main/media/CS_Wild_Places_README.pdf">README</a> file 
+      for more information, and for instructions on downloading and using the
+      dataset.
     </p>
   </section>
 );

@@ -13,6 +13,7 @@ import submitit
 from timm.utils.model_ema import ModelEmaV3
 from timm.optim.lamb import Lamb
 
+from misc.torch_utils import to_device
 from misc.utils import TrainingParams, get_datetime, set_seed, update_params_from_dict
 from models.losses.loss import make_losses, kdloss
 from models.model_factory import model_factory
@@ -246,7 +247,7 @@ class NetworkTrainer:
         if self.params.verbose:
             print("[INFO] Batch loaded, begin forward pass", flush=True)
 
-        batch = {e: batch[e].to(self.device, non_blocking=True) for e in batch}
+        batch = to_device(batch, self.device, non_blocking=True, construct_octree_neigh=True)
 
         if phase == 'train':
             self.model.train()
@@ -307,7 +308,7 @@ class NetworkTrainer:
         embeddings_ema_l = []
         with torch.set_grad_enabled(False):
             for minibatch in batch:
-                minibatch = {e: minibatch[e].to(self.device, non_blocking=True) for e in minibatch}
+                minibatch = to_device(minibatch, self.device, non_blocking=True, construct_octree_neigh=True)
                 y = self.model(minibatch)
                 embeddings_l.append(y['global'])            
                 # Compute MESA embeddings
@@ -345,7 +346,7 @@ class NetworkTrainer:
             i = 0
             with torch.set_grad_enabled(True):
                 for minibatch in batch:
-                    minibatch = {e: minibatch[e].to(self.device, non_blocking=True) for e in minibatch}
+                    minibatch = to_device(minibatch, self.device, non_blocking=True, construct_octree_neigh=True)
                     y = self.model(minibatch)
                     embeddings = y['global']
                     minibatch_size = len(embeddings)

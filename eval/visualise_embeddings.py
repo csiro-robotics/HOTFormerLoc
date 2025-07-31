@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as cm
 
 from models.model_factory import model_factory
+from misc.torch_utils import to_device, release_cuda
 from misc.utils import TrainingParams, set_seed
 from datasets.pointnetvlad.pnv_raw import PNVPointCloudLoader
 from datasets.CSWildPlaces.CSWildPlaces_raw import CSWildPlacesPointCloudLoader
@@ -138,8 +139,7 @@ def visualise_embeddings(model, device, num_queries: int, query_min_distance: fl
 def collate_batch(data, device, params: TrainingParams):
     octrees = ocnn.octree.merge_octrees(data)
     # NOTE: remember to construct the neighbor indices
-    octrees.construct_all_neigh()
-    batch = {'octree': octrees.to(device)}
+    batch = to_device({'octree': octrees}, device, construct_octree_neigh=True)
     return batch
 
 def get_latent_vectors(model, data_list: list[str], device, params: TrainingParams) -> np.ndarray:
@@ -193,7 +193,7 @@ def compute_embedding(model, batch):
     with torch.inference_mode():
         # Compute global descriptor
         y = model(batch)
-        embedding = y['global'].detach().cpu().numpy()
+        embedding = release_cuda(y['global'], to_numpy=True)
     return embedding
 
 

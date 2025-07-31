@@ -1,6 +1,7 @@
 # HOTFormerLoc: Hierarchical Octree Transformer for Versatile Lidar Place Recognition Across Ground and Aerial Views
 
 ### What's new ###
+* [2025-07-31] HOTFormerLoc v1.1.0 release, fixing significant memory consumption and batch construction time in certain instances. 
 * [2025-03-26] Training and evaluation code released. CS-Wild-Places dataset released.
 
 ## Description

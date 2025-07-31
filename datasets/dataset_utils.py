@@ -92,8 +92,8 @@ def create_batch(clouds: Sequence[torch.Tensor], quantizer, params: TrainingPara
         octree.build_octree(cloud_points_obj)
         octrees.append(octree)
     octrees_merged = ocnn.octree.merge_octrees(octrees)
-    # NOTE: remember to construct the neighbor indices
-    octrees_merged.construct_all_neigh()
+    # NOTE: remember to construct the neighbor indices before processing (much faster on GPU)
+    # octrees_merged.construct_all_neigh()
     batch = {'octree': octrees_merged}
     return batch
 

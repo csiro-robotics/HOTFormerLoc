@@ -48,12 +48,12 @@ Code was tested using Python 3.11 with PyTorch 2.1.1 and CUDA 12.1 on a Linux sy
 ### Installation
 ```
 # Note: replace 'mamba' with 'conda' if using a vanilla conda install
-mamba create -n hotformerloc python=3.11 -c conda-forge
+mamba create -n hotformerloc python=3.11 -c conda-forge -y
 mamba activate hotformerloc
-mamba install 'numpy<2.0' -c conda-forge
-mamba install pytorch==2.1.1 torchvision==0.16.1 pytorch-cuda=12.1 -c pytorch -c nvidia -c conda-forge
+mamba install 'numpy<2.0' -c conda-forge -y
+mamba install pytorch==2.1.1 torchvision==0.16.1 pytorch-cuda=12.1 -c pytorch -c nvidia -c conda-forge -y
 pip install -r requirements.txt
-pip install libs/dwconv
+pip install --no-build-isolation libs/dwconv
 ```
 
 Modify the `PYTHONPATH` environment variable to include the absolute path to the repository root folder (ensure this variable is set every time you open a new shell): 

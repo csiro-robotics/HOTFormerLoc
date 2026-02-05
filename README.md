@@ -66,7 +66,7 @@ export PYTHONPATH=$PYTHONPATH:<path/to/HOTFormerLoc>
 ### Wild-Places
 We train on the Wild-Places dataset introduced in *Wild-Places: A Large-Scale Dataset for Lidar Place Recognition in Unstructured Natural Environments* ([link](https://arxiv.org/pdf/2211.12732)).
 
-Download the dataset [here](https://csiro-robotics.github.io/Wild-Places/#8-Download), and place or symlink the data in `data/wild_places`.
+Download the dataset [here](https://doi.org/10.25919/jm05-g895), and place or symlink the data in `data/wild_places` (this should point to the top-level directory, with the `data/` and `metadata/` subdirectories). **IMPORTANT**: we use an older version of the Wild-Places dataset. When prompted to "Do you want to view the most recent version of this item?", please click "No" to ensure you download the correct version.
 
 Run the following to fix the broken timestamps in the poses files:
 ```

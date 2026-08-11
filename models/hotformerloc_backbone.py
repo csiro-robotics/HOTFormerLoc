@@ -7,6 +7,7 @@
 # Ethan Griffiths (Data61, Pullenvale)
 # --------------------------------------------------------
 
+import contextlib
 import torch
 from torch import Tensor
 import torch.nn.functional as F
@@ -22,6 +23,34 @@ from models.octformer_backbone import (
     PatchEmbed, Downsample, OctreeAttention, OctFormerStage, OctFormerBlock
 )
 from models.relay_token_utils import concat_and_pad_rt, unpad_and_split_rt
+
+
+class StreamGroup:
+    """Pool of CUDA streams for parallel per-depth dispatch.
+
+    One stream per pyramid depth, created once in __init__ and reused across
+    forward passes. Falls back to serial execution on CPU.
+    """
+
+    def __init__(self, n: int):
+        self.enabled = torch.cuda.is_available()
+        self.streams = [torch.cuda.Stream() for _ in range(n)] if self.enabled else []
+
+    @contextlib.contextmanager
+    def on(self, j: int):
+        """Redirect CUDA ops for depth j onto stream j."""
+        if self.enabled:
+            with torch.cuda.stream(self.streams[j]):
+                yield
+        else:
+            yield
+
+    def sync(self):
+        """GPU-side fence: default stream waits for all depth streams."""
+        if self.enabled:
+            current = torch.cuda.current_stream()
+            for s in self.streams:
+                current.wait_stream(s)
 
 
 class RTAttention(torch.nn.Module):
@@ -506,6 +535,7 @@ class HOTFormerStage(torch.nn.Module):
                 conv_norm=conv_norm,
             ) for j in range(self.num_pyramid_levels - 1)]
         )
+        self._streams = StreamGroup(self.num_pyramid_levels)
 
     def init_pyramid_feats(self, data: Tensor, octree: OctreeT):
         # Store local features and relay tokens by octree depth in dict
@@ -547,16 +577,21 @@ class HOTFormerStage(torch.nn.Module):
         # Initialise local features + relay token dicts
         local_feat_dict, relay_token_dict = self.init_pyramid_feats(data,
                                                                     octree)
-        if self.use_projections and not self.disable_rt:  # Project RTs to same channel size
+        # Initial up-projections -- independent per depth, run in parallel
+        # Streams disabled during grad-checkpoint training (unsafe interaction)
+        use_streams = not (self.grad_checkpoint and self.training)
+        if self.use_projections and not self.disable_rt:
             for j, depth_j in enumerate(self.pyramid_depths):
-                # Project RTs to global channel dim
-                relay_token_dict[depth_j] = self.init_up_projections[j](
-                    relay_token_dict[depth_j]
-                )
-        
+                with (self._streams.on(j) if use_streams else contextlib.nullcontext()):
+                    relay_token_dict[depth_j] = self.init_up_projections[j](
+                        relay_token_dict[depth_j]
+                    )
+            if use_streams:
+                self._streams.sync()
+
         # Begin loop of RTSA + H-OSA
         for i in range(self.num_blocks):
-            # Compute global multi-scale interactions through RTSA
+            # RTSA -- serial: reads and writes all relay token depths
             if not self.disable_rt:
                 if self.grad_checkpoint and self.training:
                     relay_token_dict = checkpoint(
@@ -565,34 +600,37 @@ class HOTFormerStage(torch.nn.Module):
                     )
                 else:
                     relay_token_dict = self.rtsa_blocks[i](relay_token_dict, octree)
-            
+
+            # H-OSA -- independent per depth, run in parallel streams
             for j, depth_j in enumerate(self.pyramid_depths):
-                # Project RTs back to local feat channel size
-                if self.use_projections and not self.disable_rt:
-                    relay_token_dict[depth_j] = self.down_projections[j][i](
-                        relay_token_dict[depth_j]
-                    )
-                # Propagate to local features with H-OSA
-                if self.grad_checkpoint and self.training:
-                    local_feat_dict[depth_j], relay_token_dict[depth_j] = (
-                        checkpoint(
-                            self.hosa_blocks[j][i], local_feat_dict[depth_j],
-                            relay_token_dict[depth_j], octree, depth_j,
-                            use_reentrant=False,
+                with (self._streams.on(j) if use_streams else contextlib.nullcontext()):
+                    if self.use_projections and not self.disable_rt:
+                        relay_token_dict[depth_j] = self.down_projections[j][i](
+                            relay_token_dict[depth_j]
                         )
-                    )
-                else:
-                    local_feat_dict[depth_j], relay_token_dict[depth_j] = (
-                        self.hosa_blocks[j][i](
-                            local_feat_dict[depth_j], relay_token_dict[depth_j],
-                            octree, depth_j,
+                    if self.grad_checkpoint and self.training:
+                        local_feat_dict[depth_j], relay_token_dict[depth_j] = (
+                            checkpoint(
+                                self.hosa_blocks[j][i], local_feat_dict[depth_j],
+                                relay_token_dict[depth_j], octree, depth_j,
+                                use_reentrant=False,
+                            )
                         )
-                    )
-                # Project RTs to global channel dim
-                if self.use_projections and not self.disable_rt:
-                    relay_token_dict[depth_j] = self.up_projections[j][i](
-                        relay_token_dict[depth_j]
-                    )
+                    else:
+                        local_feat_dict[depth_j], relay_token_dict[depth_j] = (
+                            self.hosa_blocks[j][i](
+                                local_feat_dict[depth_j], relay_token_dict[depth_j],
+                                octree, depth_j,
+                            )
+                        )
+                    if self.use_projections and not self.disable_rt:
+                        relay_token_dict[depth_j] = self.up_projections[j][i](
+                            relay_token_dict[depth_j]
+                        )
+
+            # Sync before next RTSA reads relay_token_dict across all depths
+            if use_streams:
+                self._streams.sync()
 
         return local_feat_dict, relay_token_dict
 

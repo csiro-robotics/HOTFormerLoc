@@ -92,6 +92,23 @@ class OctreeT(Octree):
         self.dilate_pos = [None] * num
         self.window_stats = [None] * num
 
+    def get_neigh(self, depth, kernel, stride=1, nempty=False):
+        """Cached wrapper around ocnn's get_neigh.
+
+        Within a single forward pass multiple DWConv/CPE layers at the same
+        depth request identical neighbor tables. The first call computes and
+        caches the result; subsequent calls return the cached tensor.
+        """
+        key = (depth,
+               tuple(kernel) if hasattr(kernel, '__iter__') else (kernel,),
+               stride,
+               nempty)
+        if not hasattr(self, '_neigh_cache'):
+            self._neigh_cache = {}
+        if key not in self._neigh_cache:
+            self._neigh_cache[key] = super().get_neigh(depth, kernel, stride, nempty)
+        return self._neigh_cache[key]
+
     def build_t(self):
         r"""Build the information necessary for computing Octree attention.
 
@@ -280,38 +297,51 @@ class OctreeT(Octree):
         # Get points for current depth
         x, y, z, _ = self.xyzb(depth, self.nempty)
         points = torch.stack((x,y,z), dim=1).to(torch.float32)
-        # Rescale to [-1, 1] and put into windows
+        # Rescale to [-1, 1] and put into windows -- shape: (N, K, 3)
         points = rescale_octree_points(points, depth)
         points = self.data_to_windows(points, depth, dilated_windows=False)
-        mask = self.rt_init_mask[depth]
+
+        # mask: (N, K) -- True for overlap/padding points to exclude
+        mask = self.rt_init_mask[depth]                        # (N, K) bool
+        valid = ~mask                                          # (N, K) bool
+        counts = valid.sum(dim=1, keepdim=True).float()        # (N, 1)
+        counts_safe = counts.clamp(min=1.0)                   # avoid /0
+
+        # Zero out excluded points so they don't contribute to sums
+        pts_valid = points * valid.unsqueeze(-1)               # (N, K, 3)
+
+        # Vectorised mean: (N, 3)
+        mu = pts_valid.sum(dim=1) / counts_safe                # (N, 3)
+
         window_stats = torch.zeros(N, C, device=self.device)
-        # Compute (μx, μy, μz, σx, σxy, σxz, σy, σyz, σz) for all windows
-        for i, window_points in enumerate(points):
-            # Mask out points from overlap windows
-            batch_masked = window_points[~mask[i]]
-            window_stats[i,:3] = batch_masked.mean(0)
-            # NOTE: Currently, windows with only 1 unmasked point are assumed
-            #       to have covariance matrix of zeros. Better solution is
-            #       to ensure point windows are assigned to the batch submap
-            #       that they contain the most of, but this requires extra
-            #       masking logic and currently isn't worth fixing.
+        window_stats[:, :3] = mu
+
+        if self.ADaPE_mode in ('var', 'cov'):
+            # Centred points, overlap positions zeroed out
+            centered = (points - mu.unsqueeze(1)) * valid.unsqueeze(-1)  # (N, K, 3)
+            denom = (counts - 1).clamp(min=1.0)               # Bessel correction, (N, 1)
+
             if self.ADaPE_mode == 'var':
-                if batch_masked.size(0) < 2:
-                    window_stats[i,3:] = torch.zeros(1, 3, device=self.device,
-                                          dtype=torch.float32)
-                else:
-                    window_stats[i,3:] = batch_masked.var(0)
-            elif self.ADaPE_mode == 'cov':
-                if batch_masked.size(0) < 2:
-                    cov = torch.zeros(3, 3, device=self.device,
-                                          dtype=torch.float32)
-                else:
-                    cov = batch_masked.T.cov()
-                window_stats[i,3:] = cov[self.cov_idx[0], self.cov_idx[1]]
-            
+                # Diagonal of covariance -- (N, 3)
+                var = (centered ** 2).sum(dim=1) / denom       # (N, 3)
+                # Windows with <2 valid points: leave variance as zero
+                var = var * (counts >= 2).float()
+                window_stats[:, 3:] = var
+
+            else:  # 'cov'
+                # Full 3x3 covariance via batched outer product: (N, 3, 3)
+                cov = torch.bmm(
+                    centered.transpose(1, 2),                  # (N, 3, K)
+                    centered,                                  # (N, K, 3)
+                ) / denom.unsqueeze(-1)                        # (N, 3, 3)
+                # Windows with <2 valid points: covariance stays zero
+                cov = cov * (counts >= 2).unsqueeze(-1).float()
+                # Extract upper triangle: (N, 6)
+                window_stats[:, 3:] = cov[:, self.cov_idx[0], self.cov_idx[1]]
+
         assert(not torch.any(window_stats.isnan())), \
             "NaN propagated during window stats computation, check code"
-        self.window_stats[depth] = window_stats        
+        self.window_stats[depth] = window_stats
 
     def patch_partition(self, data: torch.Tensor, depth: int, fill_value=0):
         num = self.nnum_a[depth] - self.nnum_t[depth]

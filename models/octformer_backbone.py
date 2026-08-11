@@ -69,15 +69,23 @@ class OctreeAttention(torch.nn.Module):
         # qkv
         qkv = self.qkv(data).reshape(-1, K+G, 3, H, C // H).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]      # (N, H, K+G, C')
-        q = q * self.scale
 
-        # attn
-        attn = q @ k.transpose(-2, -1)        # (N, H, K+G, K+G)
-        attn = self.apply_rpe(attn, rel_pos)  # (N, H, K+G, K+G)
-        attn = attn + mask.unsqueeze(1)
-        attn = self.softmax(attn)
-        attn = self.attn_drop(attn)
-        data = (attn @ v).transpose(1, 2).reshape(-1, K+G, C)  # (N, K+G, C)
+        # Build combined additive bias: window mask + RPE.
+        # mask: (N, K+G, K+G) -> (N, 1, K+G, K+G), broadcasts over heads.
+        attn_bias = mask.unsqueeze(1).to(q.dtype)
+        if self.use_rpe:
+            rpe = self.rpe(rel_pos)             # (N, H, K, K)
+            if G > 0:
+                rpe = F.pad(rpe, (G, 0, G, 0))  # (N, H, K+G, K+G)
+            attn_bias = attn_bias + rpe
+
+        dropout_p = self.attn_drop.p if self.training else 0.0
+        data = F.scaled_dot_product_attention(
+            q, k, v,
+            attn_mask=attn_bias,
+            dropout_p=dropout_p,
+            scale=self.scale,
+        ).transpose(1, 2).reshape(-1, K+G, C)   # (N, K+G, C)
 
         # ffn
         data = self.proj(data)

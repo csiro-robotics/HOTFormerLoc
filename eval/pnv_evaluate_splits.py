@@ -6,6 +6,12 @@
 # Also reports eval metrics per-split.
 
 from sklearn.neighbors import KDTree
+try:
+    import faiss
+    HAS_FAISS = True
+except ImportError:
+    from sklearn.neighbors import KDTree
+    HAS_FAISS = False
 import numpy as np
 import pickle
 import os
@@ -133,6 +139,7 @@ def collate_batch(data, device, params: TrainingParams):
     batch = to_device({'octree': octrees}, device, construct_octree_neigh=True)
     return batch
 
+
 def get_latent_vectors(model, data_set, device, params: TrainingParams):
     # Adapted from original PointNetVLAD code
 
@@ -197,6 +204,34 @@ def get_latent_vectors(model, data_set, device, params: TrainingParams):
     return embeddings
 
 
+def _build_index(database_output):
+    """Build a FAISS flat L2 index (or fall back to sklearn KDTree)."""
+    db = database_output.astype('float32')
+    if HAS_FAISS:
+        dim = db.shape[1]
+        if faiss.get_num_gpus() > 0:
+            res = faiss.StandardGpuResources()
+            index = faiss.GpuIndexFlatL2(res, dim)
+        else:
+            index = faiss.IndexFlatL2(dim)
+        index.add(db)
+        return ('faiss', index)
+    else:
+        return ('kdtree', KDTree(db))
+
+
+def _index_search(index_tuple, queries, k):
+    """Search index, returns (distances, indices) both shape (N_queries, k)."""
+    kind, index = index_tuple
+    q = queries.astype('float32')
+    if kind == 'faiss':
+        distances, indices = index.search(q, k)
+        return distances, indices
+    else:
+        distances, indices = index.query(q, k=k)
+        return distances, indices
+
+
 def compute_embedding(model, batch):
     with torch.inference_mode():
         # Compute global descriptor
@@ -213,9 +248,8 @@ def get_recall(m, n, database_vectors, query_vectors, query_sets, database_sets,
     database_output = database_vectors[m]
     queries_output = query_vectors[n]
 
-    # When embeddings are normalized, using Euclidean distance gives the same
-    # nearest neighbour search results as using cosine distance
-    database_nbrs = KDTree(database_output)
+    # When embeddings are normalized, L2 distance gives same ranking as cosine similarity
+    index = _build_index(database_output)
 
     num_neighbors = 25
     recall = [0] * num_neighbors
@@ -223,6 +257,9 @@ def get_recall(m, n, database_vectors, query_vectors, query_sets, database_sets,
 
     one_percent_retrieved = 0
     threshold = max(int(round(len(database_output)/100.0)), 1)
+
+    # Batch-search all queries at once
+    all_distances, all_indices = _index_search(index, queries_output, k=num_neighbors)
 
     num_evaluated = 0
     for i in range(len(queries_output)):
@@ -233,8 +270,8 @@ def get_recall(m, n, database_vectors, query_vectors, query_sets, database_sets,
             continue
         num_evaluated += 1
 
-        # Find nearest neightbours
-        distances, indices = database_nbrs.query(np.array([queries_output[i]]), k=num_neighbors)
+        distances = all_distances[i:i+1]
+        indices   = all_indices[i:i+1]
 
         if log:
             # Log false positives (returned as the first element)

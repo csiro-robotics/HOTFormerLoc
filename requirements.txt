@@ -8,6 +8,7 @@ ocnn==2.2.2
 tqdm
 laspy[lazrs]
 scikit-learn
+faiss-cpu
 scikit-image
 wget
 timm

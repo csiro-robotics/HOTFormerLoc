@@ -3,6 +3,7 @@
 ## For the improved version of HOTFormerLoc with support for re-ranking and 6-DoF metric localisation, please check out [HOTFLoc++](https://github.com/csiro-robotics/HOTFLoc)
 
 ### What's new ###
+* [2026-08-12] HOTFormerLoc v1.1.1 release, providing further efficiency improvements via parallelisation and octree caching. 
 * [2026-04-06] Training and evaluation code for [HOTFLoc++](https://github.com/csiro-robotics/HOTFLoc) released, with added support for re-ranking and 6-DoF metric localisation.
 * [2025-07-31] HOTFormerLoc v1.1.0 release, fixing significant memory consumption and batch construction time in certain instances. 
 * [2025-03-26] Training and evaluation code released. CS-Wild-Places dataset released.
